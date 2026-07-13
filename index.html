@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Daniel Adewoye — Multidisciplinary Creative</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0b0c;
+    --bg-elev:#141416;
+    --bg-card:#18181b;
+    --line:rgba(237,235,230,0.10);
+    --line-strong:rgba(237,235,230,0.22);
+    --text:#edebe6;
+    --muted:#8c8a85;
+    --muted-2:#5c5a56;
+    --gold:#c99a4a;
+    --teal:#3f6e68;
+    --radius:2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:'Inter',sans-serif; font-weight:400;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{background:var(--gold); color:#0b0b0c;}
+  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:500; line-height:1.05; letter-spacing:-0.01em;}
+  em{font-style:italic; color:var(--gold);}
+  .mono{font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em;}
+  a{color:inherit; text-decoration:none;}
+  .wrap{max-width:1280px; margin:0 auto; padding:0 40px;}
+  @media(max-width:720px){.wrap{padding:0 20px;}}
+
+  /* ---------- NAV ---------- */
+  header{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:22px 40px; backdrop-filter:blur(10px);
+    background:linear-gradient(to bottom, rgba(11,11,12,0.85), transparent);
+    transition:background .3s;
+  }
+  @media(max-width:720px){header{padding:18px 20px;}}
+  .logo{font-family:'Fraunces',serif; font-size:19px; font-weight:500; letter-spacing:0.01em;}
+  .logo span{color:var(--gold);}
+  nav.primary{display:flex; gap:34px; align-items:center;}
+  nav.primary a{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); font-weight:500; transition:color .2s; position:relative;}
+  nav.primary a:hover, nav.primary a.active{color:var(--text);}
+  .cta-pill{border:1px solid var(--line-strong); padding:9px 18px; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; border-radius:100px; transition:.25s; white-space:nowrap;}
+  .cta-pill:hover{background:var(--gold); border-color:var(--gold); color:#0b0b0c;}
+  .nav-links-mobile{display:none;}
+  @media(max-width:900px){
+    nav.primary{display:none;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
+    padding:0 40px 70px; overflow:hidden;
+  }
+  @media(max-width:720px){.hero{padding:0 20px 50px;}}
+  .hero-bg{
+    position:absolute; inset:0;
+    background:
+      radial-gradient(ellipse 60% 50% at 30% 20%, rgba(63,110,104,0.25), transparent),
+      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(201,154,74,0.18), transparent),
+      linear-gradient(180deg, #0e0e10 0%, #0b0b0c 60%);
+    z-index:-1;
+  }
+  .hero-bg::after{
+    content:''; position:absolute; inset:0;
+    background-image:repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.012) 2px 4px);
+    pointer-events:none;
+  }
+  .hero-eyebrow{
+    display:flex; align-items:center; gap:12px;
+    font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);
+    margin-bottom:26px;
+  }
+  .rec-dot{width:7px; height:7px; border-radius:50%; background:#c95a4a; box-shadow:0 0 0 3px rgba(201,90,74,0.18); animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+  .hero h1{font-size:clamp(52px, 9vw, 118px); font-weight:400;}
+  .hero-sub{
+    max-width:560px; color:var(--muted); font-size:16px; line-height:1.6; margin-top:26px;
+  }
+  .hero-roles{
+    margin-top:44px; padding-top:22px; border-top:1px solid var(--line);
+    display:flex; flex-wrap:wrap; gap:10px 28px;
+  }
+  .hero-roles span{font-size:12px; letter-spacing:0.06em; color:var(--muted-2); font-family:'IBM Plex Mono',monospace;}
+  .hero-roles span b{color:var(--text); font-weight:500;}
+  .scroll-cue{
+    position:absolute; right:40px; bottom:36px; writing-mode:vertical-rl;
+    font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted-2);
+    display:flex; align-items:center; gap:10px;
+  }
+  @media(max-width:720px){.scroll-cue{display:none;}}
+  .scroll-cue::after{content:''; width:1px; height:40px; background:var(--muted-2);}
+
+  /* ---------- SECTION HEADS ---------- */
+  section{padding:120px 0;}
+  @media(max-width:720px){section{padding:80px 0;}}
+  .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:56px; flex-wrap:wrap;}
+  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:block;}
+  .section-head h2{font-size:clamp(32px,4vw,48px); font-weight:400;}
+  .section-desc{max-width:440px; color:var(--muted); font-size:15px; line-height:1.6;}
+
+  /* ---------- DISCIPLINES ---------- */
+  .disciplines{border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .disc-grid{display:grid; grid-template-columns:repeat(3,1fr); border-left:1px solid var(--line);}
+  @media(max-width:900px){.disc-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.disc-grid{grid-template-columns:1fr;}}
+  .disc-card{
+    border-right:1px solid var(--line); border-bottom:1px solid var(--line);
+    padding:40px 34px; min-height:220px; display:flex; flex-direction:column; justify-content:space-between;
+    transition:background .3s;
+  }
+  .disc-card:hover{background:var(--bg-elev);}
+  .disc-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted-2);}
+  .disc-card h3{font-size:22px; font-weight:500; margin-top:24px;}
+  .disc-card p{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.55;}
+
+  /* ---------- WORK / ROLE TIMELINE ---------- */
+  .timeline-bar{
+    position:relative; margin-bottom:50px;
+    border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);
+    padding:18px 0; overflow-x:auto;
+  }
+  .timeline-track{display:flex; align-items:center; gap:0; min-width:max-content; position:relative;}
+  .tick{
+    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.05em;
+    color:var(--muted); padding:10px 22px; border-right:1px solid var(--line);
+    cursor:pointer; white-space:nowrap; position:relative; transition:color .2s;
+    display:flex; align-items:center; gap:8px;
+  }
+  .tick:first-child{padding-left:0;}
+  .tick .count{color:var(--muted-2); font-size:11px;}
+  .tick:hover{color:var(--text);}
+  .tick.active{color:var(--gold);}
+  .tick.active::before{
+    content:''; position:absolute; left:0; right:22px; bottom:-19px; height:2px; background:var(--gold);
+  }
+  .readout{
+    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted-2);
+    padding-top:10px; letter-spacing:0.06em;
+  }
+  .readout b{color:var(--gold); font-weight:500;}
+
+  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line);}
+  @media(max-width:980px){.work-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:620px){.work-grid{grid-template-columns:1fr;}}
+
+  .proj-card{
+    background:var(--bg); cursor:pointer; position:relative; overflow:hidden;
+    transition:transform .35s ease;
+  }
+  .proj-media{
+    position:relative; aspect-ratio:4/5; overflow:hidden; background:#0e0e10;
+  }
+  .proj-media .grade{
+    position:absolute; inset:0;
+    transition:transform 3.5s ease;
+  }
+  .proj-card:hover .grade{transform:scale(1.06);}
+  .proj-media .scan{
+    position:absolute; inset:0; opacity:0; transition:opacity .35s;
+    background:repeating-linear-gradient(180deg, transparent 0 3px, rgba(255,255,255,0.05) 3px 4px);
+    mix-blend-mode:overlay;
+  }
+  .proj-card:hover .scan{opacity:1;}
+  .proj-media::after{
+    content:''; position:absolute; inset:0;
+    background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
+  }
+  .badges{position:absolute; top:14px; left:14px; display:flex; gap:6px; z-index:2; flex-wrap:wrap;}
+  .badge{
+    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.04em;
+    padding:4px 8px; background:rgba(11,11,12,0.7); border:1px solid rgba(237,235,230,0.25);
+    color:var(--text); backdrop-filter:blur(4px);
+  }
+  .proj-info{position:absolute; bottom:0; left:0; right:0; padding:18px 20px; z-index:2;}
+  .proj-info .cat{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); display:block; margin-bottom:6px;}
+  .proj-info h3{font-size:19px; font-weight:500;}
+  .proj-info .meta{font-size:12.5px; color:var(--muted); margin-top:4px;}
+  .play-hint{
+    position:absolute; top:14px; right:14px; z-index:2; width:30px; height:30px; border-radius:50%;
+    border:1px solid rgba(237,235,230,0.3); display:flex; align-items:center; justify-content:center;
+    opacity:0; transition:opacity .3s; background:rgba(11,11,12,0.5);
+  }
+  .proj-card:hover .play-hint{opacity:1;}
+
+  .load-more-row{margin-top:40px; display:flex; justify-content:center;}
+  .btn-outline{
+    border:1px solid var(--line-strong); padding:13px 30px; font-size:12.5px; text-transform:uppercase;
+    letter-spacing:0.08em; font-family:'IBM Plex Mono',monospace; transition:.25s; cursor:pointer; background:transparent; color:var(--text);
+  }
+  .btn-outline:hover{border-color:var(--gold); color:var(--gold);}
+
+  /* ---------- MODAL ---------- */
+  .modal-overlay{
+    position:fixed; inset:0; background:rgba(6,6,7,0.92); backdrop-filter:blur(6px);
+    z-index:200; display:none; overflow-y:auto; padding:70px 0 40px;
+  }
+  .modal-overlay.open{display:block;}
+  .modal-box{max-width:960px; margin:0 auto; padding:0 40px;}
+  @media(max-width:720px){.modal-box{padding:0 20px;}}
+  .modal-close{
+    position:fixed; top:24px; right:40px; z-index:210; width:42px; height:42px; border:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--bg); font-size:18px;
+  }
+  .modal-close:hover{border-color:var(--gold); color:var(--gold);}
+  .modal-hero{aspect-ratio:16/8; width:100%; position:relative; overflow:hidden; margin-bottom:36px;}
+  .modal-hero .grade{position:absolute; inset:0;}
+  .modal-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px;}
+  .modal-box h2{font-size:clamp(28px,4vw,44px); font-weight:400; margin-bottom:30px;}
+  .modal-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:60px; margin-bottom:50px;}
+  @media(max-width:760px){.modal-grid{grid-template-columns:1fr; gap:36px;}}
+  .modal-grid p{color:var(--muted); font-size:15px; line-height:1.75;}
+  .meta-list{display:flex; flex-direction:column; gap:20px;}
+  .meta-item .k{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted-2); margin-bottom:6px;}
+  .meta-item .v{font-size:14.5px;}
+  .meta-item .roles-row{display:flex; gap:6px; flex-wrap:wrap;}
+  .credits-list{list-style:none; margin-top:8px;}
+  .credits-list li{display:flex; justify-content:space-between; font-size:13.5px; padding:8px 0; border-bottom:1px solid var(--line); color:var(--muted);}
+  .credits-list li b{color:var(--text); font-weight:500;}
+  .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:60px;}
+  @media(max-width:620px){.gallery{grid-template-columns:repeat(2,1fr);}}
+  .gallery div{aspect-ratio:1; }
+  .related-row{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:60px;}
+  @media(max-width:760px){.related-row{grid-template-columns:1fr;}}
+  .related-card{cursor:pointer;}
+  .related-card .proj-media{aspect-ratio:4/3;}
+  .related-card h4{font-size:14.5px; margin-top:10px; font-weight:500;}
+  .related-card .cat{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
+
+  /* ---------- STORE ---------- */
+  .store{background:var(--bg-elev); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .store-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+  @media(max-width:980px){.store-grid{grid-template-columns:repeat(2,1fr);}}
+  @media(max-width:560px){.store-grid{grid-template-columns:1fr;}}
+  .store-card{background:var(--bg-elev); padding:28px 26px; display:flex; flex-direction:column; justify-content:space-between; min-height:190px; transition:background .25s;}
+  .store-card:hover{background:#1c1c1f;}
+  .store-card .type{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
+  .store-card h4{font-size:17px; font-weight:500; margin-top:14px;}
+  .store-card .price{margin-top:18px; display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono',monospace; font-size:13px;}
+  .store-card .price span:last-child{color:var(--muted-2);}
+
+  /* ---------- JOURNAL ---------- */
+  .journal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px;}
+  @media(max-width:900px){.journal-grid{grid-template-columns:1fr; gap:36px;}}
+  .journal-card .thumb{aspect-ratio:16/10; background:var(--bg-elev); position:relative; overflow:hidden; margin-bottom:18px;}
+  .journal-card .tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
+  .journal-card h3{font-size:19px; font-weight:500; margin-top:10px; line-height:1.3;}
+  .journal-card .excerpt{color:var(--muted); font-size:13.5px; margin-top:10px; line-height:1.6;}
+  .journal-card .date{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted-2); margin-top:14px;}
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
+  @media(max-width:860px){.about-grid{grid-template-columns:1fr; gap:40px;}}
+  .about-grid p{color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:20px;}
+  .stat-row{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); margin-top:10px;}
+  .stat{background:var(--bg); padding:26px;}
+  .stat .n{font-family:'Fraunces',serif; font-size:36px; color:var(--gold);}
+  .stat .l{font-size:12px; color:var(--muted); margin-top:6px; text-transform:uppercase; letter-spacing:0.06em;}
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer{padding:110px 0 40px; border-top:1px solid var(--line);}
+  .contact-head h2{font-size:clamp(40px,7vw,88px); font-weight:400;}
+  .contact-links{display:flex; gap:20px; margin-top:34px; flex-wrap:wrap;}
+  .foot-bottom{display:flex; justify-content:space-between; margin-top:90px; padding-top:24px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted-2); flex-wrap:wrap; gap:14px;}
+
+  /* section reveal */
+  .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+  .reveal.in{opacity:1; transform:translateY(0);}
+
+  /* generated grade placeholders (stand-ins for real footage) */
+  .g1{background:linear-gradient(135deg,#26302c,#0e1614 55%,#c99a4a22);}
+  .g2{background:linear-gradient(135deg,#1a1a1e,#3f6e6833 60%,#0b0b0c);}
+  .g3{background:linear-gradient(135deg,#231b13,#c99a4a2e 50%,#0b0b0c);}
+  .g4{background:linear-gradient(135deg,#171a1e,#20302c 60%,#c99a4a15);}
+  .g5{background:linear-gradient(135deg,#20191a,#3f2f22 55%,#0b0b0c);}
+  .g6{background:linear-gradient(135deg,#141419,#2a2420 60%,#c99a4a1c);}
+  .g7{background:linear-gradient(135deg,#181c1a,#3f6e6822 55%,#0b0b0c);}
+  .g8{background:linear-gradient(135deg,#1c1712,#c99a4a2a 55%,#0b0b0c);}
+  .g9{background:linear-gradient(135deg,#141618,#233a35 60%,#0b0b0c);}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="#" class="logo">Adewoye<span>.</span></a>
+  <nav class="primary">
+    <a href="#work">Work</a>
+    <a href="#store">Store</a>
+    <a href="#journal">Journal</a>
+    <a href="#about">About</a>
+    <a href="#contact" class="cta-pill">Let's Work</a>
+  </nav>
+</header>
+
+<!-- HERO -->
+<section class="hero" style="padding-top:120px;">
+  <div class="hero-bg"></div>
+  <div class="wrap" style="width:100%;">
+    <div class="hero-eyebrow"><span class="rec-dot"></span> Creative Director &amp; Multidisciplinary Filmmaker — Lagos, Nigeria</div>
+    <h1>Daniel <em>Adewoye</em></h1>
+    <p class="hero-sub">Seven years directing films, campaigns and cultural stories that connect emotionally and perform in the real world. Head of Visuals at Glitch Africa. Founder of Dixtro.</p>
+    <div class="hero-roles">
+      <span><b>01</b> Creative Direction</span>
+      <span><b>02</b> Commercial Direction</span>
+      <span><b>03</b> Cinematography</span>
+      <span><b>04</b> Photography</span>
+      <span><b>05</b> Editing</span>
+      <span><b>06</b> Creative Strategy</span>
+    </div>
+  </div>
+  <div class="scroll-cue">Scroll to explore</div>
+</section>
+
+<!-- DISCIPLINES -->
+<section class="disciplines">
+  <div class="wrap"><span class="eyebrow" style="padding-left:2px;">What I Do</span></div>
+  <div class="disc-grid">
+    <div class="disc-card"><span class="disc-num">01</span><div><h3>Creative Direction</h3><p>Owning the visual world of a brand or show — concept, tone, and the system that holds it together.</p></div></div>
+    <div class="disc-card"><span class="disc-num">02</span><div><h3>Commercial Direction</h3><p>High-performance brand films built to connect emotionally and perform in market.</p></div></div>
+    <div class="disc-card"><span class="disc-num">03</span><div><h3>Cinematography</h3><p>Lighting and lensing for narrative films, documentaries and campaigns.</p></div></div>
+    <div class="disc-card"><span class="disc-num">04</span><div><h3>Photography</h3><p>Editorial, campaign and behind-the-scenes stills across commercial and cultural work.</p></div></div>
+    <div class="disc-card"><span class="disc-num">05</span><div><h3>Editing</h3><p>Pacing, tone and rhythm — the post-production language that makes a story land.</p></div></div>
+    <div class="disc-card"><span class="disc-num">06</span><div><h3>Creative Strategy</h3><p>Turning a brief into a campaign — creative planning that ties story to outcome.</p></div></div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">Role Timeline</span><h2>Selected <em>Work</em></h2></div>
+      <p class="section-desc">Every project tagged by what I actually contributed. Switch roles to see the record, not just the reel.</p>
+    </div>
+
+    <div class="timeline-bar">
+      <div class="timeline-track" id="filterTrack"></div>
+    </div>
+    <div class="readout" id="readout"></div>
+    <div style="height:30px;"></div>
+
+    <div class="work-grid" id="workGrid"></div>
+
+    <div class="load-more-row"><button class="btn-outline" id="loadMoreBtn">Show More Work</button></div>
+  </div>
+</section>
+
+<!-- STORE -->
+<section id="store" class="store">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">Creator Store</span><h2>Tools I Use to <em>Build</em></h2></div>
+      <p class="section-desc">Colour grades, presets and templates from my own production workflow, plus courses and workshop tickets.</p>
+    </div>
+  </div>
+  <div class="store-grid" id="storeGrid"></div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="eyebrow">Journal</span><h2>Notes From <em>Set</em></h2></div>
+      <p class="section-desc">Case studies, behind-the-scenes breakdowns, AI experiments and essays on the craft.</p>
+    </div>
+    <div class="journal-grid" id="journalGrid"></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap">
+    <div class="about-grid">
+      <div>
+        <span class="eyebrow">About</span>
+        <h2 style="font-size:clamp(30px,4vw,44px); font-weight:400; margin-bottom:26px;">Building systems and stories that <em>scale</em>.</h2>
+        <p>Daniel Adewoye is a creative director and filmmaker whose work sits at the intersection of story, culture, and strategy — directing commercials, digital content, and campaigns built to perform in the real world.</p>
+        <p>Currently Head of Visuals at <b style="color:var(--text)">Glitch Africa</b>, leading the studio's visual direction across original shows, editorial publishing, live sessions, and partner-led productions.</p>
+        <p>Founder of <b style="color:var(--text)">Dixtro</b> and co-founder of <b style="color:var(--text)">Snappcode Academy</b> — training 400+ creatives in content creation, photography, and visual storytelling.</p>
+      </div>
+      <div>
+        <div class="stat-row">
+          <div class="stat"><div class="n">50+</div><div class="l">Projects Delivered</div></div>
+          <div class="stat"><div class="n">30+</div><div class="l">Brand Clients</div></div>
+          <div class="stat"><div class="n">8</div><div class="l">Years Experience</div></div>
+          <div class="stat"><div class="n">400+</div><div class="l">Creatives Trained</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / FOOTER -->
+<footer id="contact">
+  <div class="wrap">
+    <div class="contact-head">
+      <span class="eyebrow">Available for Commissions</span>
+      <h2>Let's Build<br><em>Something.</em></h2>
+      <div class="contact-links">
+        <a href="mailto:hello@adewoye.works" class="cta-pill">hello@adewoye.works</a>
+        <a href="https://www.linkedin.com/in/woyeola/" class="cta-pill">LinkedIn</a>
+        <a href="https://www.youtube.com/@dixtromedia/videos" class="cta-pill">YouTube</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Daniel Adewoye — Lagos, Nigeria</span>
+      <span>Prototype build — content managed via CMS in production</span>
+    </div>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-close" id="modalClose">✕</div>
+  <div class="modal-box" id="modalBox"></div>
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+const ROLES = [
+  {key:'all', label:'All Work'},
+  {key:'director', label:'Directed'},
+  {key:'dp', label:'Cinematography'},
+  {key:'cd', label:'Creative Direction'},
+  {key:'photo', label:'Photography'},
+  {key:'editor', label:'Editing'},
+];
+const ROLE_TAG = {director:'DIR', dp:'DP', cd:'CD', photo:'PH', editor:'ED'};
+const ROLE_NAME = {director:'Director', dp:'Cinematographer', cd:'Creative Director', photo:'Photographer', editor:'Editor'};
+
+const PROJECTS = [
+  {id:1, title:'Dixtro — Commercial Showreel', client:'Dixtro', year:'2024', cat:'Commercial', roles:['director','dp'], grade:'g1',
+   overview:'A showreel built from three years of brand commercial work for Dixtro — spots for KFC, Guinness and 1xBet cut into a single reel that sets tone before craft.',
+   credits:[['Director','Daniel Adewoye'],['Cinematographer','Daniel Adewoye'],['Editor','Dixtro Team'],['Client','Dixtro / Multiple Brands']]},
+  {id:2, title:'3 Cold Dishes', client:'Asurf Films', year:'2023', cat:'Feature Film', roles:['director','dp'], grade:'g2',
+   overview:'Feature film shot across Cotonou, Lagos and Abidjan. Served as BTS Head of Department, overseeing behind-the-scenes coverage and unit cinematography.',
+   credits:[['Director / DP','Daniel Adewoye'],['Production Company','Asurf Films Ltd'],['Locations','Cotonou · Lagos · Abidjan'],['Year','2023']]},
+  {id:3, title:'Glitch Africa Original Shows', client:'Glitch Africa', year:'2025', cat:'Documentary Series', roles:['cd'], grade:'g3',
+   overview:'Led visual identity and creative direction across original shows, editorial publishing, live sessions and partner-led productions — supervising cinematographers, photographers, editors and designers.',
+   credits:[['Creative Director','Daniel Adewoye'],['Studio','Glitch Africa'],['Scope','Original Shows / Editorial / Live Sessions'],['Year','2025']]},
+  {id:4, title:'Cruise — Show Branding & Post Language', client:'Cruise', year:'2024', cat:'Design & Motion', roles:['cd','editor'], grade:'g4',
+   overview:'Crafted the post-production language of the brand — pacing, tone and the emotional rhythm that defines how stories land. Designed show logos, title sequences and intro montages.',
+   credits:[['Creative Director','Daniel Adewoye'],['Editor','Daniel Adewoye'],['Client','Cruise'],['Year','2024–2025']]},
+  {id:5, title:'GVest App Launch Campaign', client:'GVest', year:'2023', cat:'Campaign', roles:['cd','director'], grade:'g5',
+   overview:'Spearheaded creative strategy and execution for the GVest app launch campaign — writing and producing commercials and promotional content that drove 10,000 sign-ups in phase one.',
+   credits:[['Creative Director','Daniel Adewoye'],['Director','Daniel Adewoye'],['Result','10,000 sign-ups'],['Year','2023']]},
+  {id:6, title:"Africa's Global Real Estate Wealth Festival", client:'Gtext Holdings', year:'2022', cat:'Cultural Campaign', roles:['cd'], grade:'g6',
+   overview:"Africa's first Global Real Estate Wealth Festival featuring Robert Kiyosaki, Grant Cardone, Ryan Serhant and John Maxwell — over 5,000 physical and 20,000+ virtual attendees.",
+   credits:[['Creative Director','Daniel Adewoye'],['Client','Gtext Holdings'],['Attendance','5,000 physical / 20,000+ virtual'],['Year','2022']]},
+  {id:7, title:'Artist Visual Collaborations', client:'Dixtro', year:'2020–Present', cat:'Music Video', roles:['director','dp','photo'], grade:'g7',
+   overview:'Ongoing collaborations with recording artists across music video direction, cinematography and cover art photography.',
+   credits:[['Director / DP','Daniel Adewoye'],['Photographer','Daniel Adewoye'],['Client','Dixtro'],['Timeline','2020–Present']]},
+  {id:8, title:'Elite Holdings — Complete Rebrand', client:'Elite Holdings', year:'2024', cat:'Brand Identity', roles:['cd','editor'], grade:'g8',
+   overview:'Full rebrand across four subsidiaries — identity system, motion guidelines and launch assets.',
+   credits:[['Creative Director','Daniel Adewoye'],['Editor','Daniel Adewoye'],['Subsidiaries','4'],['Year','2024']]},
+  {id:9, title:'Editorial Artist Sessions', client:'Glitch Africa', year:'2025', cat:'Photography', roles:['photo'], grade:'g9',
+   overview:'Editorial photography from live artist sessions — portraiture and set coverage for digital publishing.',
+   credits:[['Photographer','Daniel Adewoye'],['Client','Glitch Africa'],['Format','Editorial Stills'],['Year','2025']]},
+  {id:10, title:'Gtext Holdings — 4-Season TV Show', client:'Gtext Holdings', year:'2021–2023', cat:'TV Co-Production', roles:['cd','editor'], grade:'g1',
+   overview:'Creative direction and editing across a four-season TV co-production reaching 3M+ weekly views.',
+   credits:[['Creative Director','Daniel Adewoye'],['Editor','Daniel Adewoye'],['Reach','3M+ weekly views'],['Seasons','4']]},
+  {id:11, title:'Motion Graphics & Title Sequences', client:'Dixtro / Cruise', year:'2024', cat:'Design & Motion', roles:['editor','cd'], grade:'g4',
+   overview:'Show logos, title sequences and motion identity built in After Effects across multiple client shows.',
+   credits:[['Motion Designer','Daniel Adewoye'],['Creative Director','Daniel Adewoye'],['Tools','After Effects'],['Year','2024–2025']]},
+  {id:12, title:'Nguvu Health — Screen Animations', client:'Nguvu Health', year:'2022', cat:'Motion Marketing', roles:['editor','cd'], grade:'g6',
+   overview:'Screen animations and marketing motion supporting a health-tech launch that reached 7,000+ users and secured $15k pre-seed funding.',
+   credits:[['Creative Director','Daniel Adewoye'],['Client','Nguvu Health'],['Result','7,000+ users / $15k pre-seed'],['Year','2022']]},
+];
+
+const STORE_ITEMS = [
+  {type:'LUT Pack', title:'Editorial Grade LUTs — Vol. 1', price:'$29'},
+  {type:'PowerGrade', title:'Cinematic Skin Tones PowerGrade', price:'$45'},
+  {type:'Editing Preset', title:'Documentary Cut Preset Pack', price:'$19'},
+  {type:'Motion Template', title:'Title Sequence Template Kit', price:'$39'},
+  {type:'Lightroom Preset', title:'Editorial Portrait Preset Set', price:'$15'},
+  {type:'Prompt Pack', title:'AI Pre-Vis Prompt Pack', price:'$12'},
+  {type:'Digital Guide', title:'Directing on a Brand Budget — Guide', price:'$25'},
+  {type:'Course', title:'Commercial Cinematography Masterclass', price:'$149'},
+  {type:'Workshop', title:'Lagos On-Set Workshop — Ticket', price:'$79'},
+  {type:'Course', title:'Creative Direction for Brands', price:'$129'},
+];
+
+const JOURNAL_POSTS = [
+  {tag:'Case Study', title:'How we built the GVest launch campaign in 3 weeks', excerpt:'Breaking down the creative strategy and production timeline behind 10,000 sign-ups.', date:'Jun 2026', grade:'g3'},
+  {tag:'AI Experiment', title:'Using AI pre-vis to pitch treatments faster', excerpt:'What changed when we started storyboarding commercial treatments with AI tools.', date:'May 2026', grade:'g7'},
+  {tag:'Behind the Scenes', title:'On set with 3 Cold Dishes — Cotonou to Lagos', excerpt:'Notes from BTS Head of Department across three cities and one feature film.', date:'Apr 2026', grade:'g2'},
+];
+
+/* ---------------- RENDER: FILTER TRACK ---------------- */
+const track = document.getElementById('filterTrack');
+let activeRole = 'all';
+ROLES.forEach(r=>{
+  const count = r.key==='all' ? PROJECTS.length : PROJECTS.filter(p=>p.roles.includes(r.key)).length;
+  const el = document.createElement('div');
+  el.className = 'tick' + (r.key==='all' ? ' active' : '');
+  el.dataset.role = r.key;
+  el.innerHTML = `${r.label} <span class="count">${String(count).padStart(2,'0')}</span>`;
+  el.addEventListener('click', ()=>{
+    activeRole = r.key;
+    document.querySelectorAll('.tick').forEach(t=>t.classList.remove('active'));
+    el.classList.add('active');
+    renderWork();
+    updateReadout();
+  });
+  track.appendChild(el);
+});
+
+function updateReadout(){
+  const label = ROLES.find(r=>r.key===activeRole).label;
+  const count = activeRole==='all' ? PROJECTS.length : PROJECTS.filter(p=>p.roles.includes(activeRole)).length;
+  document.getElementById('readout').innerHTML = `00:00:00:00 <b>&nbsp;→&nbsp; ${label}</b> &nbsp;·&nbsp; ${count} project${count===1?'':'s'}`;
+}
+
+/* ---------------- RENDER: WORK GRID ---------------- */
+let visibleCount = 6;
+function renderWork(){
+  const grid = document.getElementById('workGrid');
+  grid.innerHTML = '';
+  const filtered = activeRole==='all' ? PROJECTS : PROJECTS.filter(p=>p.roles.includes(activeRole));
+  filtered.slice(0, visibleCount).forEach(p=>{
+    grid.appendChild(projectCard(p));
+  });
+  document.getElementById('loadMoreBtn').style.display = filtered.length > visibleCount ? 'block' : 'none';
+}
+function projectCard(p){
+  const card = document.createElement('div');
+  card.className = 'proj-card';
+  card.innerHTML = `
+    <div class="proj-media">
+      <div class="grade ${p.grade}"></div>
+      <div class="scan"></div>
+      <div class="badges">${p.roles.map(r=>`<span class="badge">${ROLE_TAG[r]}</span>`).join('')}</div>
+      <div class="play-hint">▶</div>
+      <div class="proj-info">
+        <span class="cat">${p.cat}</span>
+        <h3>${p.title}</h3>
+        <div class="meta">${p.client} — ${p.year}</div>
+      </div>
+    </div>`;
+  card.addEventListener('click', ()=>openModal(p.id));
+  return card;
+}
+document.getElementById('loadMoreBtn').addEventListener('click', ()=>{
+  visibleCount += 6;
+  renderWork();
+});
+renderWork();
+updateReadout();
+
+/* ---------------- RENDER: STORE ---------------- */
+const storeGrid = document.getElementById('storeGrid');
+STORE_ITEMS.forEach(item=>{
+  const el = document.createElement('div');
+  el.className = 'store-card';
+  el.innerHTML = `
+    <div>
+      <span class="type">${item.type}</span>
+      <h4>${item.title}</h4>
+    </div>
+    <div class="price"><span>${item.price}</span><span>View →</span></div>`;
+  storeGrid.appendChild(el);
+});
+
+/* ---------------- RENDER: JOURNAL ---------------- */
+const journalGrid = document.getElementById('journalGrid');
+JOURNAL_POSTS.forEach(post=>{
+  const el = document.createElement('div');
+  el.className = 'journal-card';
+  el.innerHTML = `
+    <div class="thumb"><div class="grade ${post.grade}" style="position:absolute;inset:0;"></div></div>
+    <span class="tag">${post.tag}</span>
+    <h3>${post.title}</h3>
+    <p class="excerpt">${post.excerpt}</p>
+    <div class="date">${post.date}</div>`;
+  journalGrid.appendChild(el);
+});
+
+/* ---------------- MODAL ---------------- */
+const overlay = document.getElementById('modalOverlay');
+const modalBox = document.getElementById('modalBox');
+function openModal(id){
+  const p = PROJECTS.find(x=>x.id===id);
+  const related = PROJECTS.filter(x=>x.id!==id && x.roles.some(r=>p.roles.includes(r))).slice(0,3);
+  modalBox.innerHTML = `
+    <div class="modal-hero"><div class="grade ${p.grade}"></div></div>
+    <span class="modal-eyebrow">${p.cat}</span>
+    <h2>${p.title}</h2>
+    <div class="modal-grid">
+      <div>
+        <div class="meta-item" style="margin-bottom:26px;">
+          <div class="k">Overview</div>
+          <p>${p.overview}</p>
+        </div>
+        <div class="meta-item">
+          <div class="k">Credits</div>
+          <ul class="credits-list">${p.credits.map(c=>`<li><span>${c[0]}</span><b>${c[1]}</b></li>`).join('')}</ul>
+        </div>
+      </div>
+      <div class="meta-list">
+        <div class="meta-item"><div class="k">Client</div><div class="v">${p.client}</div></div>
+        <div class="meta-item"><div class="k">Year</div><div class="v">${p.year}</div></div>
+        <div class="meta-item"><div class="k">My Role${p.roles.length>1?'s':''}</div>
+          <div class="roles-row">${p.roles.map(r=>`<span class="badge">${ROLE_TAG[r]} — ${ROLE_NAME[r]}</span>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+    <div class="meta-item" style="margin-bottom:16px;"><div class="k">Gallery</div></div>
+    <div class="gallery">
+      <div class="grade ${p.grade}"></div><div class="grade ${p.grade}" style="filter:hue-rotate(15deg);"></div><div class="grade ${p.grade}" style="filter:hue-rotate(-15deg);"></div>
+    </div>
+    <div class="meta-item" style="margin-bottom:20px;"><div class="k">Related Projects</div></div>
+    <div class="related-row">${related.map(r=>`
+      <div class="related-card" onclick="openModal(${r.id})">
+        <div class="proj-media"><div class="grade ${r.grade}"></div></div>
+        <span class="cat">${r.cat}</span>
+        <h4>${r.title}</h4>
+      </div>`).join('')}</div>
+  `;
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
+}
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+function closeModal(){
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+/* ---------------- SCROLL REVEAL ---------------- */
+document.querySelectorAll('section').forEach(s=>s.classList.add('reveal'));
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+}, {threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+/* nav active state on scroll */
+const navLinks = document.querySelectorAll('nav.primary a[href^="#"]');
+const sections = ['work','store','journal','about','contact'].map(id=>document.getElementById(id));
+window.addEventListener('scroll', ()=>{
+  let current = '';
+  sections.forEach(sec=>{ if(sec && window.scrollY >= sec.offsetTop - 200) current = sec.id; });
+  navLinks.forEach(l=>{
+    l.classList.toggle('active', l.getAttribute('href') === '#'+current);
+  });
+});
+</script>
+</body>
+</html>
