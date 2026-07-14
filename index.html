@@ -3,9 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Daniel Adewoye — Multidisciplinary Creative</title>
+<title>Daniel Adewoye — Creative Director &amp; Multidisciplinary Filmmaker</title>
+<meta name="description" content="Daniel Adewoye is a Lagos-based Creative Director, filmmaker, cinematographer and brand strategist. Career spans Gtext Holdings, Elite Holdings, Cruise, Glitch Africa and Base Uncut (TS Studios). Founder of Dixtro and Lens, Light &amp; Motion — a training community for filmmakers, in partnership with Ulanzi and Hollyland.">
+<meta name="keywords" content="Daniel Adewoye, Adewoye, Creative Director Lagos, Gtext Holdings creative director, Elite Holdings rebrand, Cruise Nigeria editor, Glitch Africa Head of Visuals, Base Uncut, TS Studios, Dixtro, Lens Light and Motion, Snappcode Academy, Ulanzi ambassador, Hollyland ambassador, Nigerian filmmaker, Nigerian cinematographer, commercial director Lagos">
+<meta property="og:title" content="Daniel Adewoye — Creative Director & Multidisciplinary Filmmaker">
+<meta property="og:description" content="Creative direction, cinematography, photography and brand strategy — from Gtext Holdings and Glitch Africa to Base Uncut. Founder of Dixtro and Lens, Light & Motion.">
+<meta property="og:type" content="profile">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#0b0b0c;
@@ -16,58 +21,81 @@
     --text:#edebe6;
     --muted:#8c8a85;
     --muted-2:#5c5a56;
-    --gold:#c99a4a;
-    --teal:#3f6e68;
-    --radius:2px;
+    --gold:#a855f7;
+    --teal:#6d28d9;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg); color:var(--text);
-    font-family:'Inter',sans-serif; font-weight:400;
+    font-family:'Space Grotesk',sans-serif; font-weight:400;
     -webkit-font-smoothing:antialiased;
     overflow-x:hidden;
   }
   ::selection{background:var(--gold); color:#0b0b0c;}
-  h1,h2,h3,h4{font-family:'Fraunces',serif; font-weight:500; line-height:1.05; letter-spacing:-0.01em;}
+  h1,h2,h3,h4{font-family:'Anton',sans-serif; font-weight:500; line-height:1.05; letter-spacing:-0.01em;}
   em{font-style:italic; color:var(--gold);}
-  .mono{font-family:'IBM Plex Mono',monospace; letter-spacing:0.02em;}
+  .mono{font-family:'JetBrains Mono',monospace; letter-spacing:0.02em;}
   a{color:inherit; text-decoration:none;}
   .wrap{max-width:1280px; margin:0 auto; padding:0 40px;}
   @media(max-width:720px){.wrap{padding:0 20px;}}
+  .bracket-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    color:var(--gold); margin-bottom:16px; display:inline-block;
+  }
+  .bracket-eyebrow::before{content:'[ '; color:var(--muted-2);}
+  .bracket-eyebrow::after{content:' ]'; color:var(--muted-2);}
 
   /* ---------- NAV ---------- */
   header{
     position:fixed; top:0; left:0; right:0; z-index:100;
     display:flex; align-items:center; justify-content:space-between;
     padding:22px 40px; backdrop-filter:blur(10px);
-    background:linear-gradient(to bottom, rgba(11,11,12,0.85), transparent);
+    background:linear-gradient(to bottom, rgba(11,11,12,0.9), transparent);
     transition:background .3s;
   }
   @media(max-width:720px){header{padding:18px 20px;}}
-  .logo{font-family:'Fraunces',serif; font-size:19px; font-weight:500; letter-spacing:0.01em;}
+  .logo{font-family:'Anton',sans-serif; font-weight:800; font-size:17px; letter-spacing:0.02em; text-transform:uppercase;}
   .logo span{color:var(--gold);}
   nav.primary{display:flex; gap:34px; align-items:center;}
   nav.primary a{font-size:13px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); font-weight:500; transition:color .2s; position:relative;}
   nav.primary a:hover, nav.primary a.active{color:var(--text);}
+  nav.primary a:not(.cta-pill)::after{
+    content:''; position:absolute; left:0; bottom:-6px; width:100%; height:1px; background:var(--gold);
+    transform:scaleX(0); transform-origin:right; transition:transform .3s ease;
+  }
+  nav.primary a:not(.cta-pill):hover::after, nav.primary a.active::after{transform:scaleX(1); transform-origin:left;}
+  .skill-chip-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+  .skill-chip{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
+    padding:9px 16px; border:1px solid var(--line-strong); color:var(--muted); transition:.25s;
+  }
+  .skill-chip:hover{border-color:var(--gold); color:var(--gold);}
   .cta-pill{border:1px solid var(--line-strong); padding:9px 18px; font-size:12px; text-transform:uppercase; letter-spacing:0.08em; border-radius:100px; transition:.25s; white-space:nowrap;}
   .cta-pill:hover{background:var(--gold); border-color:var(--gold); color:#0b0b0c;}
-  .nav-links-mobile{display:none;}
-  @media(max-width:900px){
-    nav.primary{display:none;}
-  }
+  @media(max-width:900px){ nav.primary{display:none;} }
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
-    padding:0 40px 70px; overflow:hidden;
+    position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    padding:150px 40px 60px; overflow:hidden; text-align:center;
   }
-  @media(max-width:720px){.hero{padding:0 20px 50px;}}
+  @media(max-width:720px){.hero{padding:140px 20px 50px;}}
+  .hero-video{
+    position:absolute; top:50%; left:50%; min-width:100%; min-height:100%;
+    width:auto; height:auto; transform:translate(-50%,-50%);
+    object-fit:cover; z-index:-2;
+  }
+  @media(max-width:720px){
+    /* On narrow screens, force portrait-friendly cover so the subject
+       stays framed instead of the video's widest edge dominating */
+    .hero-video{ width:100%; height:100%; min-width:0; min-height:0; }
+  }
   .hero-bg{
     position:absolute; inset:0;
     background:
-      radial-gradient(ellipse 60% 50% at 30% 20%, rgba(63,110,104,0.25), transparent),
-      radial-gradient(ellipse 50% 40% at 80% 70%, rgba(201,154,74,0.18), transparent),
+      radial-gradient(ellipse 70% 60% at 50% 0%, rgba(109,40,217,0.22), transparent),
+      radial-gradient(ellipse 60% 45% at 85% 90%, rgba(168,85,247,0.16), transparent),
       linear-gradient(180deg, #0e0e10 0%, #0b0b0c 60%);
     z-index:-1;
   }
@@ -76,42 +104,61 @@
     background-image:repeating-linear-gradient(0deg, transparent 0 2px, rgba(255,255,255,0.012) 2px 4px);
     pointer-events:none;
   }
-  .hero-eyebrow{
-    display:flex; align-items:center; gap:12px;
-    font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted);
-    margin-bottom:26px;
-  }
+  .hero-eyebrow-row{display:flex; align-items:center; justify-content:center; gap:12px; margin-bottom:30px;}
   .rec-dot{width:7px; height:7px; border-radius:50%; background:#c95a4a; box-shadow:0 0 0 3px rgba(201,90,74,0.18); animation:pulse 2s infinite;}
   @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
-  .hero h1{font-size:clamp(52px, 9vw, 118px); font-weight:400;}
-  .hero-sub{
-    max-width:560px; color:var(--muted); font-size:16px; line-height:1.6; margin-top:26px;
+  .hero-title{
+    font-family:'Anton',sans-serif; font-weight:800; text-transform:uppercase;
+    font-size:clamp(44px, 10vw, 128px); line-height:0.92; letter-spacing:-0.01em;
   }
-  .hero-roles{
-    margin-top:44px; padding-top:22px; border-top:1px solid var(--line);
-    display:flex; flex-wrap:wrap; gap:10px 28px;
+  .hero-title em{font-style:normal; color:var(--gold);}
+  .hero-role-line{
+    font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--muted); margin-top:26px;
   }
-  .hero-roles span{font-size:12px; letter-spacing:0.06em; color:var(--muted-2); font-family:'IBM Plex Mono',monospace;}
-  .hero-roles span b{color:var(--text); font-weight:500;}
-  .scroll-cue{
-    position:absolute; right:40px; bottom:36px; writing-mode:vertical-rl;
-    font-size:11px; text-transform:uppercase; letter-spacing:0.15em; color:var(--muted-2);
-    display:flex; align-items:center; gap:10px;
+  .hero-role-line b{color:var(--text); font-weight:500;}
+  .hero-sub{max-width:600px; margin:22px auto 0; color:var(--muted); font-size:16px; line-height:1.65;}
+  .hero-cta-row{display:flex; gap:16px; justify-content:center; margin-top:40px; flex-wrap:wrap;}
+  .btn-solid{
+    background:var(--gold); color:#0b0b0c; padding:14px 30px; font-size:12.5px; text-transform:uppercase;
+    letter-spacing:0.08em; font-weight:600; border:1px solid var(--gold); transition:.25s; cursor:pointer;
   }
-  @media(max-width:720px){.scroll-cue{display:none;}}
-  .scroll-cue::after{content:''; width:1px; height:40px; background:var(--muted-2);}
+  .btn-solid:hover{background:transparent; color:var(--gold);}
+  .btn-ghost{
+    border:1px solid var(--line-strong); padding:14px 30px; font-size:12.5px; text-transform:uppercase;
+    letter-spacing:0.08em; transition:.25s; display:flex; align-items:center; gap:10px;
+  }
+  .btn-ghost:hover{border-color:var(--gold); color:var(--gold);}
+  .play-dot{width:8px; height:8px; border-radius:50%; background:currentColor;}
+
+  /* ---------- AWARDS STRIP ---------- */
+  .awards-strip{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:36px 0;}
+  .awards-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:26px;}
+  .award-item{display:flex; align-items:center; gap:14px; flex:1; min-width:220px;}
+  .award-item .x{font-family:'Anton',sans-serif; font-size:26px; color:var(--gold); font-style:italic;}
+  .award-item .t{font-size:12.5px; color:var(--muted); line-height:1.4; font-family:'JetBrains Mono',monospace; letter-spacing:0.02em;}
 
   /* ---------- SECTION HEADS ---------- */
   section{padding:120px 0;}
   @media(max-width:720px){section{padding:80px 0;}}
   .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:56px; flex-wrap:wrap;}
-  .eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; letter-spacing:0.12em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; display:block;}
   .section-head h2{font-size:clamp(32px,4vw,48px); font-weight:400;}
   .section-desc{max-width:440px; color:var(--muted); font-size:15px; line-height:1.6;}
 
+  /* ---------- QUOTE BLOCK ---------- */
+  .quote-block{border-bottom:1px solid var(--line); text-align:center;}
+  .quote-block blockquote{
+    font-family:'Anton',sans-serif; font-style:normal; font-weight:400; text-transform:uppercase;
+    font-size:clamp(26px,4vw,46px); line-height:1.25; max-width:900px; margin:0 auto; color:var(--text);
+  }
+  .quote-block cite{
+    display:block; margin-top:30px; font-family:'JetBrains Mono',monospace; font-style:normal;
+    font-size:12.5px; letter-spacing:0.08em; text-transform:uppercase; color:var(--gold);
+  }
+
   /* ---------- DISCIPLINES ---------- */
-  .disciplines{border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .disc-grid{display:grid; grid-template-columns:repeat(3,1fr); border-left:1px solid var(--line);}
+  .disciplines{border-bottom:1px solid var(--line);}
+  .disc-grid{display:grid; grid-template-columns:repeat(3,1fr); border-left:1px solid var(--line); border-top:1px solid var(--line);}
   @media(max-width:900px){.disc-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:560px){.disc-grid{grid-template-columns:1fr;}}
   .disc-card{
@@ -120,51 +167,48 @@
     transition:background .3s;
   }
   .disc-card:hover{background:var(--bg-elev);}
-  .disc-num{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--muted-2);}
+  .disc-num{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2);}
   .disc-card h3{font-size:22px; font-weight:500; margin-top:24px;}
   .disc-card p{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.55;}
 
   /* ---------- WORK / ROLE TIMELINE ---------- */
   .timeline-bar{
-    position:relative; margin-bottom:50px;
+    position:relative; margin-bottom:50px; display:flex; align-items:stretch; gap:0;
     border-top:1px solid var(--line-strong); border-bottom:1px solid var(--line-strong);
-    padding:18px 0; overflow-x:auto;
   }
+  .tl-arrow{
+    flex:0 0 auto; width:46px; display:flex; align-items:center; justify-content:center;
+    background:var(--bg); border:none; color:var(--muted); cursor:pointer; font-size:18px;
+    border-right:1px solid var(--line); transition:.2s;
+  }
+  .tl-arrow:last-child{border-right:none; border-left:1px solid var(--line);}
+  .tl-arrow:hover{color:var(--gold); background:var(--bg-elev);}
+  .tl-arrow:disabled{opacity:0.25; cursor:default; color:var(--muted);}
+  .timeline-scroll{flex:1; overflow-x:auto; scrollbar-width:none; padding:18px 0;}
+  .timeline-scroll::-webkit-scrollbar{display:none;}
   .timeline-track{display:flex; align-items:center; gap:0; min-width:max-content; position:relative;}
   .tick{
-    font-family:'IBM Plex Mono',monospace; font-size:12.5px; letter-spacing:0.05em;
+    font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.05em;
     color:var(--muted); padding:10px 22px; border-right:1px solid var(--line);
     cursor:pointer; white-space:nowrap; position:relative; transition:color .2s;
     display:flex; align-items:center; gap:8px;
   }
-  .tick:first-child{padding-left:0;}
+  .tick:first-child{padding-left:22px;}
   .tick .count{color:var(--muted-2); font-size:11px;}
   .tick:hover{color:var(--text);}
   .tick.active{color:var(--gold);}
-  .tick.active::before{
-    content:''; position:absolute; left:0; right:22px; bottom:-19px; height:2px; background:var(--gold);
-  }
-  .readout{
-    font-family:'IBM Plex Mono',monospace; font-size:11px; color:var(--muted-2);
-    padding-top:10px; letter-spacing:0.06em;
-  }
+  .tick.active::before{ content:''; position:absolute; left:0; right:22px; bottom:-19px; height:2px; background:var(--gold); }
+  .readout{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); padding-top:10px; letter-spacing:0.06em; }
   .readout b{color:var(--gold); font-weight:500;}
 
   .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--line);}
   @media(max-width:980px){.work-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:620px){.work-grid{grid-template-columns:1fr;}}
 
-  .proj-card{
-    background:var(--bg); cursor:pointer; position:relative; overflow:hidden;
-    transition:transform .35s ease;
-  }
-  .proj-media{
-    position:relative; aspect-ratio:4/5; overflow:hidden; background:#0e0e10;
-  }
-  .proj-media .grade{
-    position:absolute; inset:0;
-    transition:transform 3.5s ease;
-  }
+  .proj-card{background:var(--bg); cursor:pointer; position:relative; overflow:hidden; transition:transform .35s ease;}
+  .proj-media{position:relative; aspect-ratio:16/9; overflow:hidden; background:#0e0e10;}
+  .proj-media .grade{position:absolute; inset:0; transition:transform 3.5s ease;}
+  video.grade{width:100%; height:100%; object-fit:cover;}
   .proj-card:hover .grade{transform:scale(1.06);}
   .proj-media .scan{
     position:absolute; inset:0; opacity:0; transition:opacity .35s;
@@ -172,18 +216,15 @@
     mix-blend-mode:overlay;
   }
   .proj-card:hover .scan{opacity:1;}
-  .proj-media::after{
-    content:''; position:absolute; inset:0;
-    background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%);
-  }
+  .proj-media::after{ content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.85) 100%); }
   .badges{position:absolute; top:14px; left:14px; display:flex; gap:6px; z-index:2; flex-wrap:wrap;}
   .badge{
-    font-family:'IBM Plex Mono',monospace; font-size:10px; letter-spacing:0.04em;
+    font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:0.04em;
     padding:4px 8px; background:rgba(11,11,12,0.7); border:1px solid rgba(237,235,230,0.25);
     color:var(--text); backdrop-filter:blur(4px);
   }
   .proj-info{position:absolute; bottom:0; left:0; right:0; padding:18px 20px; z-index:2;}
-  .proj-info .cat{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); display:block; margin-bottom:6px;}
+  .proj-info .cat{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; letter-spacing:0.1em; color:var(--gold); display:block; margin-bottom:6px;}
   .proj-info h3{font-size:19px; font-weight:500;}
   .proj-info .meta{font-size:12.5px; color:var(--muted); margin-top:4px;}
   .play-hint{
@@ -192,36 +233,29 @@
     opacity:0; transition:opacity .3s; background:rgba(11,11,12,0.5);
   }
   .proj-card:hover .play-hint{opacity:1;}
-
   .load-more-row{margin-top:40px; display:flex; justify-content:center;}
   .btn-outline{
     border:1px solid var(--line-strong); padding:13px 30px; font-size:12.5px; text-transform:uppercase;
-    letter-spacing:0.08em; font-family:'IBM Plex Mono',monospace; transition:.25s; cursor:pointer; background:transparent; color:var(--text);
+    letter-spacing:0.08em; font-family:'JetBrains Mono',monospace; transition:.25s; cursor:pointer; background:transparent; color:var(--text);
   }
   .btn-outline:hover{border-color:var(--gold); color:var(--gold);}
 
   /* ---------- MODAL ---------- */
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(6,6,7,0.92); backdrop-filter:blur(6px);
-    z-index:200; display:none; overflow-y:auto; padding:70px 0 40px;
-  }
+  .modal-overlay{ position:fixed; inset:0; background:rgba(6,6,7,0.92); backdrop-filter:blur(6px); z-index:200; display:none; overflow-y:auto; padding:70px 0 40px; }
   .modal-overlay.open{display:block;}
   .modal-box{max-width:960px; margin:0 auto; padding:0 40px;}
   @media(max-width:720px){.modal-box{padding:0 20px;}}
-  .modal-close{
-    position:fixed; top:24px; right:40px; z-index:210; width:42px; height:42px; border:1px solid var(--line-strong);
-    display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--bg); font-size:18px;
-  }
+  .modal-close{ position:fixed; top:24px; right:40px; z-index:210; width:42px; height:42px; border:1px solid var(--line-strong); display:flex; align-items:center; justify-content:center; cursor:pointer; background:var(--bg); font-size:18px; }
   .modal-close:hover{border-color:var(--gold); color:var(--gold);}
   .modal-hero{aspect-ratio:16/8; width:100%; position:relative; overflow:hidden; margin-bottom:36px;}
   .modal-hero .grade{position:absolute; inset:0;}
-  .modal-eyebrow{font-family:'IBM Plex Mono',monospace; font-size:12px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px;}
+  .modal-eyebrow{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--gold); text-transform:uppercase; letter-spacing:0.1em; margin-bottom:14px;}
   .modal-box h2{font-size:clamp(28px,4vw,44px); font-weight:400; margin-bottom:30px;}
   .modal-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:60px; margin-bottom:50px;}
   @media(max-width:760px){.modal-grid{grid-template-columns:1fr; gap:36px;}}
   .modal-grid p{color:var(--muted); font-size:15px; line-height:1.75;}
   .meta-list{display:flex; flex-direction:column; gap:20px;}
-  .meta-item .k{font-family:'IBM Plex Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted-2); margin-bottom:6px;}
+  .meta-item .k{font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.1em; color:var(--muted-2); margin-bottom:6px;}
   .meta-item .v{font-size:14.5px;}
   .meta-item .roles-row{display:flex; gap:6px; flex-wrap:wrap;}
   .credits-list{list-style:none; margin-top:8px;}
@@ -229,34 +263,83 @@
   .credits-list li b{color:var(--text); font-weight:500;}
   .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:2px; margin-bottom:60px;}
   @media(max-width:620px){.gallery{grid-template-columns:repeat(2,1fr);}}
-  .gallery div{aspect-ratio:1; }
+  .gallery div{aspect-ratio:1;}
   .related-row{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; margin-bottom:60px;}
   @media(max-width:760px){.related-row{grid-template-columns:1fr;}}
   .related-card{cursor:pointer;}
   .related-card .proj-media{aspect-ratio:4/3;}
   .related-card h4{font-size:14.5px; margin-top:10px; font-weight:500;}
-  .related-card .cat{font-family:'IBM Plex Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
+  .related-card .cat{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
 
   /* ---------- STORE ---------- */
   .store{background:var(--bg-elev); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
-  .store-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
-  @media(max-width:980px){.store-grid{grid-template-columns:repeat(2,1fr);}}
+  .store-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line);}
+  @media(max-width:900px){.store-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:560px){.store-grid{grid-template-columns:1fr;}}
-  .store-card{background:var(--bg-elev); padding:28px 26px; display:flex; flex-direction:column; justify-content:space-between; min-height:190px; transition:background .25s;}
+  .store-card{background:var(--bg-elev); display:flex; flex-direction:column; transition:background .25s;}
   .store-card:hover{background:#1c1c1f;}
-  .store-card .type{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
+  .store-thumb{
+    aspect-ratio:4/3; position:relative; overflow:hidden; background:#0e0e10;
+    display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--line);
+  }
+  .store-thumb img{width:100%; height:100%; object-fit:cover; display:block;}
+  .store-thumb .thumb-placeholder{
+    font-family:'JetBrains Mono',monospace; font-size:10.5px; color:var(--muted-2); text-transform:uppercase;
+    letter-spacing:0.06em; text-align:center; padding:0 20px; line-height:1.5;
+  }
+  .store-body{padding:22px 24px 26px; display:flex; flex-direction:column; flex:1;}
+  .store-card .type{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
   .store-card h4{font-size:17px; font-weight:500; margin-top:14px;}
-  .store-card .price{margin-top:18px; display:flex; justify-content:space-between; align-items:center; font-family:'IBM Plex Mono',monospace; font-size:13px;}
-  .store-card .price span:last-child{color:var(--muted-2);}
+  .store-card .price-row{margin-top:auto; padding-top:20px; display:flex; justify-content:space-between; align-items:center;}
+  .store-card .price{font-family:'JetBrains Mono',monospace; font-size:14px;}
+  .buy-btn{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:0.06em;
+    padding:9px 18px; border:1px solid var(--line-strong); color:var(--text); transition:.25s; white-space:nowrap;
+  }
+  .buy-btn:hover{background:var(--gold); border-color:var(--gold); color:#0b0b0c;}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testimonials{border-bottom:1px solid var(--line);}
+  .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border-top:1px solid var(--line);}
+  @media(max-width:860px){.test-grid{grid-template-columns:1fr;}}
+  .test-card{background:var(--bg); padding:34px 30px;}
+  .test-card .rating{font-family:'Anton',sans-serif; font-size:28px; color:var(--gold);}
+  .test-card .rating small{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); margin-left:4px;}
+  .test-card p{color:var(--muted); font-size:14px; line-height:1.65; margin:18px 0 20px;}
+  .test-card .who{font-size:13.5px; font-weight:500;}
+  .test-card .role{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.06em; margin-top:3px;}
+
+  /* ---------- CREATORS GALLERY ---------- */
+  .creators{border-bottom:1px solid var(--line);}
+  .creators-track-wrap{overflow:hidden; padding:10px 0 6px;}
+  .creators-track{display:flex; gap:34px; width:max-content; animation:scroll-x 96s linear infinite;}
+  .creator-avatar{
+    position:relative; width:120px; height:120px; border-radius:50%; overflow:hidden;
+    border:1px solid var(--line-strong); flex:0 0 auto; transition:border-color .25s;
+  }
+  .creator-avatar:hover{border-color:var(--gold);}
+  .creator-avatar img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .3s;}
+  .creator-avatar .cplaceholder{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    background:var(--bg-elev); font-family:'JetBrains Mono',monospace; font-size:9px;
+    color:var(--muted-2); text-align:center; padding:6px; text-transform:uppercase; transition:opacity .3s;
+  }
+  .creator-avatar .name-overlay{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
+    padding:6px; opacity:0; transition:opacity .3s; background:rgba(11,11,12,0.6);
+    font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.03em;
+  }
+  .creator-avatar:hover img, .creator-avatar:hover .cplaceholder{opacity:0.3;}
+  .creator-avatar:hover .name-overlay{opacity:1;}
 
   /* ---------- JOURNAL ---------- */
   .journal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px;}
   @media(max-width:900px){.journal-grid{grid-template-columns:1fr; gap:36px;}}
   .journal-card .thumb{aspect-ratio:16/10; background:var(--bg-elev); position:relative; overflow:hidden; margin-bottom:18px;}
-  .journal-card .tag{font-family:'IBM Plex Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
+  .journal-card .tag{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
   .journal-card h3{font-size:19px; font-weight:500; margin-top:10px; line-height:1.3;}
   .journal-card .excerpt{color:var(--muted); font-size:13.5px; margin-top:10px; line-height:1.6;}
-  .journal-card .date{font-family:'IBM Plex Mono',monospace; font-size:11.5px; color:var(--muted-2); margin-top:14px;}
+  .journal-card .date{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted-2); margin-top:14px;}
 
   /* ---------- ABOUT ---------- */
   .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
@@ -264,30 +347,80 @@
   .about-grid p{color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:20px;}
   .stat-row{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); margin-top:10px;}
   .stat{background:var(--bg); padding:26px;}
-  .stat .n{font-family:'Fraunces',serif; font-size:36px; color:var(--gold);}
+  .stat .n{font-family:'Anton',sans-serif; font-size:36px; color:var(--gold);}
   .stat .l{font-size:12px; color:var(--muted); margin-top:6px; text-transform:uppercase; letter-spacing:0.06em;}
+  .role-timeline-mini{margin-top:30px; border-top:1px solid var(--line);}
+  .rtm-item{display:flex; justify-content:space-between; gap:16px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .rtm-item .role-title{font-size:14.5px; font-weight:500;}
+  .rtm-item .role-org{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:3px;}
+  .rtm-item .role-year{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2); white-space:nowrap;}
+  .rtm-item.current .role-title{color:var(--gold);}
+  .edu-block{margin-top:36px; padding-top:30px; border-top:1px solid var(--line);}
+  .partner-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
+  .partner-tag{
+    font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.04em; text-transform:uppercase;
+    padding:8px 12px; border:1px solid var(--line-strong); color:var(--muted);
+  }
+
+  /* ---------- CLIENT MARQUEE ---------- */
+  .marquee-wrap{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:34px 0; overflow:hidden;}
+  .marquee-track{display:flex; gap:60px; width:max-content; animation:scroll-x 32s linear infinite;}
+  @keyframes scroll-x{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
+  .marquee-track span{
+    font-family:'Anton',sans-serif; font-weight:700; text-transform:uppercase; font-size:20px;
+    color:var(--muted-2); letter-spacing:0.02em; white-space:nowrap;
+  }
 
   /* ---------- FOOTER / CONTACT ---------- */
   footer{padding:110px 0 40px; border-top:1px solid var(--line);}
-  .contact-head h2{font-size:clamp(40px,7vw,88px); font-weight:400;}
+  .contact-head h2{font-family:'Anton',sans-serif; font-weight:800; text-transform:uppercase; font-size:clamp(38px,7vw,84px); line-height:0.98;}
+  .contact-head em{font-style:normal; color:var(--gold);}
   .contact-links{display:flex; gap:20px; margin-top:34px; flex-wrap:wrap;}
   .foot-bottom{display:flex; justify-content:space-between; margin-top:90px; padding-top:24px; border-top:1px solid var(--line); font-size:12.5px; color:var(--muted-2); flex-wrap:wrap; gap:14px;}
 
-  /* section reveal */
   .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
 
-  /* generated grade placeholders (stand-ins for real footage) */
-  .g1{background:linear-gradient(135deg,#26302c,#0e1614 55%,#c99a4a22);}
-  .g2{background:linear-gradient(135deg,#1a1a1e,#3f6e6833 60%,#0b0b0c);}
-  .g3{background:linear-gradient(135deg,#231b13,#c99a4a2e 50%,#0b0b0c);}
-  .g4{background:linear-gradient(135deg,#171a1e,#20302c 60%,#c99a4a15);}
+  .g1{background:linear-gradient(135deg,#26302c,#0e1614 55%,#a855f722);}
+  .g2{background:linear-gradient(135deg,#1a1a1e,#6d28d933 60%,#0b0b0c);}
+  .g3{background:linear-gradient(135deg,#231b13,#a855f72e 50%,#0b0b0c);}
+  .g4{background:linear-gradient(135deg,#171a1e,#20302c 60%,#a855f715);}
   .g5{background:linear-gradient(135deg,#20191a,#3f2f22 55%,#0b0b0c);}
-  .g6{background:linear-gradient(135deg,#141419,#2a2420 60%,#c99a4a1c);}
-  .g7{background:linear-gradient(135deg,#181c1a,#3f6e6822 55%,#0b0b0c);}
-  .g8{background:linear-gradient(135deg,#1c1712,#c99a4a2a 55%,#0b0b0c);}
+  .g6{background:linear-gradient(135deg,#141419,#2a2420 60%,#a855f71c);}
+  .g7{background:linear-gradient(135deg,#181c1a,#6d28d922 55%,#0b0b0c);}
+  .g8{background:linear-gradient(135deg,#1c1712,#a855f72a 55%,#0b0b0c);}
   .g9{background:linear-gradient(135deg,#141618,#233a35 60%,#0b0b0c);}
 </style>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Daniel Adewoye",
+  "jobTitle": "Creative Director",
+  "url": "https://www.adewoye.works",
+  "address": {"@type":"PlaceOfResidence","addressLocality":"Lagos","addressCountry":"NG"},
+  "worksFor": {"@type":"Organization","name":"Base Uncut","parentOrganization":{"@type":"Organization","name":"TS Studios"}},
+  "alumniOf": [
+    {"@type":"Organization","name":"Gtext Holdings"},
+    {"@type":"Organization","name":"Elite Holdings"},
+    {"@type":"Organization","name":"Cruise"},
+    {"@type":"Organization","name":"Glitch Africa"}
+  ],
+  "founder": [
+    {"@type":"Organization","name":"Dixtro"},
+    {"@type":"Organization","name":"Lens, Light & Motion"}
+  ],
+  "memberOf": [
+    {"@type":"Organization","name":"Ulanzi"},
+    {"@type":"Organization","name":"Hollyland"}
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/in/woyeola/",
+    "https://www.youtube.com/@dixtromedia/videos"
+  ],
+  "knowsAbout": ["Director","Visual Architecture","Brand & Creative Strategy","Photography","Cinematography","Colorist","Editor","YouTube Show Producer","Documentaries","Filmmaker Education"]
+}
+</script>
 </head>
 <body>
 
@@ -303,34 +436,72 @@
 </header>
 
 <!-- HERO -->
-<section class="hero" style="padding-top:120px;">
-  <div class="hero-bg"></div>
+<section class="hero">
+  <div class="hero-bg">
+    <!-- ============================================
+         HERO VIDEO — replace the src below with your
+         own 2–4s loop (compressed MP4, ~5–10MB max).
+         loop + muted + playsinline = autoplay works on
+         mobile Safari/Chrome without a tap.
+         ============================================ -->
+    <video class="hero-video" autoplay muted loop playsinline poster="">
+      <source src="" type="video/mp4">
+    </video>
+  </div>
   <div class="wrap" style="width:100%;">
-    <div class="hero-eyebrow"><span class="rec-dot"></span> Creative Director &amp; Multidisciplinary Filmmaker — Lagos, Nigeria</div>
-    <h1>Daniel <em>Adewoye</em></h1>
-    <p class="hero-sub">Seven years directing films, campaigns and cultural stories that connect emotionally and perform in the real world. Head of Visuals at Glitch Africa. Founder of Dixtro.</p>
-    <div class="hero-roles">
-      <span><b>01</b> Creative Direction</span>
-      <span><b>02</b> Commercial Direction</span>
-      <span><b>03</b> Cinematography</span>
-      <span><b>04</b> Photography</span>
-      <span><b>05</b> Editing</span>
-      <span><b>06</b> Creative Strategy</span>
+    <div class="hero-eyebrow-row"><span class="rec-dot"></span> <span class="bracket-eyebrow">Director · Visual Architect · Brand &amp; Creative Strategist</span></div>
+    <h1 class="hero-title">Daniel <em>Adewoye</em></h1>
+    <p class="hero-sub">50+ projects. 30+ brand clients. 8 years on set.</p>
+    <div class="hero-cta-row">
+      <button class="btn-solid" onclick="document.getElementById('work').scrollIntoView()">View The Work</button>
+      <a href="#" class="btn-ghost"><span class="play-dot"></span> Play Reel</a>
     </div>
   </div>
-  <div class="scroll-cue">Scroll to explore</div>
+</section>
+
+<!-- AWARDS STRIP -->
+<div class="awards-strip">
+  <div class="wrap awards-row">
+    <div class="award-item"><span class="x">1x</span><span class="t">Rising Star Award<br>TekartCon Filmmaking, 2023</span></div>
+    <div class="award-item"><span class="x">1x</span><span class="t">Head of Department — BTS<br>3 Cold Dishes, Asurf Films</span></div>
+    <div class="award-item"><span class="x">1x</span><span class="t">Tekart 100<br>TekArt Africa, 2022</span></div>
+    <div class="award-item"><span class="x">1x</span><span class="t">Mr Universe Africa<br>Qhue Concepts, 2018</span></div>
+  </div>
+</div>
+
+<!-- CLIENT MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
+    <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
+  </div>
+</div>
+
+<!-- QUOTE -->
+<section class="quote-block">
+  <div class="wrap">
+    <blockquote>"Story doesn't wait for permission. It waits for craft."</blockquote>
+    <cite>— Daniel Adewoye, Creative Director &amp; Filmmaker</cite>
+  </div>
 </section>
 
 <!-- DISCIPLINES -->
 <section class="disciplines">
-  <div class="wrap"><span class="eyebrow" style="padding-left:2px;">What I Do</span></div>
+  <div class="wrap"><span class="bracket-eyebrow">Who I Am</span></div>
   <div class="disc-grid">
-    <div class="disc-card"><span class="disc-num">01</span><div><h3>Creative Direction</h3><p>Owning the visual world of a brand or show — concept, tone, and the system that holds it together.</p></div></div>
-    <div class="disc-card"><span class="disc-num">02</span><div><h3>Commercial Direction</h3><p>High-performance brand films built to connect emotionally and perform in market.</p></div></div>
-    <div class="disc-card"><span class="disc-num">03</span><div><h3>Cinematography</h3><p>Lighting and lensing for narrative films, documentaries and campaigns.</p></div></div>
-    <div class="disc-card"><span class="disc-num">04</span><div><h3>Photography</h3><p>Editorial, campaign and behind-the-scenes stills across commercial and cultural work.</p></div></div>
-    <div class="disc-card"><span class="disc-num">05</span><div><h3>Editing</h3><p>Pacing, tone and rhythm — the post-production language that makes a story land.</p></div></div>
-    <div class="disc-card"><span class="disc-num">06</span><div><h3>Creative Strategy</h3><p>Turning a brief into a campaign — creative planning that ties story to outcome.</p></div></div>
+    <div class="disc-card"><span class="disc-num">01</span><div><h3>Director</h3><p>Sets the shot, the story and the room.</p></div></div>
+    <div class="disc-card"><span class="disc-num">02</span><div><h3>Visual Architect</h3><p>Builds the look and system a brand lives in.</p></div></div>
+    <div class="disc-card"><span class="disc-num">03</span><div><h3>Brand &amp; Creative Strategist</h3><p>Turns a brief into a campaign that performs.</p></div></div>
+  </div>
+  <div class="wrap">
+    <div class="skill-chip-row">
+      <span class="skill-chip">Photography</span>
+      <span class="skill-chip">Cinematography</span>
+      <span class="skill-chip">Colorist</span>
+      <span class="skill-chip">Editor</span>
+      <span class="skill-chip">YouTube Show Producer</span>
+      <span class="skill-chip">Documentaries</span>
+    </div>
   </div>
 </section>
 
@@ -338,12 +509,14 @@
 <section id="work">
   <div class="wrap">
     <div class="section-head">
-      <div><span class="eyebrow">Role Timeline</span><h2>Selected <em>Work</em></h2></div>
+      <div><span class="bracket-eyebrow">Role Timeline</span><h2>Selected <em>Work</em></h2></div>
       <p class="section-desc">Every project tagged by what I actually contributed. Switch roles to see the record, not just the reel.</p>
     </div>
 
     <div class="timeline-bar">
-      <div class="timeline-track" id="filterTrack"></div>
+      <button class="tl-arrow" id="tlLeft" aria-label="Scroll left">‹</button>
+      <div class="timeline-scroll" id="tlScroll"><div class="timeline-track" id="filterTrack"></div></div>
+      <button class="tl-arrow" id="tlRight" aria-label="Scroll right">›</button>
     </div>
     <div class="readout" id="readout"></div>
     <div style="height:30px;"></div>
@@ -358,18 +531,39 @@
 <section id="store" class="store">
   <div class="wrap">
     <div class="section-head">
-      <div><span class="eyebrow">Creator Store</span><h2>Tools I Use to <em>Build</em></h2></div>
+      <div><span class="bracket-eyebrow">Creator Store</span><h2>Tools I Use to <em>Build</em></h2></div>
       <p class="section-desc">Colour grades, presets and templates from my own production workflow, plus courses and workshop tickets.</p>
     </div>
   </div>
   <div class="store-grid" id="storeGrid"></div>
 </section>
 
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="wrap">
+    <div class="section-head">
+      <div><span class="bracket-eyebrow">Testimonials</span><h2>Client <em>Experience</em></h2></div>
+      <p class="section-desc">Placeholder reviews — swap for real client testimonials via the CMS before launch.</p>
+    </div>
+  </div>
+  <div class="test-grid" id="testGrid"></div>
+</section>
+
+<!-- CREATORS GALLERY -->
+<section class="creators">
+  <div class="wrap">
+    <span class="bracket-eyebrow">Collaborators</span>
+    <h2 style="font-size:clamp(26px,3.5vw,38px); font-weight:400; margin-bottom:8px;">Creators I've <em>Worked With</em></h2>
+    <p class="section-desc" style="margin-bottom:30px;">Hover a face to see who's behind it.</p>
+  </div>
+  <div class="creators-track-wrap"><div class="creators-track" id="creatorsTrack"></div></div>
+</section>
+
 <!-- JOURNAL -->
 <section id="journal">
   <div class="wrap">
     <div class="section-head">
-      <div><span class="eyebrow">Journal</span><h2>Notes From <em>Set</em></h2></div>
+      <div><span class="bracket-eyebrow">Journal</span><h2>Notes From <em>Set</em></h2></div>
       <p class="section-desc">Case studies, behind-the-scenes breakdowns, AI experiments and essays on the craft.</p>
     </div>
     <div class="journal-grid" id="journalGrid"></div>
@@ -381,11 +575,25 @@
   <div class="wrap">
     <div class="about-grid">
       <div>
-        <span class="eyebrow">About</span>
+        <span class="bracket-eyebrow">About</span>
         <h2 style="font-size:clamp(30px,4vw,44px); font-weight:400; margin-bottom:26px;">Building systems and stories that <em>scale</em>.</h2>
-        <p>Daniel Adewoye is a creative director and filmmaker whose work sits at the intersection of story, culture, and strategy — directing commercials, digital content, and campaigns built to perform in the real world.</p>
-        <p>Currently Head of Visuals at <b style="color:var(--text)">Glitch Africa</b>, leading the studio's visual direction across original shows, editorial publishing, live sessions, and partner-led productions.</p>
-        <p>Founder of <b style="color:var(--text)">Dixtro</b> and co-founder of <b style="color:var(--text)">Snappcode Academy</b> — training 400+ creatives in content creation, photography, and visual storytelling.</p>
+        <p>Director, visual architect and brand strategist based in Lagos. Founder of Dixtro and Lens, Light &amp; Motion — a filmmaker training community built with gear partners Ulanzi and Hollyland.</p>
+        <div class="role-timeline-mini">
+          <div class="rtm-item"><div><div class="role-title">Global Head of Media — Gtext Holdings</div><div class="role-org">Lagos · Dubai · UK</div></div><div class="role-year">2020–2023</div></div>
+          <div class="rtm-item"><div><div class="role-title">Brand Identity Lead — Elite Holdings</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2023–2024</div></div>
+          <div class="rtm-item"><div><div class="role-title">Senior Editor &amp; Motion Designer — Cruise</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2024–2025</div></div>
+          <div class="rtm-item"><div><div class="role-title">Head of Visuals — Glitch Africa</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2025–2026</div></div>
+          <div class="rtm-item current"><div><div class="role-title">Creative Director — Base Uncut (TS Studios)</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2026–</div></div>
+        </div>
+        <div class="edu-block">
+          <span class="bracket-eyebrow" style="margin-top:40px;">Education &amp; Community</span>
+          <h3 style="font-size:20px; font-weight:500; margin:12px 0 10px;">Lens, Light &amp; Motion</h3>
+          <p style="margin-bottom:14px;">Hands-on training and mentorship for filmmakers.</p>
+          <div class="partner-row">
+            <span class="partner-tag">Gear Empowerment Partner — Ulanzi</span>
+            <span class="partner-tag">Gear Empowerment Partner — Hollyland</span>
+          </div>
+        </div>
       </div>
       <div>
         <div class="stat-row">
@@ -403,7 +611,7 @@
 <footer id="contact">
   <div class="wrap">
     <div class="contact-head">
-      <span class="eyebrow">Available for Commissions</span>
+      <span class="bracket-eyebrow">Available for Commissions</span>
       <h2>Let's Build<br><em>Something.</em></h2>
       <div class="contact-links">
         <a href="mailto:hello@adewoye.works" class="cta-pill">hello@adewoye.works</a>
@@ -412,7 +620,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <span>© 2026 Daniel Adewoye — Lagos, Nigeria</span>
+      <span>© 2026 Daniel Adewoye — Creative Director &amp; Filmmaker · Lagos, Nigeria</span>
       <span>Prototype build — content managed via CMS in production</span>
     </div>
   </div>
@@ -429,64 +637,73 @@
 const ROLES = [
   {key:'all', label:'All Work'},
   {key:'director', label:'Directed'},
-  {key:'dp', label:'Cinematography'},
-  {key:'cd', label:'Creative Direction'},
+  {key:'architect', label:'Visual Architect'},
+  {key:'strategy', label:'Brand & Creative Strategy'},
   {key:'photo', label:'Photography'},
-  {key:'editor', label:'Editing'},
+  {key:'dp', label:'Cinematography'},
+  {key:'ytp', label:'YouTube Show Producer'},
+  {key:'colorist', label:'Colorist'},
+  {key:'editor', label:'Editor'},
+  {key:'doc', label:'Documentaries'},
 ];
-const ROLE_TAG = {director:'DIR', dp:'DP', cd:'CD', photo:'PH', editor:'ED'};
-const ROLE_NAME = {director:'Director', dp:'Cinematographer', cd:'Creative Director', photo:'Photographer', editor:'Editor'};
+const ROLE_TAG = {director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:'DP', ytp:'YTP', colorist:'COL', editor:'ED', doc:'DOC'};
+const ROLE_NAME = {director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Show Producer', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
 
 const PROJECTS = [
-  {id:1, title:'Dixtro — Commercial Showreel', client:'Dixtro', year:'2024', cat:'Commercial', roles:['director','dp'], grade:'g1',
+  {id:1, title:'Dixtro — Commercial Showreel', client:'Dixtro', year:'2024', cat:'Commercial', roles:['director','dp','colorist'], grade:'g1',
    overview:'A showreel built from three years of brand commercial work for Dixtro — spots for KFC, Guinness and 1xBet cut into a single reel that sets tone before craft.',
-   credits:[['Director','Daniel Adewoye'],['Cinematographer','Daniel Adewoye'],['Editor','Dixtro Team'],['Client','Dixtro / Multiple Brands']]},
-  {id:2, title:'3 Cold Dishes', client:'Asurf Films', year:'2023', cat:'Feature Film', roles:['director','dp'], grade:'g2',
+   credits:[['Director','Daniel Adewoye'],['Cinematographer','Daniel Adewoye'],['Colorist','Daniel Adewoye'],['Client','Dixtro / Multiple Brands']]},
+  {id:2, title:'3 Cold Dishes', client:'Asurf Films', year:'2023', cat:'Feature Film / Documentary', roles:['director','dp','doc'], grade:'g2',
    overview:'Feature film shot across Cotonou, Lagos and Abidjan. Served as BTS Head of Department, overseeing behind-the-scenes coverage and unit cinematography.',
    credits:[['Director / DP','Daniel Adewoye'],['Production Company','Asurf Films Ltd'],['Locations','Cotonou · Lagos · Abidjan'],['Year','2023']]},
-  {id:3, title:'Glitch Africa Original Shows', client:'Glitch Africa', year:'2025', cat:'Documentary Series', roles:['cd'], grade:'g3',
-   overview:'Led visual identity and creative direction across original shows, editorial publishing, live sessions and partner-led productions — supervising cinematographers, photographers, editors and designers.',
-   credits:[['Creative Director','Daniel Adewoye'],['Studio','Glitch Africa'],['Scope','Original Shows / Editorial / Live Sessions'],['Year','2025']]},
-  {id:4, title:'Cruise — Show Branding & Post Language', client:'Cruise', year:'2024', cat:'Design & Motion', roles:['cd','editor'], grade:'g4',
-   overview:'Crafted the post-production language of the brand — pacing, tone and the emotional rhythm that defines how stories land. Designed show logos, title sequences and intro montages.',
-   credits:[['Creative Director','Daniel Adewoye'],['Editor','Daniel Adewoye'],['Client','Cruise'],['Year','2024–2025']]},
-  {id:5, title:'GVest App Launch Campaign', client:'GVest', year:'2023', cat:'Campaign', roles:['cd','director'], grade:'g5',
+  {id:3, title:'Glitch Africa Original Shows', client:'Glitch Africa', year:'2025', cat:'Documentary Series', roles:['architect','doc'], grade:'g3',
+   overview:'Led visual identity across original shows, editorial publishing, live sessions and partner-led productions — supervising cinematographers, photographers, editors and designers.',
+   credits:[['Visual Architect','Daniel Adewoye'],['Studio','Glitch Africa'],['Scope','Original Shows / Editorial / Live Sessions'],['Year','2025']]},
+  {id:4, title:'Cruise — Show Branding & Post Language', client:'Cruise', year:'2024', cat:'Design & Motion', roles:['architect','editor','colorist'], grade:'g4',
+   overview:'Crafted the post-production language of the brand — pacing, tone, grade and the emotional rhythm that defines how stories land. Designed show logos and title sequences.',
+   credits:[['Visual Architect','Daniel Adewoye'],['Editor / Colorist','Daniel Adewoye'],['Client','Cruise'],['Year','2024–2025']]},
+  {id:5, title:'GVest App Launch Campaign', client:'GVest', year:'2023', cat:'Campaign', roles:['architect','director','strategy'], grade:'g5',
    overview:'Spearheaded creative strategy and execution for the GVest app launch campaign — writing and producing commercials and promotional content that drove 10,000 sign-ups in phase one.',
-   credits:[['Creative Director','Daniel Adewoye'],['Director','Daniel Adewoye'],['Result','10,000 sign-ups'],['Year','2023']]},
-  {id:6, title:"Africa's Global Real Estate Wealth Festival", client:'Gtext Holdings', year:'2022', cat:'Cultural Campaign', roles:['cd'], grade:'g6',
+   credits:[['Brand & Creative Strategist','Daniel Adewoye'],['Director','Daniel Adewoye'],['Result','10,000 sign-ups'],['Year','2023']]},
+  {id:6, title:"Africa's Global Real Estate Wealth Festival", client:'Gtext Holdings', year:'2022', cat:'Cultural Campaign', roles:['architect','strategy'], grade:'g6',
    overview:"Africa's first Global Real Estate Wealth Festival featuring Robert Kiyosaki, Grant Cardone, Ryan Serhant and John Maxwell — over 5,000 physical and 20,000+ virtual attendees.",
-   credits:[['Creative Director','Daniel Adewoye'],['Client','Gtext Holdings'],['Attendance','5,000 physical / 20,000+ virtual'],['Year','2022']]},
+   credits:[['Visual Architect','Daniel Adewoye'],['Client','Gtext Holdings'],['Attendance','5,000 physical / 20,000+ virtual'],['Year','2022']]},
   {id:7, title:'Artist Visual Collaborations', client:'Dixtro', year:'2020–Present', cat:'Music Video', roles:['director','dp','photo'], grade:'g7',
    overview:'Ongoing collaborations with recording artists across music video direction, cinematography and cover art photography.',
    credits:[['Director / DP','Daniel Adewoye'],['Photographer','Daniel Adewoye'],['Client','Dixtro'],['Timeline','2020–Present']]},
-  {id:8, title:'Elite Holdings — Complete Rebrand', client:'Elite Holdings', year:'2024', cat:'Brand Identity', roles:['cd','editor'], grade:'g8',
-   overview:'Full rebrand across four subsidiaries — identity system, motion guidelines and launch assets.',
-   credits:[['Creative Director','Daniel Adewoye'],['Editor','Daniel Adewoye'],['Subsidiaries','4'],['Year','2024']]},
+  {id:8, title:'Elite Holdings — Complete Rebrand', client:'Elite Holdings', year:'2024', cat:'Brand Identity', roles:['architect','strategy'], grade:'g8',
+   overview:'Full rebrand across four subsidiaries — identity system, brand strategy, motion guidelines and launch assets.',
+   credits:[['Visual Architect','Daniel Adewoye'],['Strategist','Daniel Adewoye'],['Subsidiaries','4'],['Year','2024']]},
   {id:9, title:'Editorial Artist Sessions', client:'Glitch Africa', year:'2025', cat:'Photography', roles:['photo'], grade:'g9',
    overview:'Editorial photography from live artist sessions — portraiture and set coverage for digital publishing.',
    credits:[['Photographer','Daniel Adewoye'],['Client','Glitch Africa'],['Format','Editorial Stills'],['Year','2025']]},
-  {id:10, title:'Gtext Holdings — 4-Season TV Show', client:'Gtext Holdings', year:'2021–2023', cat:'TV Co-Production', roles:['cd','editor'], grade:'g1',
-   overview:'Creative direction and editing across a four-season TV co-production reaching 3M+ weekly views.',
-   credits:[['Creative Director','Daniel Adewoye'],['Editor','Daniel Adewoye'],['Reach','3M+ weekly views'],['Seasons','4']]},
-  {id:11, title:'Motion Graphics & Title Sequences', client:'Dixtro / Cruise', year:'2024', cat:'Design & Motion', roles:['editor','cd'], grade:'g4',
-   overview:'Show logos, title sequences and motion identity built in After Effects across multiple client shows.',
-   credits:[['Motion Designer','Daniel Adewoye'],['Creative Director','Daniel Adewoye'],['Tools','After Effects'],['Year','2024–2025']]},
-  {id:12, title:'Nguvu Health — Screen Animations', client:'Nguvu Health', year:'2022', cat:'Motion Marketing', roles:['editor','cd'], grade:'g6',
-   overview:'Screen animations and marketing motion supporting a health-tech launch that reached 7,000+ users and secured $15k pre-seed funding.',
-   credits:[['Creative Director','Daniel Adewoye'],['Client','Nguvu Health'],['Result','7,000+ users / $15k pre-seed'],['Year','2022']]},
+  {id:10, title:'Gtext Holdings — 4-Season TV Show', client:'Gtext Holdings', year:'2021–2023', cat:'TV Co-Production', roles:['architect','ytp'], grade:'g1',
+   overview:'Creative direction and YouTube show production across a four-season TV co-production reaching 3M+ weekly views.',
+   credits:[['Visual Architect','Daniel Adewoye'],['YouTube Show Producer','Daniel Adewoye'],['Reach','3M+ weekly views'],['Seasons','4']]},
+  {id:11, title:'Motion Graphics & Title Sequences', client:'Dixtro / Cruise', year:'2024', cat:'Design & Motion', roles:['editor','architect'], grade:'g4',
+   overview:'Show logos, title sequences and motion identity built for long-form YouTube content across multiple client shows.',
+   credits:[['Editor','Daniel Adewoye'],['Visual Architect','Daniel Adewoye'],['Tools','After Effects'],['Year','2024–2025']]},
+  {id:12, title:'Nguvu Health — Screen Animations', client:'Nguvu Health', year:'2022', cat:'Motion Marketing', roles:['strategy','architect'], grade:'g6',
+   overview:'Brand strategy and screen animations supporting a health-tech launch that reached 7,000+ users and secured $15k pre-seed funding.',
+   credits:[['Brand & Creative Strategist','Daniel Adewoye'],['Client','Nguvu Health'],['Result','7,000+ users / $15k pre-seed'],['Year','2022']]},
+  {id:13, title:'Base Uncut — Channel Launch Series', client:'Base Uncut', year:'2026', cat:'YouTube Series', roles:['architect','ytp','strategy'], grade:'g3',
+   overview:'Visual architecture, brand strategy and YouTube show production for the launch slate of Base Uncut, TS Studios\' content imprint.',
+   credits:[['Visual Architect','Daniel Adewoye'],['YouTube Show Producer','Daniel Adewoye'],['Studio','TS Studios / Base Uncut'],['Year','2026']]},
 ];
 
 const STORE_ITEMS = [
-  {type:'LUT Pack', title:'Editorial Grade LUTs — Vol. 1', price:'$29'},
-  {type:'PowerGrade', title:'Cinematic Skin Tones PowerGrade', price:'$45'},
-  {type:'Editing Preset', title:'Documentary Cut Preset Pack', price:'$19'},
-  {type:'Motion Template', title:'Title Sequence Template Kit', price:'$39'},
-  {type:'Lightroom Preset', title:'Editorial Portrait Preset Set', price:'$15'},
-  {type:'Prompt Pack', title:'AI Pre-Vis Prompt Pack', price:'$12'},
-  {type:'Digital Guide', title:'Directing on a Brand Budget — Guide', price:'$25'},
-  {type:'Course', title:'Commercial Cinematography Masterclass', price:'$149'},
-  {type:'Workshop', title:'Lagos On-Set Workshop — Ticket', price:'$79'},
-  {type:'Course', title:'Creative Direction for Brands', price:'$129'},
+  {type:'Template', title:'Film & Brand Treatment Template', price:'$25', image:'', link:'#'},
+  {type:'Motion Pack', title:'Motion Title Pack', price:'$35', image:'', link:'#'},
+  {type:'Template', title:'Call Sheet & Budget Template', price:'$20', image:'', link:'#'},
+  {type:'Template', title:'Event Production Template', price:'$25', image:'', link:'#'},
+  {type:'Guide', title:'Gear List — Beginner & Intermediate', price:'$15', image:'', link:'#'},
+  {type:'Guide', title:"Director's Guide", price:'$29', image:'', link:'#'},
+];
+
+const TESTIMONIALS = [
+  {rating:'4.9', name:'Ruth', role:'Content Creator', quote:'Brought our vision to life in ways we never imagined — every detail handled with creativity and professionalism, exceeding expectations.'},
+  {rating:'4.8', name:'Daniel', role:'Business Owner', quote:"His storytelling ability is exceptional — turned a simple idea into a visually stunning production that connected emotionally with our audience."},
+  {rating:'4.8', name:'Chioma', role:'Brand Marketing Lead', quote:'Attention to detail and cinematic quality helped us create content that truly stood out from every competitor in the space.'},
 ];
 
 const JOURNAL_POSTS = [
@@ -497,6 +714,17 @@ const JOURNAL_POSTS = [
 
 /* ---------------- RENDER: FILTER TRACK ---------------- */
 const track = document.getElementById('filterTrack');
+const tlScroll = document.getElementById('tlScroll');
+const tlLeft = document.getElementById('tlLeft');
+const tlRight = document.getElementById('tlRight');
+function updateArrows(){
+  tlLeft.disabled = tlScroll.scrollLeft <= 2;
+  tlRight.disabled = tlScroll.scrollLeft >= tlScroll.scrollWidth - tlScroll.clientWidth - 2;
+}
+tlLeft.addEventListener('click', ()=>tlScroll.scrollBy({left:-240, behavior:'smooth'}));
+tlRight.addEventListener('click', ()=>tlScroll.scrollBy({left:240, behavior:'smooth'}));
+tlScroll.addEventListener('scroll', updateArrows);
+window.addEventListener('resize', updateArrows);
 let activeRole = 'all';
 ROLES.forEach(r=>{
   const count = r.key==='all' ? PROJECTS.length : PROJECTS.filter(p=>p.roles.includes(r.key)).length;
@@ -513,6 +741,7 @@ ROLES.forEach(r=>{
   });
   track.appendChild(el);
 });
+updateArrows();
 
 function updateReadout(){
   const label = ROLES.find(r=>r.key===activeRole).label;
@@ -526,17 +755,27 @@ function renderWork(){
   const grid = document.getElementById('workGrid');
   grid.innerHTML = '';
   const filtered = activeRole==='all' ? PROJECTS : PROJECTS.filter(p=>p.roles.includes(activeRole));
-  filtered.slice(0, visibleCount).forEach(p=>{
-    grid.appendChild(projectCard(p));
-  });
+  filtered.slice(0, visibleCount).forEach(p=>{ grid.appendChild(projectCard(p)); });
   document.getElementById('loadMoreBtn').style.display = filtered.length > visibleCount ? 'block' : 'none';
+}
+function mediaHTML(p, autoplayAlways){
+  // ============================================
+  // PROJECT THUMBNAILS — add a `video:'yourfile.mp4'`
+  // field to any project in the PROJECTS array above.
+  // If it's set, a real looping preview renders here.
+  // If left blank, the gradient placeholder shows instead.
+  // ============================================
+  if(p.video){
+    return `<video class="grade" src="${p.video}" muted loop playsinline ${autoplayAlways ? 'autoplay' : ''}></video>`;
+  }
+  return `<div class="grade ${p.grade}"></div>`;
 }
 function projectCard(p){
   const card = document.createElement('div');
   card.className = 'proj-card';
   card.innerHTML = `
     <div class="proj-media">
-      <div class="grade ${p.grade}"></div>
+      ${mediaHTML(p, false)}
       <div class="scan"></div>
       <div class="badges">${p.roles.map(r=>`<span class="badge">${ROLE_TAG[r]}</span>`).join('')}</div>
       <div class="play-hint">▶</div>
@@ -546,13 +785,15 @@ function projectCard(p){
         <div class="meta">${p.client} — ${p.year}</div>
       </div>
     </div>`;
+  const vid = card.querySelector('video.grade');
+  if(vid){
+    card.addEventListener('mouseenter', ()=>vid.play());
+    card.addEventListener('mouseleave', ()=>{ vid.pause(); vid.currentTime = 0; });
+  }
   card.addEventListener('click', ()=>openModal(p.id));
   return card;
 }
-document.getElementById('loadMoreBtn').addEventListener('click', ()=>{
-  visibleCount += 6;
-  renderWork();
-});
+document.getElementById('loadMoreBtn').addEventListener('click', ()=>{ visibleCount += 6; renderWork(); });
 renderWork();
 updateReadout();
 
@@ -561,13 +802,57 @@ const storeGrid = document.getElementById('storeGrid');
 STORE_ITEMS.forEach(item=>{
   const el = document.createElement('div');
   el.className = 'store-card';
+  const thumbInner = item.image
+    ? `<img src="${item.image}" alt="${item.title} mockup">`
+    : `<span class="thumb-placeholder">Product PNG<br>Mockup Goes Here</span>`;
   el.innerHTML = `
-    <div>
+    <div class="store-thumb">${thumbInner}</div>
+    <div class="store-body">
       <span class="type">${item.type}</span>
       <h4>${item.title}</h4>
-    </div>
-    <div class="price"><span>${item.price}</span><span>View →</span></div>`;
+      <div class="price-row">
+        <span class="price">${item.price}</span>
+        <a class="buy-btn" href="${item.link}" target="_blank" rel="noopener">Buy →</a>
+      </div>
+    </div>`;
   storeGrid.appendChild(el);
+});
+
+/* ---------------- RENDER: TESTIMONIALS ---------------- */
+const testGrid = document.getElementById('testGrid');
+TESTIMONIALS.forEach(t=>{
+  const el = document.createElement('div');
+  el.className = 'test-card';
+  el.innerHTML = `<div class="rating">${t.rating}<small>/5</small></div><p>"${t.quote}"</p><div class="who">${t.name}</div><div class="role">${t.role}</div>`;
+  testGrid.appendChild(el);
+});
+
+/* ---------------- RENDER: CREATORS GALLERY ---------------- */
+// Add each collaborator here — set `image` to their photo URL.
+// Leave image blank and a placeholder circle shows instead.
+const CREATORS = [
+  {name:'Shank Comics', image:''},
+  {name:'Harmony', image:''},
+  {name:'Dunnie', image:''},
+  {name:'Korede Bello', image:''},
+  {name:'Ibidunni Oladayo', image:''},
+  {name:'Kenny Blaq', image:''},
+  {name:'Snappcode', image:''},
+  {name:'Syntiat', image:''},
+  {name:'Laycon', image:''},
+  {name:'Dr. Stephen Akintayo', image:''},
+  {name:'Asurf Oluseyi', image:''},
+  {name:'Cheff Gibbs', image:''},
+  {name:'MostBooked', image:''},
+  {name:'Soul', image:''},
+];
+const creatorsTrack = document.getElementById('creatorsTrack');
+[...CREATORS, ...CREATORS].forEach(c=>{ // duplicated for a seamless continuous float
+  const el = document.createElement('div');
+  el.className = 'creator-avatar';
+  const inner = c.image ? `<img src="${c.image}" alt="${c.name}">` : `<div class="cplaceholder">Add<br>Photo</div>`;
+  el.innerHTML = `${inner}<div class="name-overlay">${c.name}</div>`;
+  creatorsTrack.appendChild(el);
 });
 
 /* ---------------- RENDER: JOURNAL ---------------- */
@@ -591,19 +876,13 @@ function openModal(id){
   const p = PROJECTS.find(x=>x.id===id);
   const related = PROJECTS.filter(x=>x.id!==id && x.roles.some(r=>p.roles.includes(r))).slice(0,3);
   modalBox.innerHTML = `
-    <div class="modal-hero"><div class="grade ${p.grade}"></div></div>
+    <div class="modal-hero">${mediaHTML(p, true)}</div>
     <span class="modal-eyebrow">${p.cat}</span>
     <h2>${p.title}</h2>
     <div class="modal-grid">
       <div>
-        <div class="meta-item" style="margin-bottom:26px;">
-          <div class="k">Overview</div>
-          <p>${p.overview}</p>
-        </div>
-        <div class="meta-item">
-          <div class="k">Credits</div>
-          <ul class="credits-list">${p.credits.map(c=>`<li><span>${c[0]}</span><b>${c[1]}</b></li>`).join('')}</ul>
-        </div>
+        <div class="meta-item" style="margin-bottom:26px;"><div class="k">Overview</div><p>${p.overview}</p></div>
+        <div class="meta-item"><div class="k">Credits</div><ul class="credits-list">${p.credits.map(c=>`<li><span>${c[0]}</span><b>${c[1]}</b></li>`).join('')}</ul></div>
       </div>
       <div class="meta-list">
         <div class="meta-item"><div class="k">Client</div><div class="v">${p.client}</div></div>
@@ -620,7 +899,7 @@ function openModal(id){
     <div class="meta-item" style="margin-bottom:20px;"><div class="k">Related Projects</div></div>
     <div class="related-row">${related.map(r=>`
       <div class="related-card" onclick="openModal(${r.id})">
-        <div class="proj-media"><div class="grade ${r.grade}"></div></div>
+        <div class="proj-media">${mediaHTML(r, false)}</div>
         <span class="cat">${r.cat}</span>
         <h4>${r.title}</h4>
       </div>`).join('')}</div>
@@ -631,10 +910,7 @@ function openModal(id){
 }
 document.getElementById('modalClose').addEventListener('click', closeModal);
 overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
-function closeModal(){
-  overlay.classList.remove('open');
-  document.body.style.overflow = '';
-}
+function closeModal(){ overlay.classList.remove('open'); document.body.style.overflow = ''; }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 
 /* ---------------- SCROLL REVEAL ---------------- */
@@ -650,9 +926,7 @@ const sections = ['work','store','journal','about','contact'].map(id=>document.g
 window.addEventListener('scroll', ()=>{
   let current = '';
   sections.forEach(sec=>{ if(sec && window.scrollY >= sec.offsetTop - 200) current = sec.id; });
-  navLinks.forEach(l=>{
-    l.classList.toggle('active', l.getAttribute('href') === '#'+current);
-  });
+  navLinks.forEach(l=>{ l.classList.toggle('active', l.getAttribute('href') === '#'+current); });
 });
 </script>
 </body>
