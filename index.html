@@ -519,7 +519,7 @@
       <span class="skill-chip">Cinematography</span>
       <span class="skill-chip">Colorist</span>
       <span class="skill-chip">Editor</span>
-      <span class="skill-chip">YouTube Show Producer</span>
+      <span class="skill-chip">YouTube Shows</span>
       <span class="skill-chip">Documentaries</span>
     </div>
   </div>
@@ -670,9 +670,11 @@ const ROLE_TAG = {director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:
 const ROLE_NAME = {director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Show Producer', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
 
 const PROJECTS = [
-  {id:1, title:'Cardtonic x Jago', client:'Cardtonic', year:'2026', cat:'Brand Film', roles:['director'], grade:'g1',
-   overview:'A showreel built from three years of brand commercial work for Dixtro — spots for KFC, Guinness and 1xBet cut into a single reel that sets tone before craft.',
-   credits:[['Director','Daniel Adewoye'],['Cinematographer','Daniel Adewoye'],['Colorist','Daniel Adewoye'],['Client','Dixtro / Multiple Brands']]},
+  {id:1, title:'Cardtonic x Jago', client:'Cardtonic', year:'2026', cat:'Brand Ambassadorship', roles:['director'], grade:'g5',
+   video:'https://res.cloudinary.com/tgy6ic5m/video/upload/v1784105144/jago_snippet_hut5tg.mp4',
+   youtube:'kQwpI6L9qNo',
+   overview:'A multi-million naira brand ambassadorship deal between leading African fintech platform Cardtonic and Nigerian lifestyle icon Rahman Jago — spotlighting a modern global lifestyle across fashion, travel and seamless cross-border living. Cardtonic lets users convert unused gift cards to cash, buy local and international gift cards, access virtual dollar cards, and manage bill payments globally.',
+   credits:[['Director','Daniel Adewoye'],['Client','Cardtonic'],['Talent','Rahman Jago'],['Year','2026']]},
   {id:2, title:'3 Cold Dishes', client:'Asurf Films', year:'2023', cat:'Feature Film / Documentary', roles:['director','dp','doc'], grade:'g2',
    overview:'Feature film shot across Cotonou, Lagos and Abidjan. Served as BTS Head of Department, overseeing behind-the-scenes coverage and unit cinematography.',
    credits:[['Director / DP','Daniel Adewoye'],['Production Company','Asurf Films Ltd'],['Locations','Cotonou · Lagos · Abidjan'],['Year','2023']]},
@@ -779,16 +781,16 @@ function renderWork(){
   document.getElementById('loadMoreBtn').style.display = filtered.length > visibleCount ? 'block' : 'none';
 }
 function mediaHTML(p, autoplayAlways){
-  // ============================================
-  // PROJECT THUMBNAILS — add a `video:'yourfile.mp4'`
-  // field to any project in the PROJECTS array above.
-  // If it's set, a real looping preview renders here.
-  // If left blank, the gradient placeholder shows instead.
-  // ============================================
   if(p.video){
     return `<video class="grade" src="${p.video}" muted loop playsinline ${autoplayAlways ? 'autoplay' : ''}></video>`;
   }
   return `<div class="grade ${p.grade}"></div>`;
+}
+function modalHeroHTML(p){
+  if(p.youtube){
+    return `<iframe src="https://www.youtube.com/embed/${p.youtube}?rel=0&modestbranding=1" title="${p.title}" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen style="width:100%;height:100%;"></iframe>`;
+  }
+  return mediaHTML(p, true);
 }
 function projectCard(p){
   const card = document.createElement('div');
@@ -896,7 +898,7 @@ function openModal(id){
   const p = PROJECTS.find(x=>x.id===id);
   const related = PROJECTS.filter(x=>x.id!==id && x.roles.some(r=>p.roles.includes(r))).slice(0,3);
   modalBox.innerHTML = `
-    <div class="modal-hero">${mediaHTML(p, true)}</div>
+   <div class="modal-hero">${modalHeroHTML(p)}</div>
     <span class="modal-eyebrow">${p.cat}</span>
     <h2>${p.title}</h2>
     <div class="modal-grid">
