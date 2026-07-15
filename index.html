@@ -670,14 +670,16 @@ const ROLE_TAG = {director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:
 const ROLE_NAME = {director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Show Producer', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
 
 const PROJECTS = [
-  {id:1, title:'Cardtonic x Jago', client:'Cardtonic', year:'2026', cat:'Brand Ambassadorship', roles:['director'], grade:'g5',
+  {id:1, title:'Cardtonic x Jago', client:'Cardtonic', year:'2026', cat:'Brand Film', roles:['director'], grade:'g5',
    video:'https://res.cloudinary.com/tgy6ic5m/video/upload/v1784105144/jago_snippet_hut5tg.mp4',
    youtube:'kQwpI6L9qNo',
    overview:'A multi-million naira brand ambassadorship deal between leading African fintech platform Cardtonic and Nigerian lifestyle icon Rahman Jago — spotlighting a modern global lifestyle across fashion, travel and seamless cross-border living. Cardtonic lets users convert unused gift cards to cash, buy local and international gift cards, access virtual dollar cards, and manage bill payments globally.',
-   credits:[['Director','Daniel Adewoye'],['Client','Cardtonic'],['Talent','Rahman Jago'],['Year','2026']]},
-  {id:2, title:'3 Cold Dishes', client:'Asurf Films', year:'2023', cat:'Feature Film / Documentary', roles:['director','dp','doc'], grade:'g2',
-   overview:'Feature film shot across Cotonou, Lagos and Abidjan. Served as BTS Head of Department, overseeing behind-the-scenes coverage and unit cinematography.',
-   credits:[['Director / DP','Daniel Adewoye'],['Production Company','Asurf Films Ltd'],['Locations','Cotonou · Lagos · Abidjan'],['Year','2023']]},
+   credits:[['Director','Daniel Adewoye'],['Agency','Sol6 Africa'],['Talent','Rahman Jago'],['Year','2026']]},
+  {id:2, title:'KFC CARES, KFC FEEDS DREAMS', client:'KFC NIGERIA', year:'2025', cat:'Documentary', roles:['director', 'colorist',], grade:'g5',
+   video:'https://res.cloudinary.com/tgy6ic5m/video/upload/v1784111375/kFC_snippet_upyhn0.mp4',
+   youtube:'NKgRy_P_bDg',
+   overview:"A human-centered film for KFC's Feeds Dreams campaign, spotlighting the team at KFC's inclusive Surulere restaurant — celebrating inclusion, representation, and everyone's right to be seen and valued."',
+   credits:[['Director','Daniel Adewoye'],['Agency','DMTCA'],['Production Company','Dixtro Inc.'],['Year','2025']]},
   {id:3, title:'Glitch Africa Original Shows', client:'Glitch Africa', year:'2025', cat:'Documentary Series', roles:['architect','doc'], grade:'g3',
    overview:'Led visual identity across original shows, editorial publishing, live sessions and partner-led productions — supervising cinematographers, photographers, editors and designers.',
    credits:[['Visual Architect','Daniel Adewoye'],['Studio','Glitch Africa'],['Scope','Original Shows / Editorial / Live Sessions'],['Year','2025']]},
@@ -807,11 +809,7 @@ function projectCard(p){
         <div class="meta">${p.client} — ${p.year}</div>
       </div>
     </div>`;
-  const vid = card.querySelector('video.grade');
-  if(vid){
-    card.addEventListener('mouseenter', ()=>vid.play());
-    card.addEventListener('mouseleave', ()=>{ vid.pause(); vid.currentTime = 0; });
-  }
+  
   card.addEventListener('click', ()=>openModal(p.id));
   return card;
 }
