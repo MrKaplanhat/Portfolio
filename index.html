@@ -799,7 +799,7 @@ function projectCard(p){
   card.className = 'proj-card';
   card.innerHTML = `
     <div class="proj-media">
-      ${mediaHTML(p, false)}
+     ${mediaHTML(p, true)}
       <div class="scan"></div>
       <div class="badges">${p.roles.map(r=>`<span class="badge">${ROLE_TAG[r]}</span>`).join('')}</div>
       <div class="play-hint">▶</div>
@@ -809,7 +809,8 @@ function projectCard(p){
         <div class="meta">${p.client} — ${p.year}</div>
       </div>
     </div>`;
-  
+const vid = card.querySelector('video.grade');
+  if(vid){ vid.muted = true; vid.play().catch(()=>{}); }
   card.addEventListener('click', ()=>openModal(p.id));
   return card;
 }
