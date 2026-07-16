@@ -65,7 +65,7 @@
     transform:scaleX(0); transform-origin:right; transition:transform .3s ease;
   }
   nav.primary a:not(.cta-pill):hover::after, nav.primary a.active::after{transform:scaleX(1); transform-origin:left;}
-  .skill-chip-row{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px;}
+  .skill-chip-row{display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:18px;}
   .skill-chip{
     font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.04em; text-transform:uppercase;
     padding:9px 16px; border:1px solid var(--line-strong); color:var(--muted); transition:.25s;
@@ -329,28 +329,39 @@
   .test-card .who{font-size:13.5px; font-weight:500;}
   .test-card .role{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.06em; margin-top:3px;}
 
-  /* ---------- CREATORS GALLERY ---------- */
-  .creators{border-bottom:1px solid var(--line);}
-  .creators-track-wrap{overflow:hidden; padding:10px 0 6px;}
-  .creators-track{display:flex; gap:34px; width:max-content; animation:scroll-x 96s linear infinite;}
-  .creator-avatar{
-    position:relative; width:120px; height:120px; border-radius:50%; overflow:hidden;
-    border:1px solid var(--line-strong); flex:0 0 auto; transition:border-color .25s;
+  /* ---------- BTS GALLERY ---------- */
+  .bts-gallery{border-bottom:1px solid var(--line);}
+  .bts-track-wrap{overflow:hidden; padding:10px 0 6px;}
+  .bts-track{display:flex; gap:18px; width:max-content; animation:scroll-x 70s linear infinite;}
+  .bts-photo{
+    position:relative; width:220px; height:140px; overflow:hidden;
+    border:1px solid var(--line-strong); flex:0 0 auto; background:var(--bg-elev);
   }
-  .creator-avatar:hover{border-color:var(--gold);}
-  .creator-avatar img{width:100%; height:100%; object-fit:cover; display:block; transition:opacity .3s;}
-  .creator-avatar .cplaceholder{
+  .bts-photo img{width:100%; height:100%; object-fit:cover; display:block;}
+  .bts-photo .cplaceholder{
     width:100%; height:100%; display:flex; align-items:center; justify-content:center;
-    background:var(--bg-elev); font-family:'JetBrains Mono',monospace; font-size:9px;
-    color:var(--muted-2); text-align:center; padding:6px; text-transform:uppercase; transition:opacity .3s;
+    font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted-2);
+    text-align:center; padding:6px; text-transform:uppercase;
   }
-  .creator-avatar .name-overlay{
-    position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
-    padding:6px; opacity:0; transition:opacity .3s; background:rgba(11,11,12,0.6);
-    font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; letter-spacing:0.03em;
+
+  /* ---------- BRANDS I'VE WORKED WITH ---------- */
+  .brands{border-bottom:1px solid var(--line);}
+  .brands-track-wrap{overflow:hidden; padding:10px 0 6px;}
+  .brands-track{display:flex; gap:34px; width:max-content; animation:scroll-x 96s linear infinite;}
+  .brand-logo{
+    position:relative; width:150px; height:90px; display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line-strong); flex:0 0 auto; transition:border-color .25s; background:var(--bg-elev);
   }
-  .creator-avatar:hover img, .creator-avatar:hover .cplaceholder{opacity:0.3;}
-  .creator-avatar:hover .name-overlay{opacity:1;}
+  .brand-logo:hover{border-color:var(--gold);}
+  .brand-logo img{
+    max-width:70%; max-height:60%; object-fit:contain; display:block;
+    filter:grayscale(1) brightness(1.6); opacity:0.6; transition:filter .3s, opacity .3s;
+  }
+  .brand-logo:hover img{filter:grayscale(0) brightness(1); opacity:1;}
+  .brand-logo .cplaceholder{
+    font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted-2);
+    text-align:center; padding:6px; text-transform:uppercase;
+  }
 
   /* ---------- JOURNAL ---------- */
   .journal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px;}
@@ -479,13 +490,13 @@
   </div>
 </section>
 
-/*<!-- AWARDS STRIP -->
-<div class="awards-strip">
+<!-- AWARDS STRIP -->
+<div class="awards-strip" style="display:none;">
   <div class="wrap awards-row">
     <div class="award-item"><span class="x">1x</span><span class="t">Rising Star Award<br>TekartCon Filmmaking, 2023</span></div>
     <div class="award-item"><span class="x">1x</span><span class="t">Head of Department — BTS<br>3 Cold Dishes, Asurf Films</span></div>
     <div class="award-item"><span class="x">1x</span><span class="t">Tekart 100<br>TekArt Africa, 2022</span></div>
-    <div class="award-item"><span class="x">1x</span><span class="t">Mr Universe Africa<br>Qhue Concepts, 2018</span></div>*/
+    <div class="award-item"><span class="x">1x</span><span class="t">Mr Universe Africa<br>Qhue Concepts, 2018</span></div>
   </div>
 </div>
 
@@ -498,7 +509,7 @@
 </div>
 
 <!-- QUOTE -->
-<section class="quote-block">
+<section class="quote-block" style="display:none;">
   <div class="wrap">
     <blockquote>"Story doesn't wait for permission. It waits for craft."</blockquote>
     <cite>— Daniel Adewoye, Creative Director &amp; Filmmaker</cite>
@@ -509,9 +520,9 @@
 <section class="disciplines">
   <div class="wrap"><span class="bracket-eyebrow">Who I Am</span></div>
   <div class="disc-grid">
-    <div class="disc-card"><span class="disc-num">01</span><div><h3>Director</h3><p>Sets the shot, the story and the room.</p></div></div>
-    <div class="disc-card"><span class="disc-num">02</span><div><h3>Visual Architect</h3><p>Builds the look and system a brand lives in.</p></div></div>
-    <div class="disc-card"><span class="disc-num">03</span><div><h3>Brand &amp; Creative Strategist</h3><p>Turns a brief into a campaign that performs.</p></div></div>
+    <div class="disc-card"><span class="disc-num">01</span><div><h3>Director</h3><p>Sets the shot, the story and the room. Turns a script or a brief into footage that actually moves people — on set, in the edit, and in the final cut.</p></div></div>
+    <div class="disc-card"><span class="disc-num">02</span><div><h3>Visual Architect</h3><p>Builds the look and system a brand lives in — color, type, motion, tone — so every touchpoint feels like it came from the same hand.</p></div></div>
+    <div class="disc-card"><span class="disc-num">03</span><div><h3>Brand &amp; Creative Strategist</h3><p>Turns a brief into a campaign that performs. Connects the creative decisions to the business outcome they're actually meant to move.</p></div></div>
   </div>
   <div class="wrap">
     <div class="skill-chip-row">
@@ -559,7 +570,7 @@
 </section>
 
 <!-- TESTIMONIALS -->
-<section class="testimonials">
+<section class="testimonials" style="display:none;">
   <div class="wrap">
     <div class="section-head">
       <div><span class="bracket-eyebrow">Testimonials</span><h2>Client <em>Experience</em></h2></div>
@@ -569,14 +580,24 @@
   <div class="test-grid" id="testGrid"></div>
 </section>
 
-<!-- CREATORS GALLERY -->
-<section class="creators">
+<!-- BTS GALLERY -->
+<section class="bts-gallery">
   <div class="wrap">
-    <span class="bracket-eyebrow">Collaborators</span>
-    <h2 style="font-size:clamp(26px,3.5vw,38px); font-weight:400; margin-bottom:8px;">Creators I've <em>Worked With</em></h2>
-    <p class="section-desc" style="margin-bottom:30px;">Hover a face to see who's behind it.</p>
+    <span class="bracket-eyebrow">Behind The Scenes</span>
+    <h2 style="font-size:clamp(26px,3.5vw,38px); font-weight:400; margin-bottom:8px;">On <em>Set</em></h2>
+    <p class="section-desc" style="margin-bottom:30px;">A running scroll from set — more added as we shoot.</p>
   </div>
-  <div class="creators-track-wrap"><div class="creators-track" id="creatorsTrack"></div></div>
+  <div class="bts-track-wrap"><div class="bts-track" id="btsTrack"></div></div>
+</section>
+
+<!-- BRANDS I'VE WORKED WITH -->
+<section class="brands">
+  <div class="wrap">
+    <span class="bracket-eyebrow">Clients</span>
+    <h2 style="font-size:clamp(26px,3.5vw,38px); font-weight:400; margin-bottom:8px;">Brands I've <em>Worked With</em></h2>
+    <p class="section-desc" style="margin-bottom:30px;">Hover a logo to bring it to full color.</p>
+  </div>
+  <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
 </section>
 
 <!-- JOURNAL -->
@@ -851,32 +872,47 @@ TESTIMONIALS.forEach(t=>{
   testGrid.appendChild(el);
 });
 
-/* ---------------- RENDER: CREATORS GALLERY ---------------- */
-// Add each collaborator here — set `image` to their photo URL.
-// Leave image blank and a placeholder circle shows instead.
-const CREATORS = [
-  {name:'Shank Comics', image:''},
-  {name:'Harmony', image:''},
-  {name:'Dunnie', image:''},
-  {name:'Korede Bello', image:''},
-  {name:'Ibidunni Oladayo', image:''},
-  {name:'Kenny Blaq', image:''},
-  {name:'Snappcode', image:''},
-  {name:'Syntiat', image:''},
-  {name:'Laycon', image:''},
-  {name:'Dr. Stephen Akintayo', image:''},
-  {name:'Asurf Oluseyi', image:''},
-  {name:'Cheff Gibbs', image:''},
-  {name:'MostBooked', image:''},
-  {name:'Soul Yin', image:''},
+/* ---------------- RENDER: BTS GALLERY ---------------- */
+// Add each BTS photo here — set `image` to the photo URL.
+// Leave blank and a placeholder tile shows instead.
+const BTS_PHOTOS = [
+  {image:''}, {image:''}, {image:''}, {image:''},
+  {image:''}, {image:''}, {image:''}, {image:''},
 ];
-const creatorsTrack = document.getElementById('creatorsTrack');
-[...CREATORS, ...CREATORS].forEach(c=>{ // duplicated for a seamless continuous float
+const btsTrack = document.getElementById('btsTrack');
+[...BTS_PHOTOS, ...BTS_PHOTOS].forEach(b=>{ // duplicated for a seamless continuous float
   const el = document.createElement('div');
-  el.className = 'creator-avatar';
-  const inner = c.image ? `<img src="${c.image}" alt="${c.name}">` : `<div class="cplaceholder">Add<br>Photo</div>`;
-  el.innerHTML = `${inner}<div class="name-overlay">${c.name}</div>`;
-  creatorsTrack.appendChild(el);
+  el.className = 'bts-photo';
+  el.innerHTML = b.image ? `<img src="${b.image}" alt="Behind the scenes">` : `<div class="cplaceholder">Add<br>BTS Photo</div>`;
+  btsTrack.appendChild(el);
+});
+
+/* ---------------- RENDER: BRANDS I'VE WORKED WITH ---------------- */
+// Add each brand here — set `logo` to the logo image URL (PNG with
+// transparent background works best). Leave blank for a placeholder tile.
+const BRANDS = [
+  {name:'KFC', logo:''},
+  {name:'Guinness', logo:''},
+  {name:'Nestlé', logo:''},
+  {name:'Oppo', logo:''},
+  {name:'1xBet', logo:''},
+  {name:'Chipper Cash', logo:''},
+  {name:'Cardtonic', logo:''},
+  {name:'Breet', logo:''},
+  {name:'GetEquity', logo:''},
+  {name:'Sentz', logo:''},
+  {name:'Gtext Holdings', logo:''},
+  {name:'Elite Holdings', logo:''},
+  {name:'Cruise', logo:''},
+  {name:'Glitch Africa', logo:''},
+  {name:'Base Uncut', logo:''},
+];
+const brandsTrack = document.getElementById('brandsTrack');
+[...BRANDS, ...BRANDS].forEach(b=>{ // duplicated for a seamless continuous float
+  const el = document.createElement('div');
+  el.className = 'brand-logo';
+  el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}">` : `<div class="cplaceholder">${b.name}</div>`;
+  brandsTrack.appendChild(el);
 });
 
 /* ---------------- RENDER: JOURNAL ---------------- */
