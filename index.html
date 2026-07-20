@@ -332,9 +332,9 @@
   /* ---------- BTS GALLERY ---------- */
   .bts-gallery{border-bottom:1px solid var(--line);}
   .bts-track-wrap{overflow:hidden; padding:10px 0 6px;}
-  .bts-track{display:flex; gap:18px; width:max-content; animation:scroll-x 70s linear infinite;}
+  .bts-track{display:flex; gap:20px; width:max-content; animation:scroll-x 130s linear infinite;}
   .bts-photo{
-    position:relative; width:220px; height:140px; overflow:hidden;
+    position:relative; width:340px; height:220px; overflow:hidden;
     border:1px solid var(--line-strong); flex:0 0 auto; background:var(--bg-elev);
   }
   .bts-photo img{width:100%; height:100%; object-fit:cover; display:block;}
@@ -366,22 +366,33 @@
   /* ---------- JOURNAL ---------- */
   .journal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:40px;}
   @media(max-width:900px){.journal-grid{grid-template-columns:1fr; gap:36px;}}
-  .journal-card .thumb{aspect-ratio:16/10; background:var(--bg-elev); position:relative; overflow:hidden; margin-bottom:18px;}
+  .journal-card{display:block; cursor:pointer;}
+  .journal-card .thumb{aspect-ratio:16/10; background:var(--bg-elev); position:relative; overflow:hidden; margin-bottom:18px; border:1px solid var(--line);}
+  .journal-card .thumb img{width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease;}
+  .journal-card:hover .thumb img{transform:scale(1.05);}
+  .journal-card .thumb .cplaceholder{
+    width:100%; height:100%; display:flex; align-items:center; justify-content:center;
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2);
+    text-align:center; padding:10px; text-transform:uppercase; letter-spacing:0.04em;
+  }
   .journal-card .tag{font-family:'JetBrains Mono',monospace; font-size:10.5px; text-transform:uppercase; color:var(--gold); letter-spacing:0.08em;}
-  .journal-card h3{font-size:19px; font-weight:500; margin-top:10px; line-height:1.3;}
+  .journal-card h3{font-size:19px; font-weight:500; margin-top:10px; line-height:1.3; transition:color .2s;}
+  .journal-card:hover h3{color:var(--gold);}
   .journal-card .excerpt{color:var(--muted); font-size:13.5px; margin-top:10px; line-height:1.6;}
   .journal-card .date{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted-2); margin-top:14px;}
-
-  .substack-embed-wrap{width:100%;}
-  .substack-embed-wrap iframe{max-width:100%;}
+  .journal-loading{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2);
+    text-transform:uppercase; letter-spacing:0.06em; padding:20px 0; grid-column:1/-1;
+  }
 
   /* ---------- ABOUT ---------- */
-  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start;}
-  @media(max-width:860px){.about-grid{grid-template-columns:1fr; gap:40px;}}
-  .about-grid p{color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:20px;}
-  .stat-row{display:grid; grid-template-columns:repeat(2,1fr); gap:1px; background:var(--line); margin-top:10px;}
+  .about-stack{display:flex; flex-direction:column; gap:50px;}
+  .about-photo-wrap{display:flex; justify-content:center;}
+  .about-body p{color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:20px;}
+  .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line);}
+  @media(max-width:620px){.stat-row{grid-template-columns:repeat(2,1fr);}}
   .about-photo{
-    margin-top:1px; aspect-ratio:4/5; background:var(--bg-card); border:1px solid var(--line);
+    width:min(320px, 100%); aspect-ratio:4/5; background:var(--bg-card); border:1px solid var(--line);
     display:flex; align-items:center; justify-content:center; overflow:hidden;
   }
   .about-photo img{width:100%; height:100%; object-fit:cover;}
@@ -617,17 +628,30 @@
   <div class="wrap">
     <div class="section-head">
       <div><span class="bracket-eyebrow">Journal</span><h2>Notes From <em>Set</em></h2></div>
-      <p class="section-desc">Case studies, behind-the-scenes breakdowns, AI experiments and essays on the craft — posted straight from Substack, no manual updates needed.</p>
+      <p class="section-desc">Case studies, behind-the-scenes breakdowns, AI experiments and essays on the craft — pulled straight from Substack.</p>
     </div>
     <!-- ============================================
-         SUBSTACK EMBED — replace YOURPUBLICATION with
-         your Substack subdomain (the part before
-         .substack.com). This pulls your latest posts
-         live, so publishing on Substack updates this
-         section automatically.
+         JOURNAL — SETUP:
+         Shows your actual Substack posts as cards (title,
+         excerpt, date, thumbnail) with NO subscribe box —
+         just a link through to read the full post.
+
+         It pulls automatically from your public RSS feed
+         (SUBSTACK_URL + '/feed') via a free RSS-to-JSON
+         proxy, so publishing on Substack updates this grid
+         with no manual edits.
+
+         If that fetch ever fails (proxy downtime, rate
+         limit, etc.) it silently falls back to the
+         JOURNAL_FALLBACK array in the script below — edit
+         those entries with your real post titles/links/
+         images any time you want guaranteed content here.
          ============================================ -->
-    <div class="substack-embed-wrap">
-      <iframe src="https://lenslightmotion.substack.com/embed" width="100%" height="780" style="border:1px solid var(--line); background:var(--bg-elev);" frameborder="0" scrolling="auto"></iframe>
+    <div class="journal-grid" id="journalGrid">
+      <div class="journal-loading">Loading posts…</div>
+    </div>
+    <div class="load-more-row">
+      <a class="btn-outline" href="https://lenslightmotion.substack.com" target="_blank" rel="noopener noreferrer">Read More On Substack →</a>
     </div>
   </div>
 </section>
@@ -635,8 +659,21 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
-    <div class="about-grid">
-      <div>
+    <div class="about-stack">
+      <!-- ============================================
+           ABOUT PHOTO — replace the src below with a
+           photo of you (portrait works best, roughly
+           4:5 ratio). Just swap the URL, nothing else
+           needs to change.
+           ============================================ -->
+      <div class="about-photo-wrap">
+        <div class="about-photo">
+          <img src="" alt="Daniel Adewoye" style="display:none;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+          <div class="about-photo-placeholder">Add Your<br>Photo Here</div>
+        </div>
+      </div>
+
+      <div class="about-body">
         <span class="bracket-eyebrow">About</span>
         <h2 style="font-size:clamp(30px,4vw,44px); font-weight:400; margin-bottom:26px;">I build things that <em>outlive the shoot day</em>.</h2>
         <p>Daniel Adewoye is a creative director and filmmaker working at the intersection of story, culture and strategy — directing commercials, YouTube content and campaigns built to connect emotionally and perform in the real world.</p>
@@ -665,23 +702,12 @@
           </div>
         </div>
       </div>
-      <div>
-        <div class="stat-row">
-          <div class="stat"><div class="n">50+</div><div class="l">Projects Delivered</div></div>
-          <div class="stat"><div class="n">30+</div><div class="l">Brand Clients</div></div>
-          <div class="stat"><div class="n">8</div><div class="l">Years Experience</div></div>
-          <div class="stat"><div class="n">400+</div><div class="l">Creatives Trained</div></div>
-        </div>
-        <!-- ============================================
-             ABOUT PHOTO — replace the src below with a
-             photo of you (portrait works best, roughly
-             4:5 ratio). Just swap the URL, nothing else
-             needs to change.
-             ============================================ -->
-        <div class="about-photo">
-          <img src="" alt="Daniel Adewoye" style="display:none;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
-          <div class="about-photo-placeholder">Add Your<br>Photo Here</div>
-        </div>
+
+      <div class="stat-row">
+        <div class="stat"><div class="n">50+</div><div class="l">Projects Delivered</div></div>
+        <div class="stat"><div class="n">30+</div><div class="l">Brand Clients</div></div>
+        <div class="stat"><div class="n">8</div><div class="l">Years Experience</div></div>
+        <div class="stat"><div class="n">400+</div><div class="l">Creatives Trained</div></div>
       </div>
     </div>
   </div>
@@ -951,7 +977,7 @@ async function loadBTSFromDrive(){
     if(!res.ok) throw new Error('Drive API request failed: ' + res.status);
     const data = await res.json();
     if(!data.files || !data.files.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
-    const photos = data.files.map(f => ({ image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w800` }));
+    const photos = data.files.map(f => ({ image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w1200` }));
     renderBTS(photos);
   }catch(err){
     console.warn('BTS Drive gallery failed to load, showing fallback tiles:', err);
@@ -960,10 +986,24 @@ async function loadBTSFromDrive(){
 }
 loadBTSFromDrive();
 
-/* ---------------- RENDER: BRANDS I'VE WORKED WITH ---------------- */
-// Add each brand here — set `logo` to the logo image URL (PNG with
-// transparent background works best). Leave blank for a placeholder tile.
-const BRANDS = [
+/* ---------------- RENDER: BRANDS I'VE WORKED WITH (auto-pulled from Google Drive) ---------------- */
+// ============================================
+// BRANDS — SETUP:
+// Uses the same API key as the BTS gallery above (BTS_DRIVE_API_KEY) —
+// no need for a second key.
+// 1. Create a separate Drive folder just for brand logos.
+// 2. Share it as "Anyone with the link — Viewer" (same as the BTS folder).
+// 3. Name each file after the brand exactly how you want it to read
+//    on the site — e.g. "Chipper Cash.png", "Gtext Holdings.png".
+//    PNGs with a transparent background work best.
+// 4. Copy the folder ID from its URL and paste it into
+//    BRANDS_DRIVE_FOLDER_ID below.
+//
+// After that: just drop a new logo file into that folder, named
+// after the brand — no code or website changes needed.
+// ============================================
+const BRANDS_DRIVE_FOLDER_ID = 'YOUR_BRANDS_DRIVE_FOLDER_ID';
+const BRANDS_FALLBACK = [
   {name:'KFC', logo:''},
   {name:'Adidas', logo:''},
   {name:'Guinness', logo:''},
@@ -981,13 +1021,126 @@ const BRANDS = [
   {name:'Glitch Africa', logo:''},
   {name:'Base Uncut', logo:''},
 ];
-const brandsTrack = document.getElementById('brandsTrack');
-[...BRANDS, ...BRANDS].forEach(b=>{ // duplicated for a seamless continuous float
-  const el = document.createElement('div');
-  el.className = 'brand-logo';
-  el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}">` : `<div class="cplaceholder">${b.name}</div>`;
-  brandsTrack.appendChild(el);
-});
+
+function renderBrands(brands){
+  const brandsTrack = document.getElementById('brandsTrack');
+  brandsTrack.innerHTML = '';
+  [...brands, ...brands].forEach(b=>{ // duplicated for a seamless continuous float
+    const el = document.createElement('div');
+    el.className = 'brand-logo';
+    el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}" loading="lazy">` : `<div class="cplaceholder">${b.name}</div>`;
+    brandsTrack.appendChild(el);
+  });
+}
+
+function cleanBrandName(fileName){
+  return fileName.replace(/\.[^/.]+$/, '').replace(/[_-]+/g, ' ').trim();
+}
+
+async function loadBrandsFromDrive(){
+  const configured = BTS_DRIVE_API_KEY && BTS_DRIVE_API_KEY !== 'YOUR_GOOGLE_API_KEY' && BRANDS_DRIVE_FOLDER_ID && BRANDS_DRIVE_FOLDER_ID !== 'YOUR_BRANDS_DRIVE_FOLDER_ID';
+  if(!configured){ renderBrands(BRANDS_FALLBACK); return; }
+  try{
+    const q = encodeURIComponent(`'${BRANDS_DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed = false`);
+    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&orderBy=name&fields=files(id,name)&key=${BTS_DRIVE_API_KEY}`;
+    const res = await fetch(url);
+    if(!res.ok) throw new Error('Drive API request failed: ' + res.status);
+    const data = await res.json();
+    if(!data.files || !data.files.length){ renderBrands(BRANDS_FALLBACK); return; }
+    const brands = data.files.map(f => ({
+      name: cleanBrandName(f.name),
+      logo: `https://drive.google.com/thumbnail?id=${f.id}&sz=w400`
+    }));
+    renderBrands(brands);
+  }catch(err){
+    console.warn('Brands Drive gallery failed to load, showing fallback tiles:', err);
+    renderBrands(BRANDS_FALLBACK);
+  }
+}
+loadBrandsFromDrive();
+
+/* ---------------- RENDER: JOURNAL (auto-pulled from Substack, no subscribe box) ---------------- */
+// ============================================
+// JOURNAL — SETUP:
+// 1. Set SUBSTACK_URL below to your publication's root
+//    URL (no trailing slash) — e.g. 'https://lenslightmotion.substack.com'.
+// 2. That's it. This reads your public RSS feed
+//    (SUBSTACK_URL + '/feed') via a free RSS-to-JSON proxy
+//    and renders each post as a card — title, excerpt,
+//    date and thumbnail — linking straight to the post.
+//    No subscribe form is shown anywhere in this section.
+// 3. If the feed fetch fails for any reason, it falls back
+//    to JOURNAL_FALLBACK below — edit those entries with
+//    your real posts if you'd rather not depend on a
+//    third-party proxy at all.
+// ============================================
+const SUBSTACK_URL = 'https://lenslightmotion.substack.com';
+const JOURNAL_POST_LIMIT = 6;
+const JOURNAL_FALLBACK = [
+  {title:'Add your latest Substack post title', tag:'Journal', excerpt:'Add a short excerpt for this post here — it will show under the title on the card.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
+  {title:'Add another post title', tag:'Journal', excerpt:'Add a short excerpt for this post here.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
+  {title:'Add another post title', tag:'Journal', excerpt:'Add a short excerpt for this post here.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
+];
+
+function stripHtmlTags(html){
+  const div = document.createElement('div');
+  div.innerHTML = html || '';
+  return (div.textContent || div.innerText || '').replace(/\s+/g,' ').trim();
+}
+
+function formatPostDate(d){
+  const date = new Date(d);
+  if(isNaN(date)) return '';
+  return date.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+
+function renderJournal(posts){
+  const grid = document.getElementById('journalGrid');
+  grid.innerHTML = '';
+  posts.slice(0, JOURNAL_POST_LIMIT).forEach(p=>{
+    const el = document.createElement('a');
+    el.className = 'journal-card';
+    el.href = p.link || SUBSTACK_URL;
+    el.target = '_blank';
+    el.rel = 'noopener noreferrer';
+    el.innerHTML = `
+      <div class="thumb">${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : `<div class="cplaceholder">Notes<br>From Set</div>`}</div>
+      <span class="tag">${p.tag || 'Journal'}</span>
+      <h3>${p.title}</h3>
+      ${p.excerpt ? `<p class="excerpt">${p.excerpt}</p>` : ''}
+      ${p.date ? `<div class="date">${p.date}</div>` : ''}
+    `;
+    grid.appendChild(el);
+  });
+}
+
+async function loadJournalFromSubstack(){
+  try{
+    const feedUrl = `${SUBSTACK_URL}/feed`;
+    const proxyUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}`;
+    const res = await fetch(proxyUrl);
+    if(!res.ok) throw new Error('RSS proxy request failed: ' + res.status);
+    const data = await res.json();
+    if(data.status !== 'ok' || !data.items || !data.items.length) throw new Error('No posts returned from feed');
+    const posts = data.items.map(item=>{
+      const raw = item.content || item.description || '';
+      const imgMatch = raw.match(/<img[^>]+src="([^">]+)"/);
+      return {
+        title: item.title,
+        link: item.link,
+        date: formatPostDate(item.pubDate),
+        excerpt: stripHtmlTags(item.description || raw).slice(0, 140).trim() + '…',
+        image: (item.thumbnail && item.thumbnail.trim()) ? item.thumbnail : (imgMatch ? imgMatch[1] : ''),
+        tag: (item.categories && item.categories.length) ? item.categories[0] : 'Journal'
+      };
+    });
+    renderJournal(posts);
+  }catch(err){
+    console.warn('Substack feed failed to load, showing fallback posts:', err);
+    renderJournal(JOURNAL_FALLBACK);
+  }
+}
+loadJournalFromSubstack();
 
 /* ---------------- MODAL ---------------- */
 const overlay = document.getElementById('modalOverlay');
