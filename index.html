@@ -1125,12 +1125,24 @@ async function loadJournalFromSubstack(){
     const posts = data.items.map(item=>{
       const raw = item.content || item.description || '';
       const imgMatch = raw.match(/<img[^>]+src="([^">]+)"/);
+
+const ytMatch =
+  raw.match(/youtube\.com\/embed\/([A-Za-z0-9_-]+)/) ||
+  raw.match(/youtu\.be\/([A-Za-z0-9_-]+)/) ||
+  raw.match(/youtube\.com\/watch\?v=([A-Za-z0-9_-]+)/);
+
+const youtubeThumb = ytMatch
+  ? `https://substackcdn.com/image/youtube/w_728,c_limit/${ytMatch[1]}`
+  : "";
       return {
         title: item.title,
         link: item.link,
         date: formatPostDate(item.pubDate),
         excerpt: stripHtmlTags(item.description || raw).slice(0, 140).trim() + '…',
-        image: (item.thumbnail && item.thumbnail.trim()) ? item.thumbnail : (imgMatch ? imgMatch[1] : ''),
+        image:
+    item.thumbnail?.trim() ||
+    (imgMatch ? imgMatch[1] : "") ||
+    youtubeThumb,
         tag: (item.categories && item.categories.length) ? item.categories[0] : 'Journal'
       };
     });
