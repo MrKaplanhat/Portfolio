@@ -350,14 +350,13 @@
   .brands-track{display:flex; gap:34px; width:max-content; animation:scroll-x 96s linear infinite;}
   .brand-logo{
     position:relative; width:150px; height:90px; display:flex; align-items:center; justify-content:center;
-    border:1px solid var(--line-strong); flex:0 0 auto; transition:border-color .25s; background:var(--bg-elev);
+    flex:0 0 auto;
   }
-  .brand-logo:hover{border-color:var(--gold);}
   .brand-logo img{
     max-width:70%; max-height:60%; object-fit:contain; display:block;
-    filter:grayscale(1) brightness(1.6); opacity:0.6; transition:filter .3s, opacity .3s;
+    filter:brightness(0) invert(1); opacity:0.6; transition:opacity .3s;
   }
-  .brand-logo:hover img{filter:grayscale(0) brightness(1); opacity:1;}
+  .brand-logo:hover img{opacity:1;}
   .brand-logo .cplaceholder{
     font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted-2);
     text-align:center; padding:6px; text-transform:uppercase;
@@ -725,6 +724,7 @@
         <a href="mailto:hello@adewoye.works" class="cta-pill">hello@adewoye.works</a>
         <a href="https://www.linkedin.com/in/woyeola/" class="cta-pill">LinkedIn</a>
         <a href="https://www.youtube.com/@dixtromedia/videos" class="cta-pill">YouTube</a>
+        <a href="https://www.instagram.com/adewoye.od" target="_blank" rel="noopener" class="cta-pill">Instagram</a>
       </div>
     </div>
     <div class="foot-bottom">
