@@ -1116,6 +1116,28 @@ function renderJournal(posts){
   });
 }
 
+function extractImageFromHtml(html){
+  if(!html) return '';
+  try{
+    const doc = new DOMParser().parseFromString(html, 'text/html');
+    const img = doc.querySelector('img');
+    if(!img) return '';
+    // Substack often lazy-loads: real url can be in data-src/data-original
+    // while src holds a blank/placeholder data: URI — check those first.
+    let src = img.getAttribute('src') || '';
+    if(!src || src.trim().startsWith('data:')){
+      src = img.getAttribute('data-src') || img.getAttribute('data-original') || '';
+    }
+    if((!src || src.trim().startsWith('data:')) && img.getAttribute('srcset')){
+      const candidates = img.getAttribute('srcset').split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
+      if(candidates.length) src = candidates[candidates.length - 1]; // last is usually largest
+    }
+    return (src && !src.trim().startsWith('data:')) ? src.trim() : '';
+  }catch(err){
+    return '';
+  }
+}
+
 async function loadJournalFromSubstack(){
   try{
     const feedUrl = `${SUBSTACK_URL}/feed`;
@@ -1125,14 +1147,15 @@ async function loadJournalFromSubstack(){
     const data = await res.json();
     if(data.status !== 'ok' || !data.items || !data.items.length) throw new Error('No posts returned from feed');
     const posts = data.items.map(item=>{
-      const raw = item.content || item.description || '';
-      const imgMatch = raw.match(/<img[^>]+src="([^">]+)"/);
+      const contentImg = extractImageFromHtml(item.content) || extractImageFromHtml(item.description);
+      const thumb = (item.thumbnail && item.thumbnail.trim() && !item.thumbnail.trim().startsWith('data:')) ? item.thumbnail.trim() : '';
+      const enclosureImg = (item.enclosure && item.enclosure.link) ? item.enclosure.link : '';
       return {
         title: item.title,
         link: item.link,
         date: formatPostDate(item.pubDate),
-        excerpt: stripHtmlTags(item.description || raw).slice(0, 140).trim() + '…',
-        image: (item.thumbnail && item.thumbnail.trim()) ? item.thumbnail : (imgMatch ? imgMatch[1] : ''),
+        excerpt: stripHtmlTags(item.description || item.content || '').slice(0, 140).trim() + '…',
+        image: thumb || enclosureImg || contentImg || '',
         tag: (item.categories && item.categories.length) ? item.categories[0] : 'Journal'
       };
     });
