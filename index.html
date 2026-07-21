@@ -524,13 +524,15 @@
   </div>
 </div>
 
-<!-- CLIENT MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
-    <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
+<!-- BRANDS I'VE WORKED WITH -->
+<section class="brands">
+  <div class="wrap">
+    <span class="bracket-eyebrow">Clients</span>
+    <h2 style="font-size:clamp(26px,3.5vw,38px); font-weight:400; margin-bottom:8px;">Brands I've <em>Worked With</em></h2>
+    <p class="section-desc" style="margin-bottom:30px;">Hover a logo to bring it to full color.</p>
   </div>
-</div>
+  <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
+</section>
 
 <!-- QUOTE -->
 <section class="quote-block" style="display:none;">
@@ -614,15 +616,13 @@
   <div class="bts-track-wrap"><div class="bts-track" id="btsTrack"></div></div>
 </section>
 
-<!-- BRANDS I'VE WORKED WITH -->
-<section class="brands">
-  <div class="wrap">
-    <span class="bracket-eyebrow">Clients</span>
-    <h2 style="font-size:clamp(26px,3.5vw,38px); font-weight:400; margin-bottom:8px;">Brands I've <em>Worked With</em></h2>
-    <p class="section-desc" style="margin-bottom:30px;">Hover a logo to bring it to full color.</p>
+<!-- CLIENT MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
+    <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
   </div>
-  <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
-</section>
+</div>
 
 <!-- JOURNAL -->
 <section id="journal">
@@ -1027,12 +1027,25 @@ const BRANDS_FALLBACK = [
 function renderBrands(brands){
   const brandsTrack = document.getElementById('brandsTrack');
   brandsTrack.innerHTML = '';
-  [...brands, ...brands].forEach(b=>{ // duplicated for a seamless continuous float
+  if(!brands.length) return;
+  // Pad the list out so the strip is comfortably wider than any screen
+  // BEFORE duplicating for the seamless loop — otherwise a small number
+  // of logos (e.g. from a Drive folder with just a few files) won't add
+  // up to enough width, and you'd see the strip run out and jump instead
+  // of scrolling forever.
+  const MIN_TILES = 24;
+  let padded = [];
+  while(padded.length < MIN_TILES){ padded = padded.concat(brands); }
+  const full = [...padded, ...padded]; // duplicated once more for a seamless continuous float
+  full.forEach(b=>{
     const el = document.createElement('div');
     el.className = 'brand-logo';
     el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}" loading="lazy">` : `<div class="cplaceholder">${b.name}</div>`;
     brandsTrack.appendChild(el);
   });
+  // Keep scroll speed visually consistent no matter how many tiles end up
+  // in the strip (a few logos vs. many shouldn't change how fast it moves).
+  brandsTrack.style.animationDuration = `${full.length * 4}s`;
 }
 
 function cleanBrandName(fileName){
