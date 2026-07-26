@@ -29,7 +29,7 @@
     --accent-soft:rgba(255,255,255,0.14);
     --accent-tint-1:#e6e6e6;
     --accent-tint-2:#bdbdbd;
-    --btn-teal:#2dd4bf;
+    --btn-teal:#3b82f6;
     --btn-orange:#ff7a3b;
     --shadow-sm:0 1px 2px rgba(0,0,0,0.35);
     --shadow-md:0 16px 40px -16px rgba(0,0,0,0.55);
@@ -57,7 +57,17 @@
   }
   ::selection{background:var(--accent); color:#fff;}
   h1,h2,h3,h4{font-family:'Syne','Inter',sans-serif; font-weight:600; line-height:1.05; letter-spacing:-0.02em;}
-  em{font-style:normal; background:linear-gradient(100deg,var(--accent),var(--accent-tint-2)); -webkit-background-clip:text; background-clip:text; color:transparent;}
+  em{
+    font-style:normal;
+    color:var(--accent-ink);
+    background:linear-gradient(100deg,var(--accent),var(--accent-tint-2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  @supports not ((-webkit-background-clip:text) or (background-clip:text)){
+    em{ background:none; -webkit-text-fill-color:currentColor; color:var(--accent-ink); }
+  }
   .mono{font-family:'JetBrains Mono',monospace; letter-spacing:0.02em;}
   a{color:inherit; text-decoration:none;}
   .wrap{max-width:1280px; margin:0 auto; padding:0 40px;}
@@ -184,7 +194,13 @@
     font-family:'Syne','Inter',sans-serif; font-weight:700;
     font-size:clamp(40px, 9vw, 108px); line-height:0.98; letter-spacing:-0.03em; color:#fff;
   }
-  .hero-title em{ background:linear-gradient(100deg,var(--accent-ink),var(--accent-tint-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .hero-title em{
+    color:var(--accent-ink);
+    background:linear-gradient(100deg,var(--accent-ink),var(--accent-tint-2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
   .hero-role-line{
     font-family:'JetBrains Mono',monospace; font-size:13px; letter-spacing:0.08em; text-transform:uppercase;
     color:rgba(255,255,255,0.7); margin-top:26px;
@@ -246,7 +262,7 @@
   .showreel-frame{
     position:absolute; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%);
     width:26%; aspect-ratio:16/9; overflow:hidden;
-    border-radius:40px; box-shadow:var(--shadow-lg); will-change:width,border-radius,opacity;
+    border-radius:40px; box-shadow:var(--shadow-lg); will-change:width,height,border-radius,opacity;
     opacity:0;
   }
   @media(max-width:720px){.showreel-frame{width:58%; aspect-ratio:4/5; border-radius:26px;}}
@@ -617,7 +633,13 @@
   }
   @media(max-width:720px){footer .wrap > .contact-head{padding:50px 28px; border-radius:28px;}}
   .contact-head h2{font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(34px,7vw,76px); line-height:1;}
-  .contact-head em{ background:linear-gradient(100deg,var(--accent-ink),var(--accent-tint-2)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+  .contact-head em{
+    color:var(--accent-ink);
+    background:linear-gradient(100deg,var(--accent-ink),var(--accent-tint-2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
   .contact-links{display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; position:relative; z-index:1;}
   .contact-head .contact-links .cta-pill{background:rgba(255,255,255,0.1); border-color:rgba(255,255,255,0.2); color:#fff;}
   .contact-head .contact-links .cta-pill:hover{background:linear-gradient(100deg,var(--btn-orange),var(--btn-teal)); border-color:transparent;}
@@ -683,7 +705,7 @@
       <a href="https://selar.com/YOUR-SELAR-HANDLE" target="_blank" rel="noopener">Store</a>
       <a href="#journal">Journal</a>
       <a href="#about">About</a>
-      <a href="#contact" class="cta-pill">Let's Work</a>
+      <a href="https://wa.me/2347025369965" target="_blank" rel="noopener" class="cta-pill">Let's Work</a>
     </nav>
   </div>
 </header>
@@ -714,7 +736,7 @@
         <p class="hero-sub">Filmmaker · Creative Director · Content Architect</p>
         <div class="hero-cta-row">
           <button class="btn-solid" onclick="document.getElementById('work').scrollIntoView()">View The Work</button>
-          <button class="btn-ghost" onclick="openModal(1)"><span class="play-dot"></span> Play Reel</button>
+          <button class="btn-ghost" onclick="playReel()"><span class="play-dot"></span> Play Reel</button>
         </div>
         <!-- Brand marquee — directly below the hero content now, in normal
              flow, with a slimmer bar height. -->
@@ -897,8 +919,7 @@
 
         <div class="about-body">
         <p>Daniel Adewoye is a creative director and filmmaker working at the intersection of <b>story, culture and strategy</b> — directing commercials, YouTube content and campaigns built to <b>connect emotionally and perform</b> in the real world.</p>
-        <p>With 7+ years across film, branding and digital storytelling, his portfolio spans branded content, documentaries, music videos, live sessions and culture-led campaigns, grounded in narrative clarity and audience insight. Formerly Head of Visuals at Glitch Africa, he led the studio's visual direction across original shows, editorial publishing and live sessions for TV and digital platforms.</p>
-        <p>He's the founder of Lens, Light &amp; Motion, an education and resource platform for filmmakers and emerging creatives, and of Dixtro, a visual marketing and production company delivering films and branded content for clients locally and internationally.</p>
+        <p>With 7+ years across film, branding and digital storytelling, he's built a portfolio spanning branded content, documentaries, music videos and culture-led campaigns — formerly Head of Visuals at Glitch Africa, and founder of Lens, Light &amp; Motion, a filmmaker education platform, and Dixtro, a production company serving clients locally and internationally.</p>
         <div class="role-timeline-mini">
           <div class="rtm-item"><div><div class="role-title">Global Head of Media — Gtext Holdings</div><div class="role-org">Lagos · Dubai · UK</div></div><div class="role-year">2020–2023</div></div>
           <div class="rtm-item"><div><div class="role-title">Brand Identity Lead — Elite Holdings</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2023–2024</div></div>
@@ -1529,7 +1550,12 @@ window.addEventListener('scroll', ()=>{
    3) the reel frame fades in small, then grows to fill the screen, passing in front
       of and covering the SHOWREEL text, which shrinks slightly and fades as it's covered
    The reel itself just loops silently and autoplays once it's in view — no play button.
-   An eased progress curve keeps every stage of the motion smooth rather than linear. */
+   An eased progress curve keeps every stage of the motion smooth rather than linear.
+   Frame size is driven by explicit width/height (in px/%) rather than relying on
+   CSS aspect-ratio once growth starts — aspect-ratio alone leaves letterbox bars
+   on mobile because it can't independently track two different target ratios
+   (small-card ratio → full-viewport ratio). Explicit inline width/height wins over
+   the CSS aspect-ratio fallback, so the frame always fills edge-to-edge at full grow. */
 (function(){
   const wrap = document.getElementById('reelSequence');
   const seqHero = document.getElementById('seqHero');
@@ -1539,12 +1565,24 @@ window.addEventListener('scroll', ()=>{
   const video = frame.querySelector('video');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  const MIN_WIDTH = 26;   // % — starting size of the reel card (desktop)
+  const MIN_WIDTH_MOBILE = 58; // % — starting size of the reel card (mobile)
+  const MAX_WIDTH = 100;  // % — full-bleed
+  const MAX_RADIUS = 40;  // px — desktop corner radius at minimum size
+  const MAX_RADIUS_MOBILE = 26; // px — mobile corner radius at minimum size
+
+  function isMobile(){ return window.innerWidth <= 720; }
+  function startAspect(){ return isMobile() ? 4/5 : 16/9; }
+  function startWidthPct(){ return isMobile() ? MIN_WIDTH_MOBILE : MIN_WIDTH; }
+  function startRadius(){ return isMobile() ? MAX_RADIUS_MOBILE : MAX_RADIUS; }
+
   if(reduceMotion){
     // Respect reduced-motion: skip the scroll-scrub, land straight on the full-bleed reel.
     wrap.style.height = '100vh';
     if(seqHero) seqHero.style.opacity = '0';
     if(label) label.style.opacity = '0';
-    frame.style.width = '100%';
+    frame.style.width = '100vw';
+    frame.style.height = '100vh';
     frame.style.opacity = '1';
     frame.style.borderRadius = '0px';
     if(video){ video.setAttribute('autoplay',''); video.play().catch(()=>{}); }
@@ -1562,9 +1600,10 @@ window.addEventListener('scroll', ()=>{
   const LABEL_OUT_END        = 0.86; // ...fully gone by here
   const GROW_START           = 0.40; // reel frame starts growing...
   const GROW_END             = 1.00; // ...reaches full-bleed at the end of the scrub
-  const MIN_WIDTH = 26;   // % — starting size of the reel card
-  const MAX_WIDTH = 100;  // % — full-bleed
-  const MAX_RADIUS = 40;  // px — corners flatten to 0 as it fills the screen
+  // Progress value the "Play Reel" button scrolls to: partway through the grow
+  // stage so the frame is large and playing but still shows its rounded corners
+  // (not yet full-bleed/edge-to-edge).
+  const PLAY_REEL_PROGRESS   = 0.75;
 
   let ticking = false;
   let playing = false;
@@ -1601,11 +1640,23 @@ window.addEventListener('scroll', ()=>{
       label.style.transform = `scale(${1 - shrink * 0.22})`;
     }
 
-    // 3) reel frame — fade in small, then grow to full-bleed over the showreel text
+    // 3) reel frame — fade in small, then grow to full-bleed over the showreel text.
+    //    Width AND height are both driven explicitly from viewport units so the
+    //    frame reaches a true 100vw x 100vh at full grow with no leftover bars,
+    //    instead of leaving the CSS aspect-ratio to (imperfectly) derive height
+    //    from width alone.
     const growRaw = segment(progress, GROW_START, GROW_END);
     const grow = easeInOutCubic(growRaw);
-    frame.style.width = (MIN_WIDTH + (MAX_WIDTH - MIN_WIDTH) * grow) + '%';
-    frame.style.borderRadius = (MAX_RADIUS * (1 - grow)) + 'px';
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const startPct = startWidthPct();
+    const widthPct = startPct + (MAX_WIDTH - startPct) * grow;
+    const startWPx = vw * (startPct / 100);
+    const startHPx = startWPx / startAspect();
+    const curWPx = vw * (widthPct / 100);
+    const curHPx = startHPx + (vh - startHPx) * grow;
+    frame.style.width = curWPx + 'px';
+    frame.style.height = curHPx + 'px';
+    frame.style.borderRadius = (startRadius() * (1 - grow)) + 'px';
     frame.style.opacity = easeInOutCubic(segment(progress, FRAME_IN_START, FRAME_IN_END));
 
     // loop the reel only while the sequence is in view
@@ -1615,12 +1666,25 @@ window.addEventListener('scroll', ()=>{
       if(!inView && playing){ playing = false; video.pause(); }
     }
   }
+
   function onScroll(){
     if(!ticking){ ticking = true; requestAnimationFrame(update); }
   }
   window.addEventListener('scroll', onScroll, {passive:true});
   window.addEventListener('resize', onScroll);
   update();
+
+  // "Play Reel" button handler: smooth-scrolls into the pinned sequence to a
+  // fixed progress point where the reel frame is large and actively playing,
+  // but stops short of full-bleed so the rounded corners remain visible
+  // (rather than jumping straight to an edge-to-edge fullscreen video).
+  window.playReel = function(){
+    const rect = wrap.getBoundingClientRect();
+    const scrollable = wrap.offsetHeight - window.innerHeight;
+    if(scrollable <= 0){ wrap.scrollIntoView({behavior:'smooth'}); return; }
+    const targetTop = window.scrollY + rect.top + (scrollable * PLAY_REEL_PROGRESS);
+    window.scrollTo({top: targetTop, behavior:'smooth'});
+  };
 })();
 </script>
 </body>
