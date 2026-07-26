@@ -293,6 +293,19 @@
   .disc-item h3{font-size:21px; font-weight:600; margin-top:20px;}
   .disc-item p{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.6;}
 
+  /* ---------- SKILLS MARQUEE ---------- */
+  .skills-marquee-wrap{
+    margin-top:26px; overflow:hidden; padding:18px 0;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
+  }
+  .skills-marquee-track{display:flex; align-items:center; gap:26px; width:max-content; animation:scroll-x 26s linear infinite;}
+  .skills-marquee-track .skill-word{
+    font-family:'Syne',sans-serif; font-weight:700; font-size:clamp(24px,4vw,42px);
+    letter-spacing:-0.01em; color:var(--muted-2); white-space:nowrap; transition:color .2s;
+  }
+  .skills-marquee-track .skill-dot{width:9px; height:9px; border-radius:50%; background:var(--accent-3); flex:0 0 auto;}
+
   /* ---------- WORK / ROLE TIMELINE ---------- */
   .timeline-bar{
     position:relative; margin-bottom:44px; display:flex; align-items:center; gap:8px;
@@ -465,8 +478,14 @@
   /* ---------- BRANDS I'VE WORKED WITH ---------- */
   .brands{padding:24px 0;}
   @media(max-width:720px){.brands{padding:16px 0;}}
+  .brands-frame{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
+    box-shadow:var(--shadow-sm); overflow:hidden;
+  }
   .brands-track-wrap{
-    overflow:hidden; padding:10px 0 6px;
+    overflow:hidden; padding:0;
+    -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
+    mask-image:linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%);
   }
   .brands-track{display:flex; gap:0; width:max-content; animation:scroll-x 96s linear infinite;}
   .brand-logo{
@@ -515,38 +534,48 @@
   }
 
   /* ---------- ABOUT ---------- */
-  .about-stack{display:flex; flex-direction:column; gap:44px;}
-  .about-columns{display:grid; grid-template-columns:380px 1fr; gap:50px; align-items:start;}
-  @media(max-width:860px){.about-columns{grid-template-columns:1fr; gap:32px;}}
-  .about-body p{color:var(--muted); font-size:16px; line-height:1.8; margin-bottom:20px;}
+  .about-frame{
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
+    box-shadow:var(--shadow-sm); padding:44px;
+  }
+  @media(max-width:720px){.about-frame{padding:26px 20px;}}
+  .about-stack{display:flex; flex-direction:column; gap:30px;}
+  .about-columns{display:grid; grid-template-columns:220px 1fr; gap:36px; align-items:start;}
+  @media(max-width:860px){.about-columns{grid-template-columns:1fr; gap:26px;}}
+  .about-body p{color:var(--muted); font-size:14.5px; line-height:1.7; margin-bottom:14px;}
+  .about-body p:first-of-type{
+    font-size:16px; line-height:1.6; color:var(--ink); font-weight:500;
+    border:1px solid var(--line-strong); border-radius:var(--r-md); padding:18px 20px; background:var(--bg);
+  }
   .stat-row{display:grid; grid-template-columns:repeat(4,1fr); gap:14px;}
   @media(max-width:620px){.stat-row{grid-template-columns:repeat(2,1fr);}}
   .about-photo{
-    width:100%; aspect-ratio:4/5; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
-    display:flex; align-items:center; justify-content:center; overflow:hidden; position:sticky; top:110px;
-    box-shadow:var(--shadow-md);
+    width:100%; aspect-ratio:4/5; background:var(--bg); border:1px solid var(--line); border-radius:var(--r-md);
+    display:flex; align-items:center; justify-content:center; overflow:hidden; position:static;
+    box-shadow:var(--shadow-sm);
   }
-  @media(max-width:860px){.about-photo{position:static;}}
   .about-photo img{width:100%; height:100%; object-fit:cover;}
   .about-photo-placeholder{
-    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2); text-transform:uppercase;
+    font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); text-transform:uppercase;
     letter-spacing:0.06em; text-align:center; line-height:1.6;
   }
-  .stat{background:var(--card); padding:24px; border-radius:var(--r-md); border:1px solid var(--line); box-shadow:var(--shadow-sm);}
-  .stat .n{font-family:'Syne',sans-serif; font-size:32px; color:var(--accent-ink);}
-  .stat .l{font-size:12px; color:var(--muted); margin-top:6px; letter-spacing:0.02em;}
-  .role-timeline-mini{margin-top:30px;}
-  .rtm-item{display:flex; justify-content:space-between; gap:16px; padding:16px 0; border-bottom:1px solid var(--line);}
+  .about-photo-col{display:flex; flex-direction:column; gap:14px;}
+  .about-photo-col .btn-outline{width:100%; text-align:center; justify-content:center; font-size:12px; padding:12px 16px;}
+  .stat{background:var(--bg); padding:20px; border-radius:var(--r-md); border:1px solid var(--line); box-shadow:var(--shadow-sm); position:relative; overflow:hidden;}
+  .stat .n{font-family:'Syne',sans-serif; font-weight:800; font-size:34px; color:transparent; -webkit-text-stroke:1px var(--line-strong); position:relative; z-index:0;}
+  .stat .l{font-size:11.5px; color:var(--muted); margin-top:-14px; letter-spacing:0.03em; text-transform:uppercase; font-weight:600; position:relative; z-index:1;}
+  .role-timeline-mini{margin-top:8px;}
+  .rtm-item{display:flex; justify-content:space-between; gap:16px; padding:14px 0; border-bottom:1px solid var(--line);}
   .rtm-item:first-child{padding-top:0;}
-  .rtm-item .role-title{font-size:14.5px; font-weight:600;}
-  .rtm-item .role-org{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:3px;}
-  .rtm-item .role-year{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2); white-space:nowrap;}
+  .rtm-item .role-title{font-size:14px; font-weight:600;}
+  .rtm-item .role-org{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted); margin-top:3px;}
+  .rtm-item .role-year{font-family:'JetBrains Mono',monospace; font-size:11.5px; color:var(--muted-2); white-space:nowrap;}
   .rtm-item.current .role-title{color:var(--accent-ink);}
-  .edu-block{margin-top:34px; padding-top:28px; border-top:1px solid var(--line);}
+  .edu-block{margin-top:8px; padding-top:22px; border-top:1px solid var(--line);}
   .partner-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
   .partner-tag{
     font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.02em;
-    padding:8px 14px; background:var(--card); border:1px solid var(--line); border-radius:var(--r-pill); color:var(--muted);
+    padding:8px 14px; background:var(--bg); border:1px solid var(--line); border-radius:var(--r-pill); color:var(--muted);
   }
 
   /* ---------- CLIENT MARQUEE ---------- */
@@ -677,7 +706,11 @@
 
 <!-- BRANDS I'VE WORKED WITH -->
 <section class="brands">
-  <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
+  <div class="wrap">
+    <div class="brands-frame">
+      <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
+    </div>
+  </div>
 </section>
 
 <!-- SHOWREEL — appears right after the logo scroll. Reuses the same hero
@@ -714,13 +747,8 @@
     <div class="disc-item"><span class="disc-num">03</span><h3>Creative Strategist</h3><p>I turn a brief into a campaign that performs. I connect the creative decisions to the business outcome they're actually meant to move.</p></div>
   </div>
   <div class="wrap">
-    <div class="skill-chip-row">
-      <span class="skill-chip">Photography</span>
-      <span class="skill-chip">Cinematography</span>
-      <span class="skill-chip">Colorist</span>
-      <span class="skill-chip">Editor</span>
-      <span class="skill-chip">YouTube Shows</span>
-      <span class="skill-chip">Documentaries</span>
+    <div class="skills-marquee-wrap">
+      <div class="skills-marquee-track" id="skillsMarquee"></div>
     </div>
   </div>
 </section>
@@ -823,6 +851,9 @@
 <!-- ABOUT -->
 <section id="about">
   <div class="wrap">
+    <span class="bracket-eyebrow">About</span>
+    <h2 style="font-size:clamp(28px,3.6vw,40px); font-weight:600; margin-bottom:26px;">I'd rather <em>surprise</em> the brief than satisfy it.</h2>
+    <div class="about-frame">
     <div class="about-stack">
       <div class="about-columns">
         <!-- ============================================
@@ -831,23 +862,23 @@
              4:5 ratio). Just swap the URL, nothing else
              needs to change.
              ============================================ -->
+        <div class="about-photo-col">
         <div class="about-photo">
           <img src="founder-pic.jpeg" alt="Daniel Adewoye" style="display:none;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
           <div class="about-photo-placeholder">Add Your<br>Photo Here</div>
         </div>
-
-        <div class="about-body">
-        <span class="bracket-eyebrow">About</span>
-        <h2 style="font-size:clamp(30px,4vw,44px); font-weight:600; margin-bottom:26px;">I'd rather <em>surprise</em> the brief than satisfy it.</h2>
-        <p>Daniel Adewoye is a creative director and filmmaker working at the intersection of story, culture and strategy — directing commercials, YouTube content and campaigns built to connect emotionally and perform in the real world.</p>
-        <p>With 7+ years across film, branding and digital storytelling, his portfolio spans branded content, documentaries, music videos, live sessions and culture-led campaigns, grounded in narrative clarity and audience insight. Formerly Head of Visuals at Glitch Africa, he led the studio's visual direction across original shows, editorial publishing and live sessions for TV and digital platforms.</p>
-        <p>He's the founder of Lens, Light &amp; Motion, an education and resource platform for filmmakers and emerging creatives, and of Dixtro, a visual marketing and production company delivering films and branded content for clients locally and internationally.</p>
         <!-- ============================================
              CTA BUTTON — edit the href (link) and the button
              text below any time. Currently points to Lens,
              Light & Motion.
              ============================================ -->
-        <a href="https://YOUR-LENS-LIGHT-MOTION-SITE.com" target="_blank" rel="noopener" class="btn-outline" style="display:inline-flex; margin-top:8px;">Explore Lens, Light &amp; Motion →</a>
+        <a href="https://YOUR-LENS-LIGHT-MOTION-SITE.com" target="_blank" rel="noopener" class="btn-outline">Explore Lens, Light &amp; Motion →</a>
+        </div>
+
+        <div class="about-body">
+        <p>Daniel Adewoye is a creative director and filmmaker working at the intersection of <b>story, culture and strategy</b> — directing commercials, YouTube content and campaigns built to <b>connect emotionally and perform</b> in the real world.</p>
+        <p>With 7+ years across film, branding and digital storytelling, his portfolio spans branded content, documentaries, music videos, live sessions and culture-led campaigns, grounded in narrative clarity and audience insight. Formerly Head of Visuals at Glitch Africa, he led the studio's visual direction across original shows, editorial publishing and live sessions for TV and digital platforms.</p>
+        <p>He's the founder of Lens, Light &amp; Motion, an education and resource platform for filmmakers and emerging creatives, and of Dixtro, a visual marketing and production company delivering films and branded content for clients locally and internationally.</p>
         <div class="role-timeline-mini">
           <div class="rtm-item"><div><div class="role-title">Global Head of Media — Gtext Holdings</div><div class="role-org">Lagos · Dubai · UK</div></div><div class="role-year">2020–2023</div></div>
           <div class="rtm-item"><div><div class="role-title">Brand Identity Lead — Elite Holdings</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2023–2024</div></div>
@@ -856,8 +887,8 @@
           <div class="rtm-item current"><div><div class="role-title">Creative Director — Base Uncut (TS Studios)</div><div class="role-org">Lagos, Nigeria</div></div><div class="role-year">2026–</div></div>
         </div>
         <div class="edu-block">
-          <span class="bracket-eyebrow" style="margin-top:40px;">Education &amp; Community</span>
-          <h3 style="font-size:20px; font-weight:500; margin:12px 0 10px;">Lens, Light &amp; Motion</h3>
+          <span class="bracket-eyebrow" style="margin-top:0;">Education &amp; Community</span>
+          <h3 style="font-size:18px; font-weight:500; margin:12px 0 10px;">Lens, Light &amp; Motion</h3>
           <p style="margin-bottom:14px;">Hands-on training and mentorship for filmmakers.</p>
           <div class="partner-row">
             <span class="partner-tag">Gear Empowerment Partner — Ulanzi</span>
@@ -873,6 +904,7 @@
         <div class="stat"><div class="n">8</div><div class="l">Years Experience</div></div>
         <div class="stat"><div class="n">400+</div><div class="l">Creatives Trained</div></div>
       </div>
+    </div>
     </div>
   </div>
 </section>
@@ -982,6 +1014,15 @@ const TESTIMONIALS = [
   {rating:'4.8', name:'Daniel', role:'Business Owner', quote:"His storytelling ability is exceptional — turned a simple idea into a visually stunning production that connected emotionally with our audience."},
   {rating:'4.8', name:'Chioma', role:'Brand Marketing Lead', quote:'Attention to detail and cinematic quality helped us create content that truly stood out from every competitor in the space.'},
 ];
+
+/* ---------------- RENDER: SKILLS MARQUEE ---------------- */
+const SKILLS = ['Photography','Cinematography','Colorist','Editor','YouTube Shows','Documentaries','VFX','Scriptwriting'];
+(function renderSkillsMarquee(){
+  const track = document.getElementById('skillsMarquee');
+  if(!track) return;
+  const build = () => SKILLS.map(s => `<span class="skill-word">${s}</span><span class="skill-dot"></span>`).join('');
+  track.innerHTML = build() + build(); // duplicated for a seamless continuous scroll
+})();
 
 /* ---------------- RENDER: FILTER TRACK ---------------- */
 const track = document.getElementById('filterTrack');
