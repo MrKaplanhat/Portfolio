@@ -192,7 +192,7 @@
     max-width:560px; margin:20px auto 0; color:rgba(255,255,255,0.82); font-size:15px; font-weight:600;
     letter-spacing:0.06em; text-transform:uppercase; line-height:1.6;
   }
-  .hero-cta-row{display:flex; gap:14px; justify-content:center; margin-top:34px; margin-bottom:44px; flex-wrap:wrap;}
+  .hero-cta-row{display:flex; gap:14px; justify-content:center; margin-top:34px; margin-bottom:0; flex-wrap:wrap;}
   .btn-solid{
     background:#fff; color:#0d0d0d; padding:15px 28px; font-size:13.5px;
     letter-spacing:-0.01em; font-weight:600; border:1px solid #fff; border-radius:var(--r-pill); transition:.25s; cursor:pointer;
@@ -221,19 +221,23 @@
     display:flex; align-items:flex-end; justify-content:center; text-align:center;
     will-change:opacity;
   }
-  .seq-hero-content{ width:100%; padding-top:140px; padding-bottom:130px; }
-  @media(max-width:720px){.seq-hero-content{ padding-top:120px; padding-bottom:96px; }}
-  .seq-marquee{ position:absolute; left:0; right:0; bottom:26px; z-index:2; }
-  @media(max-width:720px){.seq-marquee{ bottom:16px; }}
+  .seq-hero-content{ width:100%; padding-top:140px; padding-bottom:36px; }
+  @media(max-width:720px){.seq-hero-content{ padding-top:120px; padding-bottom:26px; }}
+
+  /* Brand marquee — now sits in normal flow directly beneath the hero
+     content (title / sub / CTAs), not pinned to the viewport edge. */
+  .hero-marquee{ width:100%; margin-top:30px; }
+  @media(max-width:720px){.hero-marquee{ margin-top:20px; }}
 
   /* Layer 2 — SHOWREEL text reveal */
   .showreel-label{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
     font-family:'Syne',sans-serif; font-weight:800; text-transform:uppercase;
-    font-size:clamp(40px,14vw,220px); letter-spacing:-0.02em; line-height:1;
-    color:rgba(255,255,255,0.92);
+    font-size:clamp(30px,7.5vw,128px); letter-spacing:-0.01em; line-height:1;
+    color:rgba(255,255,255,0.94);
     white-space:nowrap; z-index:2; pointer-events:none; user-select:none;
     opacity:0; will-change:opacity,transform;
+    padding:0 24px;
   }
 
   /* Layer 3 — reel frame: fades in small, grows to full-bleed, covers the label */
@@ -338,19 +342,32 @@
   .readout{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); padding-top:14px; letter-spacing:0.06em; text-align:center; }
   .readout b{color:var(--accent-ink); font-weight:600;}
 
-  .work-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .work-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:20px;
+    grid-auto-flow:dense;
+  }
   @media(max-width:980px){.work-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:620px){.work-grid{grid-template-columns:1fr;}}
-  .work-grid .proj-card:nth-child(6n+1){ grid-column:span 2; }
-  @media(max-width:980px){ .work-grid .proj-card:nth-child(6n+1){ grid-column:span 1; } }
+
+  /* Featured card: spans 2 columns and 2 rows, so the next two cards in the
+     list stack naturally in the freed-up column beside it (no empty gap). */
+  .work-grid .proj-card:nth-child(6n+1){ grid-column:span 2; grid-row:span 2; }
+  .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:auto; height:100%; min-height:100%; }
+  @media(max-width:980px){
+    .work-grid .proj-card:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
+    .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; }
+  }
 
   .proj-card{
     background:var(--card); cursor:pointer; position:relative; overflow:hidden;
     border-radius:var(--r-lg); border:1px solid var(--line); box-shadow:var(--shadow-sm);
     transition:transform .35s ease, box-shadow .35s ease;
+    display:flex; flex-direction:column;
   }
   .proj-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); }
-  .proj-media{position:relative; aspect-ratio:16/9; overflow:hidden; background:var(--bg-soft); border-radius:var(--r-lg);}
+  .proj-media{position:relative; aspect-ratio:16/9; overflow:hidden; background:var(--bg-soft); border-radius:var(--r-lg); flex:1; width:100%;}
   .proj-media .grade{position:absolute; inset:0; transition:transform 3.5s ease;}
   video.grade{width:100%; height:100%; object-fit:cover;}
   .proj-card:hover .grade{transform:scale(1.06);}
@@ -398,7 +415,7 @@
   .modal-hero .grade{position:absolute; inset:0;}
   .modal-eyebrow{font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-ink); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:12px;}
   .modal-box h2{font-size:clamp(26px,4vw,40px); font-weight:600; margin-bottom:28px;}
-  .modal-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:44px; margin-bottom:44px;}
+  .modal-grid{display:grid; grid-template-columns:1.5fr 1fr; gap:44px; margin-bottom:24px;}
   @media(max-width:760px){.modal-grid{grid-template-columns:1fr; gap:30px;}}
   .modal-grid p{color:var(--muted); font-size:15px; line-height:1.75;}
   .meta-list{display:flex; flex-direction:column; gap:18px;}
@@ -410,9 +427,6 @@
   .credits-list li{display:flex; justify-content:space-between; font-size:13.5px; padding:8px 0; border-bottom:1px solid var(--line); color:var(--muted);}
   .credits-list li:last-child{border-bottom:none;}
   .credits-list li b{color:var(--ink); font-weight:600;}
-  .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-bottom:50px;}
-  @media(max-width:620px){.gallery{grid-template-columns:repeat(2,1fr);}}
-  .gallery div{aspect-ratio:1; border-radius:var(--r-md);}
   .related-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:10px;}
   @media(max-width:760px){.related-row{grid-template-columns:1fr;}}
   .related-card{cursor:pointer;}
@@ -479,11 +493,10 @@
   }
 
   /* ---------- BRANDS I'VE WORKED WITH ---------- */
-  .brands{padding:24px 0;}
-  @media(max-width:720px){.brands{padding:16px 0;}}
+  .brands{padding:0; margin-top:0;}
   .brands-frame{
-    background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
-    box-shadow:var(--shadow-sm); overflow:hidden;
+    background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:var(--r-md);
+    overflow:hidden;
   }
   .brands-track-wrap{
     overflow:hidden; padding:0;
@@ -492,18 +505,18 @@
   }
   .brands-track{display:flex; gap:0; width:max-content; animation:scroll-x 96s linear infinite;}
   .brand-logo{
-    position:relative; width:172px; height:88px; display:flex; align-items:center; justify-content:center;
+    position:relative; width:112px; height:52px; display:flex; align-items:center; justify-content:center;
     flex:0 0 auto; background:transparent; border:none; border-radius:0;
-    border-right:1px solid var(--line-strong);
+    border-right:1px solid rgba(255,255,255,0.12);
   }
   .brand-logo img{
-    max-width:60%; max-height:50%; object-fit:contain; display:block;
+    max-width:58%; max-height:46%; object-fit:contain; display:block;
     filter:brightness(0) invert(1); opacity:0.45; transition:opacity .25s, transform .25s;
   }
   .brand-logo:hover img{opacity:0.85; transform:scale(1.04);}
   .brand-logo .cplaceholder{
-    font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted-2);
-    text-align:center; padding:6px; text-transform:uppercase;
+    font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--muted-2);
+    text-align:center; padding:4px; text-transform:uppercase;
   }
 
   /* ---------- JOURNAL ---------- */
@@ -673,10 +686,10 @@
 </header>
 
 <!-- HERO + SHOWREEL SEQUENCE — one pinned scroll-driven curtain-fade + reel-grow
-     transition. The hero (video, title, CTAs) and the brand-logo marquee sit
-     together as a background layer that fades out; behind them the SHOWREEL
-     text reveals; then the reel frame fades in small and grows to full-bleed,
-     covering the SHOWREEL text as it fills the viewport. -->
+     transition. The hero (video, title, CTAs, brand marquee) sits together as
+     a background layer that fades out; behind it the SHOWREEL text reveals at
+     full size and legibility, then shrinks and fades as the reel frame grows
+     from a small card to full-bleed, covering it entirely. -->
 <section class="reel-sequence" id="reelSequence">
   <div class="reel-sequence-sticky">
 
@@ -700,15 +713,18 @@
           <button class="btn-solid" onclick="document.getElementById('work').scrollIntoView()">View The Work</button>
           <button class="btn-ghost" onclick="openModal(1)"><span class="play-dot"></span> Play Reel</button>
         </div>
-      </div>
-      <div class="seq-marquee wrap">
-        <div class="brands-frame">
-          <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
+        <!-- Brand marquee — directly below the hero content now, in normal
+             flow, with a slimmer bar height. -->
+        <div class="hero-marquee">
+          <div class="brands-frame">
+            <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- LAYER 2: SHOWREEL text — revealed as the hero/marquee fade out -->
+    <!-- LAYER 2: SHOWREEL text — reveals at full size/legibility first, then
+         shrinks and fades as it's covered by the growing reel frame -->
     <div class="showreel-label" id="showreelLabel">Showreel</div>
 
     <!-- LAYER 3: reel frame — fades in small, grows to full-bleed, autoplaying
@@ -1479,10 +1495,6 @@ function openModal(id){
         </div>
       </div>
     </div>
-    <div class="meta-item" style="margin-bottom:16px;"><div class="k">Gallery</div></div>
-    <div class="gallery">
-      <div class="grade ${p.grade}"></div><div class="grade ${p.grade}" style="filter:hue-rotate(15deg);"></div><div class="grade ${p.grade}" style="filter:hue-rotate(-15deg);"></div>
-    </div>
     <div class="meta-item" style="margin-bottom:20px;"><div class="k">Related Projects</div></div>
     <div class="related-row">${related.map(r=>`
       <div class="related-card" onclick="openModal(${r.id})">
@@ -1518,11 +1530,12 @@ window.addEventListener('scroll', ()=>{
 
 /* ---------------- HERO → SHOWREEL: combined curtain-fade + reel-grow ----------------
    One continuous scroll-linked sequence, in this order:
-   1) hero (video/title/CTAs) + brand marquee fade out together, like a curtain lifting
-   2) the SHOWREEL text reveals on the black stage behind them
+   1) hero (video/title/CTAs/marquee) fades out together, like a curtain lifting
+   2) the SHOWREEL text reveals at full size on the black stage behind it
    3) the reel frame fades in small, then grows to fill the screen, passing in front
-      of and covering the SHOWREEL text (which fades out as it's covered)
-   The reel itself just loops silently and autoplays once it's in view — no play button. */
+      of and covering the SHOWREEL text, which shrinks slightly and fades as it's covered
+   The reel itself just loops silently and autoplays once it's in view — no play button.
+   An eased progress curve keeps every stage of the motion smooth rather than linear. */
 (function(){
   const wrap = document.getElementById('reelSequence');
   const seqHero = document.getElementById('seqHero');
@@ -1545,14 +1558,15 @@ window.addEventListener('scroll', ()=>{
   }
 
   // Scroll-progress checkpoints (0 → 1 across the pinned sequence)
-  const HERO_FADE_END        = 0.30; // hero + marquee fully faded out by here
-  const LABEL_IN_START       = 0.12; // SHOWREEL text starts revealing...
-  const LABEL_IN_END         = 0.36; // ...fully visible by here (overlaps hero fade)
-  const FRAME_IN_START       = 0.38; // reel frame starts fading in...
-  const FRAME_IN_END         = 0.55; // ...fully opaque by here
-  const LABEL_OUT_START      = 0.55; // SHOWREEL text starts being covered/fading out...
-  const LABEL_OUT_END        = 0.88; // ...fully gone by here
-  const GROW_START           = 0.38; // reel frame starts growing...
+  const HERO_FADE_END        = 0.28; // hero + marquee fully faded out by here
+  const LABEL_IN_START       = 0.10; // SHOWREEL text starts revealing, full-size, no clipping...
+  const LABEL_IN_END         = 0.30; // ...fully visible and legible by here
+  const LABEL_HOLD_END       = 0.40; // ...held at full size/opacity briefly before the reel arrives
+  const FRAME_IN_START       = 0.40; // reel frame starts fading in small...
+  const FRAME_IN_END         = 0.58; // ...fully opaque by here
+  const LABEL_OUT_START      = 0.40; // SHOWREEL text starts shrinking + fading as the reel covers it...
+  const LABEL_OUT_END        = 0.86; // ...fully gone by here
+  const GROW_START           = 0.40; // reel frame starts growing...
   const GROW_END             = 1.00; // ...reaches full-bleed at the end of the scrub
   const MIN_WIDTH = 26;   // % — starting size of the reel card
   const MAX_WIDTH = 100;  // % — full-bleed
@@ -1563,6 +1577,8 @@ window.addEventListener('scroll', ()=>{
 
   function clamp01(v){ return Math.min(1, Math.max(0, v)); }
   function segment(p, start, end){ return clamp01((p - start) / (end - start)); }
+  // Smooth ease (in+out) so every stage accelerates/decelerates instead of moving linearly.
+  function easeInOutCubic(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
 
   function update(){
     ticking = false;
@@ -1573,23 +1589,30 @@ window.addEventListener('scroll', ()=>{
 
     // 1) hero + marquee curtain fade
     if(seqHero){
-      seqHero.style.opacity = 1 - segment(progress, 0, HERO_FADE_END);
+      const heroFade = easeInOutCubic(segment(progress, 0, HERO_FADE_END));
+      seqHero.style.opacity = 1 - heroFade;
     }
 
-    // 2) SHOWREEL text reveal, then covered/faded as the reel grows over it
+    // 2) SHOWREEL text: reveal at full size first, hold, then shrink + fade
+    //    as the reel frame grows over it.
     if(label){
-      const fadeIn = segment(progress, LABEL_IN_START, LABEL_IN_END);
-      const fadeOut = 1 - segment(progress, LABEL_OUT_START, LABEL_OUT_END);
+      const fadeIn = easeInOutCubic(segment(progress, LABEL_IN_START, LABEL_IN_END));
+      const fadeOutRaw = segment(progress, LABEL_OUT_START, LABEL_OUT_END);
+      const fadeOut = 1 - easeInOutCubic(fadeOutRaw);
       const opacity = Math.min(fadeIn, fadeOut);
       label.style.opacity = opacity;
-      label.style.transform = `scale(${1 + (1 - fadeOut) * 0.06})`;
+      // Starts at full scale (1) while fully visible, then shrinks down as it
+      // fades — reads as the text retreating behind the reel, not growing.
+      const shrink = easeInOutCubic(fadeOutRaw);
+      label.style.transform = `scale(${1 - shrink * 0.22})`;
     }
 
-    // 3) reel frame — fade in, then grow to full-bleed over the showreel text
-    const grow = segment(progress, GROW_START, GROW_END);
+    // 3) reel frame — fade in small, then grow to full-bleed over the showreel text
+    const growRaw = segment(progress, GROW_START, GROW_END);
+    const grow = easeInOutCubic(growRaw);
     frame.style.width = (MIN_WIDTH + (MAX_WIDTH - MIN_WIDTH) * grow) + '%';
     frame.style.borderRadius = (MAX_RADIUS * (1 - grow)) + 'px';
-    frame.style.opacity = segment(progress, FRAME_IN_START, FRAME_IN_END);
+    frame.style.opacity = easeInOutCubic(segment(progress, FRAME_IN_START, FRAME_IN_END));
 
     // loop the reel only while the sequence is in view
     const inView = rect.top < window.innerHeight && rect.bottom > 0;
