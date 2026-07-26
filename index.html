@@ -325,9 +325,10 @@
   .tl-arrow:hover{color:var(--accent-ink); border-color:var(--accent); background:var(--accent-soft);}
   .tl-arrow:disabled{opacity:0.3; cursor:default; color:var(--muted);}
   .timeline-scroll{flex:1; overflow-x:auto; scrollbar-width:none; padding:6px 0;
-    background:var(--card); border:1px solid var(--line); border-radius:var(--r-pill);}
+    background:var(--card); border:1px solid var(--line); border-radius:var(--r-pill);
+    display:flex; justify-content:center;}
   .timeline-scroll::-webkit-scrollbar{display:none;}
-  .timeline-track{display:flex; align-items:center; gap:4px; min-width:max-content; position:relative; padding:4px 6px;}
+  .timeline-track{display:flex; align-items:center; gap:4px; min-width:max-content; flex-shrink:0; position:relative; padding:4px 6px;}
   .tick{
     font-family:'JetBrains Mono',monospace; font-size:12.5px; letter-spacing:0.01em;
     color:var(--muted); padding:11px 20px; border-radius:var(--r-pill);
