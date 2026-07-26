@@ -47,6 +47,7 @@
     --teal:var(--accent-3);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
+  a, button{ touch-action:manipulation; } /* removes the ~300ms tap delay on older mobile browsers */
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg); color:var(--ink);
@@ -89,6 +90,15 @@
   @keyframes drift2{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-50px,40px) scale(0.94);} }
   @keyframes drift3{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(30px,-40px) scale(1.05);} }
   @media(prefers-reduced-motion: reduce){ .mesh-blob{ animation:none !important; } }
+  /* Smaller, lighter blur on phones — full-size 70px blurs across 3 large
+     fixed layers are one of the more expensive things to repaint on
+     lower-powered Android devices while the page scrolls. */
+  @media(max-width:720px){
+    .mesh-blob{ filter:blur(46px); }
+    .mesh-blob.b1{ width:380px; height:380px; }
+    .mesh-blob.b2{ width:340px; height:340px; }
+    .mesh-blob.b3{ width:320px; height:320px; }
+  }
 
   /* ---------- NAV ---------- */
   header{
@@ -344,7 +354,8 @@
   .tl-arrow:disabled{opacity:0.3; cursor:default; color:var(--muted);}
   .timeline-scroll{flex:1; overflow-x:auto; scrollbar-width:none; padding:6px 0;
     background:var(--card); border:1px solid var(--line); border-radius:var(--r-pill);
-    display:flex; justify-content:center;}
+    display:flex; justify-content:center;
+    -webkit-overflow-scrolling:touch; overscroll-behavior-x:contain;}
   .timeline-scroll::-webkit-scrollbar{display:none;}
   .timeline-track{display:flex; align-items:center; gap:4px; min-width:max-content; flex-shrink:0; position:relative; padding:4px 6px;}
   .tick{
@@ -383,7 +394,7 @@
     background:var(--card); cursor:pointer; position:relative; overflow:hidden;
     border-radius:var(--r-lg); border:1px solid var(--line); box-shadow:var(--shadow-sm);
     transition:transform .35s ease, box-shadow .35s ease;
-    display:flex; flex-direction:column;
+    display:flex; flex-direction:column; touch-action:manipulation;
   }
   .proj-card:hover{ transform:translateY(-6px); box-shadow:var(--shadow-lg); }
   .proj-media{position:relative; aspect-ratio:16/9; overflow:hidden; background:var(--bg-soft); border-radius:var(--r-lg); flex:1; width:100%;}
@@ -448,7 +459,7 @@
   .credits-list li b{color:var(--ink); font-weight:600;}
   .related-row{display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:10px;}
   @media(max-width:760px){.related-row{grid-template-columns:1fr;}}
-  .related-card{cursor:pointer;}
+  .related-card{cursor:pointer; touch-action:manipulation;}
   .related-card .proj-media{aspect-ratio:4/3; border-radius:var(--r-md);}
   .related-card h4{font-size:14.5px; margin-top:10px; font-weight:600;}
   .related-card .cat{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--accent-ink); letter-spacing:0.06em;}
@@ -1111,6 +1122,7 @@ function updateReadout(){
 let visibleCount = 6;
 function renderWork(){
   const grid = document.getElementById('workGrid');
+  grid.querySelectorAll('video.grade').forEach(v=>{ cardVideoObserver.unobserve(v); v.pause(); });
   grid.innerHTML = '';
   if(activeRole === 'case-studies'){
     renderCaseStudiesInWork(grid);
@@ -1163,12 +1175,24 @@ function modalHeroHTML(p){
   }
   return mediaHTML(p, true);
 }
+// Shared observer for grid card videos: only the cards actually on screen
+// decode and play their video — off-screen cards pause. With 6+ autoplaying
+// videos per grid this is a meaningful battery/data saving on mobile, and
+// it's especially important once "Show More Work" adds further cards.
+const cardVideoObserver = new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    const v = entry.target;
+    if(entry.isIntersecting){ v.play().catch(()=>{}); }
+    else{ v.pause(); }
+  });
+}, {rootMargin:'80px 0px', threshold:0.1});
+
 function projectCard(p){
   const card = document.createElement('div');
   card.className = 'proj-card';
   card.innerHTML = `
     <div class="proj-media">
-     ${mediaHTML(p, true)}
+     ${mediaHTML(p, false)}
       <div class="scan"></div>
       <div class="badges">${p.roles.map(r=>`<span class="badge">${ROLE_TAG[r]}</span>`).join('')}</div>
       <div class="play-hint">▶</div>
@@ -1179,7 +1203,7 @@ function projectCard(p){
       </div>
     </div>`;
 const vid = card.querySelector('video.grade');
-  if(vid){ vid.muted = true; vid.play().catch(()=>{}); }
+  if(vid){ vid.muted = true; vid.setAttribute('preload','metadata'); cardVideoObserver.observe(vid); }
   card.addEventListener('click', ()=>openModal(p.id));
   return card;
 }
