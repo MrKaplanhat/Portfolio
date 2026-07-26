@@ -61,11 +61,11 @@
   .wrap{max-width:1280px; margin:0 auto; padding:0 40px;}
   @media(max-width:720px){.wrap{padding:0 20px;}}
   .bracket-eyebrow{
-    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:0.1em; text-transform:uppercase;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:12.5px; letter-spacing:0.03em; text-transform:uppercase;
     color:var(--accent-ink); margin-bottom:16px; display:inline-flex; align-items:center; gap:8px;
     background:var(--accent-soft); padding:7px 14px; border-radius:var(--r-pill);
   }
-  .bracket-eyebrow::before{content:'●'; color:var(--accent); font-size:7px;}
+  .bracket-eyebrow::before{content:'—'; color:var(--accent); font-weight:700;}
   .bracket-eyebrow::after{content:none;}
 
   /* ---------- MESH BACKGROUND ---------- */
@@ -122,17 +122,16 @@
 
   /* ---------- HERO ---------- */
   .hero{
-    position:relative; min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end;
-    padding:120px 20px 20px; overflow:visible; text-align:center;
+    position:relative; height:100vh; min-height:100vh; width:100%;
+    overflow:hidden; text-align:center;
   }
-  @media(max-width:720px){.hero{padding:110px 12px 12px;}}
   .hero-frame{
-    position:relative; width:100%; max-width:1280px; margin:0 auto;
-    border-radius:var(--r-xl); overflow:hidden; min-height:78vh;
-    box-shadow:var(--shadow-lg); border:1px solid rgba(255,255,255,0.08);
+    position:absolute; inset:0; width:100%; height:100%;
+    border-radius:0; overflow:hidden; box-shadow:none; border:none; margin:0;
     display:flex; align-items:flex-end; justify-content:center;
   }
-  @media(max-width:720px){.hero-frame{border-radius:26px; min-height:72vh;}}
+  .hero-frame .wrap{ padding-top:140px; padding-bottom:64px; }
+  @media(max-width:720px){.hero-frame .wrap{ padding-top:120px; padding-bottom:44px; }}
   .hero-video{
     position:absolute; top:50%; left:50%; min-width:100%; min-height:100%;
     width:auto; height:auto; transform:translate(-50%,-50%);
@@ -153,11 +152,12 @@
     inset:0;
 
     background:
+        linear-gradient(rgba(6,5,10,.36), rgba(6,5,10,.36)),
         linear-gradient(
             to bottom,
-            rgba(10,8,20,.45) 0%,
-            rgba(10,8,20,.15) 35%,
-            rgba(10,8,20,.35) 70%,
+            rgba(10,8,20,.35) 0%,
+            rgba(10,8,20,.1) 35%,
+            rgba(10,8,20,.3) 70%,
             rgba(10,8,20,.78) 100%
         );
 
@@ -270,22 +270,25 @@
   }
 
   /* ---------- DISCIPLINES ---------- */
-  .disc-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
-  @media(max-width:900px){.disc-grid{grid-template-columns:repeat(2,1fr);}}
-  @media(max-width:560px){.disc-grid{grid-template-columns:1fr;}}
-  .disc-card{
-    background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
-    padding:36px 30px; min-height:220px; display:flex; flex-direction:column; justify-content:space-between;
-    transition:transform .3s, box-shadow .3s;
-    box-shadow:var(--shadow-sm);
+  .disc-list{
+    display:flex; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
+    overflow:hidden; box-shadow:var(--shadow-sm);
   }
-  .disc-card:hover{transform:translateY(-4px); box-shadow:var(--shadow-md);}
+  @media(max-width:760px){.disc-list{flex-direction:column;}}
+  .disc-item{
+    flex:1; padding:40px 34px; position:relative;
+    transition:background .3s ease;
+  }
+  .disc-item:not(:first-child){border-left:1px solid var(--line);}
+  @media(max-width:760px){.disc-item:not(:first-child){border-left:none; border-top:1px solid var(--line);}}
+  .disc-item:hover{background:var(--accent-soft);}
   .disc-num{
-    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--accent-ink);
-    background:var(--accent-soft); width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13px; letter-spacing:0.02em; color:var(--muted-2);
+    transition:color .3s ease;
   }
-  .disc-card h3{font-size:21px; font-weight:600; margin-top:22px;}
-  .disc-card p{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.6;}
+  .disc-item:hover .disc-num{color:var(--accent-ink);}
+  .disc-item h3{font-size:21px; font-weight:600; margin-top:20px;}
+  .disc-item p{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.6;}
 
   /* ---------- WORK / ROLE TIMELINE ---------- */
   .timeline-bar{
@@ -472,9 +475,9 @@
   }
   .brand-logo img{
     max-width:60%; max-height:50%; object-fit:contain; display:block;
-    opacity:0.55; filter:grayscale(1) brightness(2.4); transition:opacity .25s, filter .25s, transform .25s;
+    filter:brightness(0) invert(1); opacity:0.45; transition:opacity .25s, transform .25s;
   }
-  .brand-logo:hover img{opacity:1; filter:grayscale(0) brightness(1); transform:scale(1.04);}
+  .brand-logo:hover img{opacity:0.85; transform:scale(1.04);}
   .brand-logo .cplaceholder{
     font-family:'JetBrains Mono',monospace; font-size:9px; color:var(--muted-2);
     text-align:center; padding:6px; text-transform:uppercase;
@@ -661,22 +664,6 @@
   </div>
 </section>
 
-<!-- SHOWREEL — reuses the same hero video, pinned full-viewport while the
-     page scrolls through this section, growing from a centered framed
-     card up to full-bleed (mirrors the reference site's scroll reveal). -->
-<section class="showreel" id="showreelSection">
-  <div class="showreel-sticky">
-    <div class="showreel-label">Showreel</div>
-    <div class="showreel-frame" id="showreelFrame">
-      <video class="showreel-video" muted loop playsinline preload="metadata">
-        <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
-      </video>
-    </div>
-    <button class="showreel-play" onclick="openModal(1)"><span class="play-dot"></span> Play Reel</button>
-    <div class="showreel-timecode">00:00:00:00 — Selected Work</div>
-  </div>
-</section>
-
 <!-- AWARDS STRIP -->
 <div class="awards-strip" style="display:none;">
   <div class="wrap awards-row">
@@ -692,6 +679,23 @@
   <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
 </section>
 
+<!-- SHOWREEL — appears right after the logo scroll. Reuses the same hero
+     video, pinned full-viewport while the page scrolls through this
+     section: the "Showreel" title shows first, then the frame grows
+     from a centered card to full-bleed, covering the title as it goes. -->
+<section class="showreel" id="showreelSection">
+  <div class="showreel-sticky">
+    <div class="showreel-label">Showreel</div>
+    <div class="showreel-frame" id="showreelFrame">
+      <video class="showreel-video" muted loop playsinline preload="metadata">
+        <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
+      </video>
+    </div>
+    <button class="showreel-play" onclick="openModal(1)"><span class="play-dot"></span> Play Reel</button>
+    <div class="showreel-timecode">00:00:00:00 — Selected Work</div>
+  </div>
+</section>
+
 <!-- QUOTE -->
 <section class="quote-block" style="display:none;">
   <div class="wrap">
@@ -703,10 +707,10 @@
 <!-- DISCIPLINES -->
 <section class="disciplines">
   <div class="wrap"><span class="bracket-eyebrow">Who I Am</span></div>
-  <div class="disc-grid">
-    <div class="disc-card"><span class="disc-num">01</span><div><h3>Director</h3><p>I set the shot, the story and the room. I turn a script or a brief into footage that actually moves people — on set, in the edit, and in the final cut.</p></div></div>
-    <div class="disc-card"><span class="disc-num">02</span><div><h3>Visual Architect</h3><p>I build the look and system a brand lives in — color, type, motion, tone — so every touchpoint feels like it came from the same hand.</p></div></div>
-    <div class="disc-card"><span class="disc-num">03</span><div><h3>Creative Strategist</h3><p>I turn a brief into a campaign that performs. I connect the creative decisions to the business outcome they're actually meant to move.</p></div></div>
+  <div class="disc-list">
+    <div class="disc-item"><span class="disc-num">01</span><h3>Director</h3><p>I set the shot, the story and the room. I turn a script or a brief into footage that actually moves people — on set, in the edit, and in the final cut.</p></div>
+    <div class="disc-item"><span class="disc-num">02</span><h3>Visual Architect</h3><p>I build the look and system a brand lives in — color, type, motion, tone — so every touchpoint feels like it came from the same hand.</p></div>
+    <div class="disc-item"><span class="disc-num">03</span><h3>Creative Strategist</h3><p>I turn a brief into a campaign that performs. I connect the creative decisions to the business outcome they're actually meant to move.</p></div>
   </div>
   <div class="wrap">
     <div class="skill-chip-row">
