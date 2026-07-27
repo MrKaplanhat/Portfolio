@@ -1571,12 +1571,34 @@ loadJournalFromSubstack();
 /* ---------------- MODAL ---------------- */
 const overlay = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
-function openModal(id){
+const BASE_TITLE = document.title;
+
+// Turns a project title into a URL-friendly slug, e.g. "Cardtonic x Jago" -> "cardtonic-x-jago"
+function slugify(str){
+  return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+function projectUrl(p){
+  return `${location.origin}${location.pathname}${location.search}#project/${slugify(p.title)}`;
+}
+function getProjectFromHash(){
+  const m = location.hash.match(/^#project\/(.+)$/);
+  if(!m) return null;
+  const slug = decodeURIComponent(m[1]);
+  return PROJECTS.find(p => slugify(p.title) === slug) || null;
+}
+
+function openModal(id, opts){
+  opts = opts || {};
+  const updateUrl = opts.updateUrl !== false;
   const p = PROJECTS.find(x=>x.id===id);
+  if(!p) return;
   const related = PROJECTS.filter(x=>x.id!==id && x.roles.some(r=>p.roles.includes(r))).slice(0,3);
   modalBox.innerHTML = `
    <div class="modal-hero">${modalHeroHTML(p)}</div>
-    <span class="modal-eyebrow">${p.cat}</span>
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+      <span class="modal-eyebrow">${p.cat}</span>
+      <button class="btn-outline" style="font-size:12px; padding:9px 16px;" onclick="copyProjectLink(${p.id}, this)">Copy Share Link</button>
+    </div>
     <h2>${p.title}</h2>
     <div class="modal-grid">
       <div>
@@ -1602,11 +1624,58 @@ function openModal(id){
   overlay.classList.add('open');
   overlay.scrollTop = 0;
   document.body.style.overflow = 'hidden';
+  document.title = `${p.title} — ${BASE_TITLE}`;
+  if(updateUrl){
+    const targetHash = `#project/${slugify(p.title)}`;
+    if(location.hash !== targetHash){
+      history.pushState({projectId:p.id}, '', targetHash);
+    }
+  }
 }
-document.getElementById('modalClose').addEventListener('click', closeModal);
+document.getElementById('modalClose').addEventListener('click', ()=>closeModal());
 overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
-function closeModal(){ overlay.classList.remove('open'); document.body.style.overflow = ''; }
+function closeModal(opts){
+  opts = opts || {};
+  const updateUrl = opts.updateUrl !== false;
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+  document.title = BASE_TITLE;
+  if(updateUrl && location.hash.startsWith('#project/')){
+    history.pushState({}, '', location.pathname + location.search);
+  }
+}
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
+
+// Back/forward browser buttons open or close the right project modal to match the URL
+window.addEventListener('popstate', ()=>{
+  const p = getProjectFromHash();
+  if(p){ openModal(p.id, {updateUrl:false}); }
+  else { closeModal({updateUrl:false}); }
+});
+
+// Copies a direct link to this project (e.g. to send a client straight to it) to the clipboard
+function copyProjectLink(id, btnEl){
+  const p = PROJECTS.find(x=>x.id===id);
+  if(!p) return;
+  const url = projectUrl(p);
+  const showCopied = ()=>{
+    if(!btnEl) return;
+    const original = btnEl.textContent;
+    btnEl.textContent = 'Link Copied ✓';
+    setTimeout(()=>{ btnEl.textContent = original; }, 2000);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(showCopied).catch(()=>{ window.prompt('Copy this link:', url); });
+  }else{
+    window.prompt('Copy this link:', url);
+  }
+}
+
+// If the page was loaded with a project link in the URL (e.g. shared with a client), open it immediately
+(function openModalFromInitialUrl(){
+  const p = getProjectFromHash();
+  if(p) openModal(p.id, {updateUrl:false});
+})();
 
 /* ---------------- SCROLL REVEAL ---------------- */
 document.querySelectorAll('section').forEach(s=>s.classList.add('reveal'));
