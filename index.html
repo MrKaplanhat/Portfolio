@@ -9,6 +9,43 @@
 <meta property="og:title" content="Daniel Adewoye — Creative Director & Filmmaker">
 <meta property="og:description" content="Creative direction, filmmaking and brand strategy at the intersection of story, culture and strategy. Founder of Dixtro and Lens, Light & Motion.">
 <meta property="og:type" content="profile">
+<!-- ============================================
+     FAVICON — SETUP:
+     1. Save an SVG icon as "favicon.svg" in the same folder as this HTML
+        file (site root). Keep it simple — favicons render tiny, so fine
+        detail gets lost. A square viewBox works best (e.g. 0 0 32 32).
+     2. Safari and older browsers don't support SVG favicons yet, so also
+        export a 32x32 (or 48x48) PNG version as "favicon.png" — the two
+        lines below already point to both, no HTML changes needed once
+        the two files exist alongside this page.
+     3. Optional: add "apple-touch-icon.png" (180x180) if people will be
+        adding this site to their iPhone home screen.
+     ============================================ -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="alternate icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<!-- ============================================
+     LINK PREVIEW THUMBNAIL — SETUP:
+     This is what makes WhatsApp, iMessage, Twitter/X, Slack, Discord etc.
+     show an image + title + description when someone pastes your link.
+     They read the og:image / twitter:image tags below, NOT any image
+     already in the page — so this needs its own dedicated file.
+
+     1. Create a landscape image, ideally exactly 1200x630px (a portrait
+        crop like the About photo will get awkwardly cropped by most
+        apps' preview boxes). Save it as "og-image.jpg" in the site root.
+     2. Replace YOUR-DOMAIN below with your real domain — it MUST be a
+        full absolute URL (https://...), not a relative path, or most
+        apps (WhatsApp especially) will fail to fetch it.
+     3. That's it — no other code changes needed. Test how it'll look at
+        https://www.opengraph.xyz/ before sharing.
+     ============================================ -->
+<meta property="og:image" content="https://YOUR-DOMAIN/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://YOUR-DOMAIN/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://YOUR-DOMAIN/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
