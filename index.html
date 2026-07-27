@@ -47,6 +47,9 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://adewoye.works/og-image.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+<link rel="preconnect" href="https://www.googleapis.com">
+<link rel="preconnect" href="https://drive.google.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -781,8 +784,10 @@
              loop + muted + playsinline = autoplay works on
              mobile Safari/Chrome without a tap.
              ============================================ -->
-        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline>
-          <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
+        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
+          poster="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,so_0/v1784037620/portfolio_xxkg3c.jpg">
+          <source media="(max-width:720px)" src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto:eco,w_720,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
+          <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,w_1600,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
         </video>
       </div>
       <div class="wrap seq-hero-content">
@@ -809,8 +814,10 @@
     <!-- LAYER 3: reel frame — fades in small, grows to full-bleed, autoplaying
          on loop with no manual play control; covers the SHOWREEL text as it fills the screen -->
     <div class="showreel-frame" id="showreelFrame">
-      <video class="showreel-video" muted loop playsinline preload="metadata">
-        <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
+      <video class="showreel-video" muted loop playsinline preload="metadata"
+        poster="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,so_0/v1784037620/portfolio_xxkg3c.jpg">
+        <source media="(max-width:720px)" src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto:eco,w_720,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
+        <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,w_1600,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
       </video>
     </div>
   </div>
@@ -960,7 +967,7 @@
              ============================================ -->
         <div class="about-photo-col">
         <div class="about-photo">
-          <img src="founder-pic.jpeg" alt="Daniel Adewoye" style="display:none;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
+          <img src="founder-pic.jpeg" alt="Daniel Adewoye" loading="lazy" decoding="async" style="display:none;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
           <div class="about-photo-placeholder">Add Your<br>Photo Here</div>
         </div>
         <!-- ============================================
@@ -1260,7 +1267,7 @@ STORE_ITEMS.forEach(item=>{
   const el = document.createElement('div');
   el.className = 'store-card';
   const thumbInner = item.image
-    ? `<img src="${item.image}" alt="${item.title} mockup">`
+    ? `<img src="${item.image}" alt="${item.title} mockup" loading="lazy" decoding="async">`
     : `<span class="thumb-placeholder">Product PNG<br>Mockup Goes Here</span>`;
   el.innerHTML = `
     <div class="store-thumb">${thumbInner}</div>
@@ -1315,7 +1322,7 @@ function renderBTS(photos){
   [...photos, ...photos].forEach(b=>{ // duplicated for a seamless continuous float
     const el = document.createElement('div');
     el.className = 'bts-photo';
-    el.innerHTML = b.image ? `<img src="${b.image}" alt="Behind the scenes" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;cplaceholder&quot;>Add<br>BTS Photo</div>'">` : `<div class="cplaceholder">Add<br>BTS Photo</div>`;
+    el.innerHTML = b.image ? `<img src="${b.image}" alt="Behind the scenes" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;cplaceholder&quot;>Add<br>BTS Photo</div>'">` : `<div class="cplaceholder">Add<br>BTS Photo</div>`;
     btsTrack.appendChild(el);
   });
 }
@@ -1330,7 +1337,7 @@ async function loadBTSFromDrive(){
     if(!res.ok) throw new Error('Drive API request failed: ' + res.status);
     const data = await res.json();
     if(!data.files || !data.files.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
-    const photos = data.files.map(f => ({ image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w1200` }));
+    const photos = data.files.map(f => ({ image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w700` }));
     renderBTS(photos);
   }catch(err){
     console.warn('BTS Drive gallery failed to load, showing fallback tiles:', err);
@@ -1391,7 +1398,7 @@ function renderBrands(brands){
   full.forEach(b=>{
     const el = document.createElement('div');
     el.className = 'brand-logo';
-    el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;cplaceholder&quot;>${b.name}</div>'">` : `<div class="cplaceholder">${b.name}</div>`;
+    el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;cplaceholder&quot;>${b.name}</div>'">` : `<div class="cplaceholder">${b.name}</div>`;
     brandsTrack.appendChild(el);
   });
   // Keep scroll speed visually consistent no matter how many tiles end up
