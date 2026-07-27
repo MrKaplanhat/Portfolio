@@ -9,37 +9,9 @@
 <meta property="og:title" content="Daniel Adewoye — Creative Director & Filmmaker">
 <meta property="og:description" content="8+ years working at the intersection of story, culture and strategy — directing commercials, YouTube content and campaigns.">
 <meta property="og:type" content="profile">
-<!-- ============================================
-     FAVICON — SETUP:
-     1. Save an SVG icon as "favicon.svg" in the same folder as this HTML
-        file (site root). Keep it simple — favicons render tiny, so fine
-        detail gets lost. A square viewBox works best (e.g. 0 0 32 32).
-     2. Safari and older browsers don't support SVG favicons yet, so also
-        export a 32x32 (or 48x48) PNG version as "favicon.png" — the two
-        lines below already point to both, no HTML changes needed once
-        the two files exist alongside this page.
-     3. Optional: add "apple-touch-icon.png" (180x180) if people will be
-        adding this site to their iPhone home screen.
-     ============================================ -->
 <link rel="icon" type="image/svg+xml" href="4k-video-clip-outline-icon.svg">
 <link rel="alternate icon" type="image/png" href="4k-video-clip-outline-icon.png">
 <link rel="apple-touch-icon" href="4k-video-clip-outline-icon.png">
-<!-- ============================================
-     LINK PREVIEW THUMBNAIL — SETUP:
-     This is what makes WhatsApp, iMessage, Twitter/X, Slack, Discord etc.
-     show an image + title + description when someone pastes your link.
-     They read the og:image / twitter:image tags below, NOT any image
-     already in the page — so this needs its own dedicated file.
-
-     1. Create a landscape image, ideally exactly 1200x630px (a portrait
-        crop like the About photo will get awkwardly cropped by most
-        apps' preview boxes). Save it as "og-image.jpg" in the site root.
-     2. Replace YOUR-DOMAIN below with your real domain — it MUST be a
-        full absolute URL (https://...), not a relative path, or most
-        apps (WhatsApp especially) will fail to fetch it.
-     3. That's it — no other code changes needed. Test how it'll look at
-        https://www.opengraph.xyz/ before sharing.
-     ============================================ -->
 <meta property="og:image" content="https://adewoye.works/og-image.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -80,7 +52,6 @@
     --r-md:20px;
     --r-sm:14px;
     --r-pill:999px;
-    /* legacy aliases kept so nothing else in the stylesheet breaks */
     --bg-elev:var(--bg-soft);
     --bg-card:var(--card);
     --text:var(--ink);
@@ -88,7 +59,7 @@
     --teal:var(--accent-3);
   }
   *{box-sizing:border-box; margin:0; padding:0;}
-  a, button{ touch-action:manipulation; } /* removes the ~300ms tap delay on older mobile browsers */
+  a, button{ touch-action:manipulation; }
   html{scroll-behavior:smooth;}
   body{
     background:var(--bg); color:var(--ink);
@@ -124,8 +95,6 @@
   }
   .bracket-eyebrow::before{content:'—'; color:var(--accent); font-weight:700;}
   .bracket-eyebrow::after{content:none;}
-
-  /* ---------- MESH BACKGROUND ---------- */
   .mesh-blob{ position:fixed; border-radius:50%; filter:blur(70px); z-index:-3; pointer-events:none; opacity:0.55; }
   .mesh-blob.b1{ width:640px; height:640px; top:-220px; left:-160px; background:radial-gradient(circle at 30% 30%, var(--accent), transparent 70%); animation:drift1 26s ease-in-out infinite; opacity:0.4; }
   .mesh-blob.b2{ width:560px; height:560px; top:280px; right:-220px; background:radial-gradient(circle at 60% 40%, var(--accent-2), transparent 70%); animation:drift2 32s ease-in-out infinite; opacity:0.28; }
@@ -134,17 +103,12 @@
   @keyframes drift2{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(-50px,40px) scale(0.94);} }
   @keyframes drift3{ 0%,100%{transform:translate(0,0) scale(1);} 50%{transform:translate(30px,-40px) scale(1.05);} }
   @media(prefers-reduced-motion: reduce){ .mesh-blob{ animation:none !important; } }
-  /* Smaller, lighter blur on phones — full-size 70px blurs across 3 large
-     fixed layers are one of the more expensive things to repaint on
-     lower-powered Android devices while the page scrolls. */
   @media(max-width:720px){
     .mesh-blob{ filter:blur(46px); }
     .mesh-blob.b1{ width:380px; height:380px; }
     .mesh-blob.b2{ width:340px; height:340px; }
     .mesh-blob.b3{ width:320px; height:320px; }
   }
-
-  /* ---------- NAV ---------- */
   header{
     position:fixed; top:0; left:0; right:0; z-index:100;
     display:flex; justify-content:center;
@@ -185,8 +149,6 @@
   }
   .cta-pill:hover{filter:brightness(1.12); transform:translateY(-1px);}
   @media(max-width:900px){ nav.primary a:not(.cta-pill){display:none;} }
-
-  /* ---------- HERO ---------- */
   .hero{
     position:relative; height:100vh; min-height:100vh; width:100%;
     overflow:hidden; text-align:center;
@@ -277,8 +239,6 @@
   }
   .btn-ghost:hover{background:rgba(255,255,255,0.18); border-color:rgba(255,255,255,0.5);}
   .play-dot{width:8px; height:8px; border-radius:50%; background:currentColor;}
-
-  /* ---------- HERO + SHOWREEL SEQUENCE (curtain-fade + reel-grow, pinned) ---------- */
   .reel-sequence{
     position:relative; height:320vh; padding:0; margin:0; overflow:visible; background:#000;
   }
@@ -287,8 +247,6 @@
     position:sticky; top:0; height:100vh; height:100dvh; width:100%; overflow:hidden; background:#000;
     -webkit-transform:translateZ(0); transform:translateZ(0);
   }
-
-  /* Layer 1 — hero + marquee curtain (fades out first) */
   .seq-hero{
     position:absolute; inset:0; z-index:1;
     display:flex; align-items:flex-end; justify-content:center; text-align:center;
@@ -298,13 +256,8 @@
   }
   .seq-hero-content{ width:100%; padding-top:140px; padding-bottom:36px; }
   @media(max-width:720px){.seq-hero-content{ padding-top:120px; padding-bottom:26px; }}
-
-  /* Brand marquee — now sits in normal flow directly beneath the hero
-     content (title / sub / CTAs), not pinned to the viewport edge. */
   .hero-marquee{ width:100%; margin-top:30px; }
   @media(max-width:720px){.hero-marquee{ margin-top:20px; }}
-
-  /* Layer 2 — SHOWREEL text reveal */
   .showreel-label{
     position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
     font-family:'Syne',sans-serif; font-weight:800; text-transform:uppercase;
@@ -314,8 +267,6 @@
     opacity:0; will-change:opacity,transform;
     padding:0 24px;
   }
-
-  /* Layer 3 — reel frame: fades in small, grows to full-bleed, covers the label */
   .showreel-frame{
     position:absolute; z-index:3; top:50%; left:50%; transform:translate(-50%,-50%);
     width:26%; aspect-ratio:16/9; overflow:hidden;
@@ -328,22 +279,16 @@
     content:''; position:absolute; inset:0;
     background:linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.4) 100%);
   }
-
-  /* ---------- AWARDS STRIP ---------- */
   .awards-strip{border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:36px 0;}
   .awards-row{display:flex; justify-content:space-between; flex-wrap:wrap; gap:26px;}
   .award-item{display:flex; align-items:center; gap:14px; flex:1; min-width:220px;}
   .award-item .x{font-family:'Syne',sans-serif; font-size:26px; color:var(--accent);}
   .award-item .t{font-size:12.5px; color:var(--muted); line-height:1.4; font-family:'JetBrains Mono',monospace; letter-spacing:0.02em;}
-
-  /* ---------- SECTION HEADS ---------- */
   section{padding:110px 0; position:relative;}
   @media(max-width:720px){section{padding:70px 0;}}
   .section-head{display:flex; justify-content:space-between; align-items:flex-end; gap:30px; margin-bottom:48px; flex-wrap:wrap;}
   .section-head h2{font-size:clamp(30px,4vw,46px); font-weight:600;}
   .section-desc{max-width:420px; color:var(--muted); font-size:15px; line-height:1.6;}
-
-  /* ---------- QUOTE BLOCK ---------- */
   .quote-block{text-align:center;}
   .quote-block blockquote{
     font-family:'Syne',sans-serif; font-style:normal; font-weight:600;
@@ -353,8 +298,6 @@
     display:block; margin-top:26px; font-family:'JetBrains Mono',monospace; font-style:normal;
     font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; color:var(--accent-ink);
   }
-
-  /* ---------- DISCIPLINES ---------- */
   .disc-list{
     display:flex; background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
     overflow:hidden; box-shadow:var(--shadow-sm);
@@ -374,8 +317,6 @@
   .disc-item:hover .disc-num{color:var(--accent-ink);}
   .disc-item h3{font-size:21px; font-weight:600; margin-top:20px;}
   .disc-item p{color:var(--muted); font-size:14px; margin-top:10px; line-height:1.6;}
-
-  /* ---------- SKILLS MARQUEE ---------- */
   .skills-marquee-wrap{
     margin-top:26px; overflow:hidden; padding:18px 0;
     -webkit-mask-image:linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%);
@@ -387,8 +328,6 @@
     letter-spacing:-0.01em; color:var(--muted-2); white-space:nowrap; transition:color .2s;
   }
   .skills-marquee-track .skill-dot{width:9px; height:9px; border-radius:50%; background:var(--accent-3); flex:0 0 auto;}
-
-  /* ---------- WORK / ROLE TIMELINE ---------- */
   .timeline-bar{
     position:relative; margin-bottom:44px; display:flex; align-items:center; gap:8px;
   }
@@ -418,7 +357,6 @@
   .tick.active::before{ content:none; }
   .readout{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); padding-top:14px; letter-spacing:0.06em; text-align:center; }
   .readout b{color:var(--accent-ink); font-weight:600;}
-
   .work-grid{
     display:grid;
     grid-template-columns:repeat(3,1fr);
@@ -427,16 +365,12 @@
   }
   @media(max-width:980px){.work-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:620px){.work-grid{grid-template-columns:1fr;}}
-
-  /* Featured card: spans 2 columns and 2 rows, so the next two cards in the
-     list stack naturally in the freed-up column beside it (no empty gap). */
   .work-grid .proj-card:nth-child(6n+1){ grid-column:span 2; grid-row:span 2; }
   .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:auto; height:100%; min-height:100%; }
   @media(max-width:980px){
     .work-grid .proj-card:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
     .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; }
   }
-
   .proj-card{
     background:var(--card); cursor:pointer; position:relative; overflow:hidden;
     border-radius:var(--r-lg); border:1px solid var(--line); box-shadow:var(--shadow-sm);
@@ -473,8 +407,6 @@
     background:var(--card); color:var(--ink); border-radius:var(--r-pill); box-shadow:var(--shadow-sm);
   }
   .btn-outline:hover{border-color:var(--accent); color:var(--accent-ink); transform:translateY(-2px);}
-
-  /* ---------- MODAL ---------- */
   .modal-overlay{ position:fixed; inset:0; background:rgba(0,0,0,0.72); backdrop-filter:blur(10px); z-index:200; display:none; overflow-y:auto; padding:40px 20px; }
   .modal-overlay.open{display:block;}
   .modal-box{
@@ -510,8 +442,6 @@
   .related-card .proj-media{aspect-ratio:4/3; border-radius:var(--r-md);}
   .related-card h4{font-size:14.5px; margin-top:10px; font-weight:600;}
   .related-card .cat{font-family:'JetBrains Mono',monospace; font-size:10px; text-transform:uppercase; color:var(--accent-ink); letter-spacing:0.06em;}
-
-  /* ---------- STORE ---------- */
   .store{background:transparent;}
   .store-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1280px; margin:0 auto; padding:0 40px 20px;}
   @media(max-width:900px){.store-grid{grid-template-columns:repeat(2,1fr);}}
@@ -544,8 +474,6 @@
     padding:9px 18px; background:var(--accent); color:#fff; border-radius:var(--r-pill); transition:.25s; white-space:nowrap;
   }
   .buy-btn:hover{background:var(--accent-2);}
-
-  /* ---------- TESTIMONIALS ---------- */
   .test-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
   @media(max-width:860px){.test-grid{grid-template-columns:1fr;}}
   .test-card{background:var(--card); padding:30px 28px; border-radius:var(--r-lg); border:1px solid var(--line); box-shadow:var(--shadow-sm);}
@@ -554,8 +482,6 @@
   .test-card p{color:var(--muted); font-size:14px; line-height:1.65; margin:16px 0 18px;}
   .test-card .who{font-size:13.5px; font-weight:600;}
   .test-card .role{font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted-2); text-transform:uppercase; letter-spacing:0.04em; margin-top:3px;}
-
-  /* ---------- BTS GALLERY ---------- */
   .bts-track-wrap{overflow:hidden; padding:10px 0 6px;}
   .bts-track{display:flex; gap:18px; width:max-content; animation:scroll-x 130s linear infinite;}
   .bts-photo{
@@ -568,8 +494,6 @@
     font-family:'JetBrains Mono',monospace; font-size:10px; color:var(--muted-2);
     text-align:center; padding:6px; text-transform:uppercase;
   }
-
-  /* ---------- BRANDS I'VE WORKED WITH ---------- */
   .brands{padding:0; margin-top:0;}
   .brands-frame{
     background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.12); border-radius:var(--r-md);
@@ -595,8 +519,6 @@
     font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--muted-2);
     text-align:center; padding:4px; text-transform:uppercase;
   }
-
-  /* ---------- JOURNAL ---------- */
   .journal-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:22px;}
   @media(max-width:900px){.journal-grid{grid-template-columns:1fr; gap:20px;}}
   .journal-card{
@@ -625,8 +547,6 @@
     font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted-2);
     text-transform:uppercase; letter-spacing:0.06em; padding:20px 0; grid-column:1/-1;
   }
-
-  /* ---------- ABOUT ---------- */
   .about-frame{
     background:var(--card); border:1px solid var(--line); border-radius:var(--r-lg);
     box-shadow:var(--shadow-sm); padding:44px;
@@ -670,8 +590,6 @@
     font-family:'JetBrains Mono',monospace; font-size:11px; letter-spacing:0.02em;
     padding:8px 14px; background:var(--bg); border:1px solid var(--line); border-radius:var(--r-pill); color:var(--muted);
   }
-
-  /* ---------- CLIENT MARQUEE ---------- */
   .marquee-wrap{padding:30px 0; overflow:hidden;}
   .marquee-track{display:flex; gap:56px; width:max-content; animation:scroll-x 32s linear infinite;}
   @keyframes scroll-x{ from{transform:translateX(0);} to{transform:translateX(-50%);} }
@@ -679,8 +597,6 @@
     font-family:'Syne',sans-serif; font-weight:600; font-size:19px;
     color:var(--muted-2); letter-spacing:-0.01em; white-space:nowrap;
   }
-
-  /* ---------- FOOTER / CONTACT ---------- */
   footer{padding:0 0 40px;}
   footer .wrap > .contact-head{
     background:
@@ -703,10 +619,8 @@
   .contact-head .contact-links .cta-pill:hover{background:linear-gradient(100deg,var(--btn-orange),var(--btn-teal)); border-color:transparent;}
   .contact-head .bracket-eyebrow{background:rgba(255,255,255,0.12); color:#fff;}
   .foot-bottom{display:flex; justify-content:space-between; margin-top:40px; padding-top:0; font-size:12.5px; color:var(--muted-2); flex-wrap:wrap; gap:14px;}
-
   .reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
   .reveal.in{opacity:1; transform:translateY(0);}
-
   .g1{background:linear-gradient(135deg,#1c1c1c,#111 55%,#242424);}
   .g2{background:linear-gradient(135deg,#242424,#111 60%,#1c1c1c);}
   .g3{background:linear-gradient(135deg,#1c1c1c,#161616 50%,#242424);}
@@ -716,7 +630,6 @@
   .g7{background:linear-gradient(135deg,#1c1c1c,#161616 55%,#242424);}
   .g8{background:linear-gradient(135deg,#242424,#1c1c1c 55%,#161616);}
   .g9{background:linear-gradient(135deg,#1c1c1c,#242424 60%,#111);}
-
 </style>
 <script type="application/ld+json">
 {
@@ -768,23 +681,11 @@
   </div>
 </header>
 
-<!-- HERO + SHOWREEL SEQUENCE — one pinned scroll-driven curtain-fade + reel-grow
-     transition. The hero (video, title, CTAs, brand marquee) sits together as
-     a background layer that fades out; behind it the SHOWREEL text reveals at
-     full size and legibility, then shrinks and fades as the reel frame grows
-     from a small card to full-bleed, covering it entirely. -->
 <section class="reel-sequence" id="reelSequence">
   <div class="reel-sequence-sticky">
 
-    <!-- LAYER 1: hero + brand marquee (curtain layer — fades out first) -->
     <div class="seq-hero" id="seqHero">
       <div class="hero-bg">
-        <!-- ============================================
-             HERO VIDEO — replace the src below with your
-             own 2–4s loop (compressed MP4, ~5–10MB max).
-             loop + muted + playsinline = autoplay works on
-             mobile Safari/Chrome without a tap.
-             ============================================ -->
         <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" fetchpriority="high"
           poster="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,so_0/v1784037620/portfolio_xxkg3c.jpg">
           <source media="(max-width:720px)" src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto:eco,w_720,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
@@ -798,8 +699,6 @@
           <button class="btn-solid" onclick="document.getElementById('work').scrollIntoView()">View The Work</button>
           <button class="btn-ghost" onclick="playReel()"><span class="play-dot"></span> Play Reel</button>
         </div>
-        <!-- Brand marquee — directly below the hero content now, in normal
-             flow, with a slimmer bar height. -->
         <div class="hero-marquee">
           <div class="brands-frame">
             <div class="brands-track-wrap"><div class="brands-track" id="brandsTrack"></div></div>
@@ -808,12 +707,8 @@
       </div>
     </div>
 
-    <!-- LAYER 2: SHOWREEL text — reveals at full size/legibility first, then
-         shrinks and fades as it's covered by the growing reel frame -->
     <div class="showreel-label" id="showreelLabel">Showreel</div>
 
-    <!-- LAYER 3: reel frame — fades in small, grows to full-bleed, autoplaying
-         on loop with no manual play control; covers the SHOWREEL text as it fills the screen -->
     <div class="showreel-frame" id="showreelFrame">
       <video class="showreel-video" muted loop playsinline preload="metadata"
         poster="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,so_0/v1784037620/portfolio_xxkg3c.jpg">
@@ -824,7 +719,6 @@
   </div>
 </section>
 
-<!-- AWARDS STRIP -->
 <div class="awards-strip" style="display:none;">
   <div class="wrap awards-row">
     <div class="award-item"><span class="x">1x</span><span class="t">Rising Star Award<br>TekartCon Filmmaking, 2023</span></div>
@@ -834,7 +728,6 @@
   </div>
 </div>
 
-<!-- QUOTE -->
 <section class="quote-block" style="display:none;">
   <div class="wrap">
     <blockquote>"Story doesn't wait for permission. It waits for craft."</blockquote>
@@ -842,7 +735,6 @@
   </div>
 </section>
 
-<!-- DISCIPLINES -->
 <section class="disciplines">
   <div class="wrap"><span class="bracket-eyebrow">Who I Am</span></div>
   <div class="disc-list">
@@ -857,7 +749,6 @@
   </div>
 </section>
 
-<!-- WORK -->
 <section id="work">
   <div class="wrap">
     <div class="section-head">
@@ -879,7 +770,6 @@
   </div>
 </section>
 
-<!-- STORE -->
 <section id="store" class="store" style="display:none;">
   <div class="wrap">
     <div class="section-head">
@@ -890,7 +780,6 @@
   <div class="store-grid" id="storeGrid"></div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="testimonials" style="display:none;">
   <div class="wrap">
     <div class="section-head">
@@ -901,7 +790,6 @@
   <div class="test-grid" id="testGrid"></div>
 </section>
 
-<!-- BTS GALLERY -->
 <section class="bts-gallery">
   <div class="wrap">
     <span class="bracket-eyebrow">Behind The Scenes</span>
@@ -911,7 +799,6 @@
   <div class="bts-track-wrap"><div class="bts-track" id="btsTrack"></div></div>
 </section>
 
-<!-- CLIENT MARQUEE -->
 <div class="marquee-wrap">
   <div class="marquee-track">
     <span>KFC</span><span>Guinness</span><span>Nestlé</span><span>Oppo</span><span>1xBet</span><span>Chipper Cash</span><span>Cardtonic</span><span>Breet</span><span>GetEquity</span><span>Gtext Holdings</span><span>Elite Holdings</span><span>Cruise</span><span>Glitch Africa</span><span>Base Uncut</span><span>Ulanzi</span><span>Hollyland</span>
@@ -919,30 +806,12 @@
   </div>
 </div>
 
-<!-- JOURNAL -->
 <section id="journal">
   <div class="wrap">
     <div class="section-head">
       <div><span class="bracket-eyebrow">Journal</span><h2>Notes From <em>Set</em></h2></div>
       <p class="section-desc">Case studies, behind-the-scenes breakdowns, AI experiments and essays on the craft — pulled straight from Substack.</p>
     </div>
-    <!-- ============================================
-         JOURNAL — SETUP:
-         Shows your actual Substack posts as cards (title,
-         excerpt, date, thumbnail) with NO subscribe box —
-         just a link through to read the full post.
-
-         It pulls automatically from your public RSS feed
-         (SUBSTACK_URL + '/feed') via a free RSS-to-JSON
-         proxy, so publishing on Substack updates this grid
-         with no manual edits.
-
-         If that fetch ever fails (proxy downtime, rate
-         limit, etc.) it silently falls back to the
-         JOURNAL_FALLBACK array in the script below — edit
-         those entries with your real post titles/links/
-         images any time you want guaranteed content here.
-         ============================================ -->
     <div class="journal-grid" id="journalGrid">
       <div class="journal-loading">Loading posts…</div>
     </div>
@@ -952,7 +821,6 @@
   </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="wrap">
     <span class="bracket-eyebrow">About</span>
@@ -960,22 +828,11 @@
     <div class="about-frame">
     <div class="about-stack">
       <div class="about-columns">
-        <!-- ============================================
-             ABOUT PHOTO — replace the src below with a
-             photo of you (portrait works best, roughly
-             4:5 ratio). Just swap the URL, nothing else
-             needs to change.
-             ============================================ -->
         <div class="about-photo-col">
         <div class="about-photo">
           <img src="founder-pic.jpeg" alt="Daniel Adewoye" decoding="async" style="display:none;" onload="this.style.display='block'; this.nextElementSibling.style.display='none';">
           <div class="about-photo-placeholder">Add Your<br>Photo Here</div>
         </div>
-        <!-- ============================================
-             CTA BUTTON — edit the href (link) and the button
-             text below any time. Currently points to Lens,
-             Light & Motion.
-             ============================================ -->
         <a href="https://YOUR-LENS-LIGHT-MOTION-SITE.com" target="_blank" rel="noopener" class="btn-outline">Explore Lens, Light &amp; Motion →</a>
         </div>
 
@@ -1003,7 +860,6 @@
   </div>
 </section>
 
-<!-- CONTACT / FOOTER -->
 <footer id="contact">
   <div class="wrap">
     <div class="contact-head">
@@ -1023,7 +879,6 @@
   </div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal-close" id="modalClose">✕</div>
   <div class="modal-box" id="modalBox"></div>
@@ -1039,8 +894,6 @@ const ROLES = [
   {key:'photo', label:'Photography'},
   {key:'case-studies', label:'Case Studies'},
 ];
-// CASE_STUDY_POSTS is populated once the Substack feed loads (see loadJournalFromSubstack
-// further down) — null means "not fetched yet", [] means "fetched, none tagged".
 let CASE_STUDY_POSTS = null;
 const ROLE_TAG = {director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:'DP', ytp:'YTP', colorist:'COL', editor:'ED', doc:'DOC'};
 const ROLE_NAME = {director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Creator', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
@@ -1076,22 +929,6 @@ const PROJECTS = [
    youtube:'NKgRy_P_bDg',
    overview:"Africa's first Global Real Estate Wealth Festival featuring Robert Kiyosaki, Grant Cardone, Ryan Serhant and John Maxwell — over 5,000 physical and 20,000+ virtual attendees.",
    credits:[['Visual Architect','Daniel Adewoye'],['Client','Gtext Holdings'],['Attendance','5,000 physical / 20,000+ virtual'],['Year','2022']]},
-  /*{id:7, title:'Artist Visual Collaborations', client:'Dixtro', year:'2020–Present', cat:'Music Video', roles:['director','dp','photo'], grade:'g7',
-   video:'https://res.cloudinary.com/tgy6ic5m/video/upload/v1784114140/sents_snippet_vsjl4y.mp4',
-   youtube:'NKgRy_P_bDg',
-   overview:"Ongoing collaborations with recording artists across music video direction, cinematography and cover art photography.",
-   credits:[['Director / DP','Daniel Adewoye'],['Photographer','Daniel Adewoye'],['Client','Dixtro'],['Timeline','2020–Present']]},*/
-  /*{id:8, title:'Elite Holdings — Complete Rebrand', client:'Elite Holdings', year:'2024', cat:'Brand Identity', roles:['architect','strategy'], grade:'g8',
-   video:'https://res.cloudinary.com/tgy6ic5m/video/upload/v1784114140/sents_snippet_vsjl4y.mp4',
-   youtube:'NKgRy_P_bDg',
-   overview:"Full rebrand across four subsidiaries — identity system, brand strategy, motion guidelines and launch assets.",
-   credits:[['Visual Architect','Daniel Adewoye'],['Strategist','Daniel Adewoye'],['Subsidiaries','4'],['Year','2024']]},*/
-  /*{id:9, title:'Editorial Artist Sessions', client:'Glitch Africa', year:'2025', cat:'Photography', roles:['photo'], grade:'g9',
-   video:'https://res.cloudinary.com/tgy6ic5m/video/upload/v1784114140/sents_snippet_vsjl4y.mp4',
-   youtube:'NKgRy_P_bDg',
-   overview:"Editorial photography from live artist sessions — portraiture and set coverage for digital publishing.",
-   credits:[['Photographer','Daniel Adewoye'],['Client','Glitch Africa'],['Format','Editorial Stills'],['Year','2025']]},*/
- 
 ];
 
 const STORE_ITEMS = [
@@ -1115,7 +952,7 @@ const SKILLS = ['Visual Treatment','Photography','Cinematography','Color Grading
   const track = document.getElementById('skillsMarquee');
   if(!track) return;
   const build = () => SKILLS.map(s => `<span class="skill-word">${s}</span><span class="skill-dot"></span>`).join('');
-  track.innerHTML = build() + build(); // duplicated for a seamless continuous scroll
+  track.innerHTML = build() + build();
 })();
 
 /* ---------------- RENDER: FILTER TRACK ---------------- */
@@ -1226,10 +1063,6 @@ function modalHeroHTML(p){
   }
   return mediaHTML(p, true);
 }
-// Shared observer for grid card videos: only the cards actually on screen
-// decode and play their video — off-screen cards pause. With 6+ autoplaying
-// videos per grid this is a meaningful battery/data saving on mobile, and
-// it's especially important once "Show More Work" adds further cards.
 const cardVideoObserver = new IntersectionObserver((entries)=>{
   entries.forEach(entry=>{
     const v = entry.target;
@@ -1293,24 +1126,6 @@ TESTIMONIALS.forEach(t=>{
 });
 
 /* ---------------- RENDER: BTS GALLERY (auto-pulled from Cloudinary) ---------------- */
-// ============================================
-// BTS GALLERY — SETUP (one-time, ~3 min):
-// 1. In your Cloudinary Console, go to Settings (gear icon) → Security,
-//    and turn ON "Resource list" (lets the public tag-based JSON below
-//    work with no API key exposed in the page source).
-// 2. Create a folder for BTS photos (e.g. "bts") and upload your photos
-//    into it via the Media Library.
-// 3. Select all the photos in that folder → Add Tag → type the exact
-//    tag name in CLOUDINARY_BTS_TAG below (default: "bts-photos") →
-//    apply it to all of them.
-// 4. Set CLOUDINARY_CLOUD_NAME below to your cloud name (the same one
-//    already used in the hero video URLs — currently "tgy6ic5m").
-//
-// After that: just tag any new upload with the same tag — no code or
-// website edits needed, it appears here on next page load. If nothing
-// is configured/tagged yet, placeholder tiles show instead so the site
-// never looks broken.
-// ============================================
 const CLOUDINARY_CLOUD_NAME = 'tgy6ic5m';
 const CLOUDINARY_BTS_TAG = 'bts-photos';
 const BTS_FALLBACK_PHOTOS = [
@@ -1321,7 +1136,7 @@ const BTS_FALLBACK_PHOTOS = [
 function renderBTS(photos){
   const btsTrack = document.getElementById('btsTrack');
   btsTrack.innerHTML = '';
-  [...photos, ...photos].forEach(b=>{ // duplicated for a seamless continuous float
+  [...photos, ...photos].forEach(b=>{
     const el = document.createElement('div');
     el.className = 'bts-photo';
     el.innerHTML = b.image ? `<img src="${b.image}" alt="Behind the scenes" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;cplaceholder&quot;>Add<br>BTS Photo</div>'">` : `<div class="cplaceholder">Add<br>BTS Photo</div>`;
@@ -1338,8 +1153,6 @@ async function loadBTSFromCloudinary(){
     if(!res.ok) throw new Error('Cloudinary tag list request failed: ' + res.status + ' (is "Resource list" enabled under Settings → Security?)');
     const data = await res.json();
     if(!data.resources || !data.resources.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
-    // w_700 matches the 340px display box at ~2x for retina screens; f_auto/q_auto
-    // pick the smallest well-compressed format (WebP/AVIF) each browser supports.
     const photos = data.resources.map(r => ({
       image: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_700,c_fill,ar_17:11/${r.public_id}.${r.format}`
     }));
@@ -1352,22 +1165,6 @@ async function loadBTSFromCloudinary(){
 loadBTSFromCloudinary();
 
 /* ---------------- RENDER: BRANDS I'VE WORKED WITH (auto-pulled from Google Drive) ---------------- */
-// ============================================
-// BRANDS — SETUP:
-// Still pulled from Google Drive for now (separate from the BTS gallery,
-// which now uses Cloudinary — see above). Uses its own API key below.
-// 1. In Google Cloud Console, create/reuse a project → enable the
-//    "Google Drive API" → create an API key.
-// 2. Create a separate Drive folder just for brand logos.
-// 3. Share it as "Anyone with the link — Viewer".
-// 4. Name each file after the brand exactly how you want it to read
-//    on the site — e.g. "Chipper Cash.png", "Gtext Holdings.png".
-//    PNGs with a transparent background work best.
-// 5. Paste your API key + the folder ID into the two constants below.
-//
-// After that: just drop a new logo file into that folder, named
-// after the brand — no code or website changes needed.
-// ============================================
 const BRANDS_DRIVE_API_KEY = 'AIzaSyCZK1E8_vi4cw8ycqBov39v7I1EPXW3FPo';
 const BRANDS_DRIVE_FOLDER_ID = '1UJsnqFDSeIZrgjEnYmSRTf2_JRqGUBgO';
 const BRANDS_FALLBACK = [
@@ -1393,23 +1190,16 @@ function renderBrands(brands){
   const brandsTrack = document.getElementById('brandsTrack');
   brandsTrack.innerHTML = '';
   if(!brands.length) return;
-  // Pad the list out so the strip is comfortably wider than any screen
-  // BEFORE duplicating for the seamless loop — otherwise a small number
-  // of logos (e.g. from a Drive folder with just a few files) won't add
-  // up to enough width, and you'd see the strip run out and jump instead
-  // of scrolling forever.
   const MIN_TILES = 24;
   let padded = [];
   while(padded.length < MIN_TILES){ padded = padded.concat(brands); }
-  const full = [...padded, ...padded]; // duplicated once more for a seamless continuous float
+  const full = [...padded, ...padded];
   full.forEach(b=>{
     const el = document.createElement('div');
     el.className = 'brand-logo';
     el.innerHTML = b.logo ? `<img src="${b.logo}" alt="${b.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="this.parentElement.innerHTML='<div class=&quot;cplaceholder&quot;>${b.name}</div>'">` : `<div class="cplaceholder">${b.name}</div>`;
     brandsTrack.appendChild(el);
   });
-  // Keep scroll speed visually consistent no matter how many tiles end up
-  // in the strip (a few logos vs. many shouldn't change how fast it moves).
   brandsTrack.style.animationDuration = `${full.length * 4}s`;
 }
 
@@ -1440,35 +1230,14 @@ async function loadBrandsFromDrive(){
 loadBrandsFromDrive();
 
 /* ---------------- RENDER: JOURNAL (auto-pulled from Substack, no subscribe box) ---------------- */
-// ============================================
-// JOURNAL — SETUP:
-// 1. Set SUBSTACK_URL below to your publication's root
-//    URL (no trailing slash) — e.g. 'https://lenslightmotion.substack.com'.
-// 2. That's it. This reads your public RSS feed
-//    (SUBSTACK_URL + '/feed') via a free RSS-to-JSON proxy
-//    and renders each post as a card — title, excerpt,
-//    date and thumbnail — linking straight to the post.
-//    No subscribe form is shown anywhere in this section.
-// 3. If the feed fetch fails for any reason, it falls back
-//    to JOURNAL_FALLBACK below — edit those entries with
-//    your real posts if you'd rather not depend on a
-//    third-party proxy at all.
-// ============================================
 const SUBSTACK_URL = 'https://lenslightmotion.substack.com';
 const JOURNAL_POST_LIMIT = 3;
-// A Substack post is routed to the "Case Studies" tab (instead of the Journal
-// grid) when it carries this tag/category on Substack. Tag any post "Case Study"
-// (case-insensitive, and "case-study" also works) and it'll show up here on its
-// own — everything else keeps flowing into the Journal section as before, so
-// the same publication feeds both without ever double-listing a post.
 const CASE_STUDY_TAG_MATCH = /case[\s-]?stud/i;
 const JOURNAL_FALLBACK = [
   {title:'Add your latest Substack post title', tag:'Journal', excerpt:'Add a short excerpt for this post here — it will show under the title on the card.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
   {title:'Add another post title', tag:'Journal', excerpt:'Add a short excerpt for this post here.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
   {title:'Add another post title', tag:'Journal', excerpt:'Add a short excerpt for this post here.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
 ];
-// Shown in the Case Studies tab only if the live feed fetch fails — tag real
-// Substack posts "Case Study" and this fallback is never seen.
 const CASE_STUDY_FALLBACK = [];
 
 function stripHtmlTags(html){
@@ -1511,15 +1280,13 @@ function extractImageFromHtml(html){
     const doc = new DOMParser().parseFromString(html, 'text/html');
     const img = doc.querySelector('img');
     if(!img) return '';
-    // Substack often lazy-loads: real url can be in data-src/data-original
-    // while src holds a blank/placeholder data: URI — check those first.
     let src = img.getAttribute('src') || '';
     if(!src || src.trim().startsWith('data:')){
       src = img.getAttribute('data-src') || img.getAttribute('data-original') || '';
     }
     if((!src || src.trim().startsWith('data:')) && img.getAttribute('srcset')){
       const candidates = img.getAttribute('srcset').split(',').map(s => s.trim().split(' ')[0]).filter(Boolean);
-      if(candidates.length) src = candidates[candidates.length - 1]; // last is usually largest
+      if(candidates.length) src = candidates[candidates.length - 1];
     }
     return (src && !src.trim().startsWith('data:')) ? src.trim() : '';
   }catch(err){
@@ -1553,8 +1320,6 @@ async function loadJournalFromSubstack(){
         isCaseStudy: isCaseStudyItem(item)
       };
     });
-    // Same Substack feed, two destinations: anything tagged "Case Study" goes
-    // to the Work section's Case Studies tab; everything else stays in Journal.
     renderJournal(allPosts.filter(p => !p.isCaseStudy));
     CASE_STUDY_POSTS = allPosts.filter(p => p.isCaseStudy);
   }catch(err){
@@ -1573,12 +1338,11 @@ const overlay = document.getElementById('modalOverlay');
 const modalBox = document.getElementById('modalBox');
 const BASE_TITLE = document.title;
 
-// Turns a project title into a URL-friendly slug, e.g. "Cardtonic x Jago" -> "cardtonic-x-jago"
 function slugify(str){
   return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
 function projectUrl(p){
-  return `${location.origin}${location.pathname}${location.search}#project/${slugify(p.title)}`;
+  return `https://adewoye.works/project/${slugify(p.title)}`;
 }
 function getProjectFromHash(){
   const m = location.hash.match(/^#project\/(.+)$/);
@@ -1646,14 +1410,12 @@ function closeModal(opts){
 }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 
-// Back/forward browser buttons open or close the right project modal to match the URL
 window.addEventListener('popstate', ()=>{
   const p = getProjectFromHash();
   if(p){ openModal(p.id, {updateUrl:false}); }
   else { closeModal({updateUrl:false}); }
 });
 
-// Copies a direct link to this project (e.g. to send a client straight to it) to the clipboard
 function copyProjectLink(id, btnEl){
   const p = PROJECTS.find(x=>x.id===id);
   if(!p) return;
@@ -1671,7 +1433,6 @@ function copyProjectLink(id, btnEl){
   }
 }
 
-// If the page was loaded with a project link in the URL (e.g. shared with a client), open it immediately
 (function openModalFromInitialUrl(){
   const p = getProjectFromHash();
   if(p) openModal(p.id, {updateUrl:false});
@@ -1684,7 +1445,6 @@ const io = new IntersectionObserver((entries)=>{
 }, {threshold:0.1});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-/* nav active state on scroll */
 const navLinks = document.querySelectorAll('nav.primary a[href^="#"]');
 const sections = ['work','journal','about','contact'].map(id=>document.getElementById(id));
 window.addEventListener('scroll', ()=>{
@@ -1693,19 +1453,6 @@ window.addEventListener('scroll', ()=>{
   navLinks.forEach(l=>{ l.classList.toggle('active', l.getAttribute('href') === '#'+current); });
 });
 
-/* ---------------- HERO → SHOWREEL: combined curtain-fade + reel-grow ----------------
-   One continuous scroll-linked sequence, in this order:
-   1) hero (video/title/CTAs/marquee) fades out together, like a curtain lifting
-   2) the SHOWREEL text reveals at full size on the black stage behind it
-   3) the reel frame fades in small, then grows to fill the screen, passing in front
-      of and covering the SHOWREEL text, which shrinks slightly and fades as it's covered
-   The reel itself just loops silently and autoplays once it's in view — no play button.
-   An eased progress curve keeps every stage of the motion smooth rather than linear.
-   Frame size is driven by explicit width/height (in px/%) rather than relying on
-   CSS aspect-ratio once growth starts — aspect-ratio alone leaves letterbox bars
-   on mobile because it can't independently track two different target ratios
-   (small-card ratio → full-viewport ratio). Explicit inline width/height wins over
-   the CSS aspect-ratio fallback, so the frame always fills edge-to-edge at full grow. */
 (function(){
   const wrap = document.getElementById('reelSequence');
   const seqHero = document.getElementById('seqHero');
@@ -1715,11 +1462,11 @@ window.addEventListener('scroll', ()=>{
   const video = frame.querySelector('video');
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  const MIN_WIDTH = 26;   // % — starting size of the reel card (desktop)
-  const MIN_WIDTH_MOBILE = 58; // % — starting size of the reel card (mobile)
-  const MAX_WIDTH = 100;  // % — full-bleed
-  const MAX_RADIUS = 40;  // px — desktop corner radius at minimum size
-  const MAX_RADIUS_MOBILE = 26; // px — mobile corner radius at minimum size
+  const MIN_WIDTH = 26;
+  const MIN_WIDTH_MOBILE = 58;
+  const MAX_WIDTH = 100;
+  const MAX_RADIUS = 40;
+  const MAX_RADIUS_MOBILE = 26;
 
   function isMobile(){ return window.innerWidth <= 720; }
   function startAspect(){ return isMobile() ? 4/5 : 16/9; }
@@ -1727,7 +1474,6 @@ window.addEventListener('scroll', ()=>{
   function startRadius(){ return isMobile() ? MAX_RADIUS_MOBILE : MAX_RADIUS; }
 
   if(reduceMotion){
-    // Respect reduced-motion: skip the scroll-scrub, land straight on the full-bleed reel.
     wrap.style.height = '100vh';
     if(seqHero) seqHero.style.opacity = '0';
     if(label) label.style.opacity = '0';
@@ -1739,20 +1485,16 @@ window.addEventListener('scroll', ()=>{
     return;
   }
 
-  // Scroll-progress checkpoints (0 → 1 across the pinned sequence)
-  const HERO_FADE_END        = 0.28; // hero + marquee fully faded out by here
-  const LABEL_IN_START       = 0.10; // SHOWREEL text starts revealing, full-size, no clipping...
-  const LABEL_IN_END         = 0.30; // ...fully visible and legible by here
-  const LABEL_HOLD_END       = 0.40; // ...held at full size/opacity briefly before the reel arrives
-  const FRAME_IN_START       = 0.40; // reel frame starts fading in small...
-  const FRAME_IN_END         = 0.58; // ...fully opaque by here
-  const LABEL_OUT_START      = 0.40; // SHOWREEL text starts shrinking + fading as the reel covers it...
-  const LABEL_OUT_END        = 0.86; // ...fully gone by here
-  const GROW_START           = 0.40; // reel frame starts growing...
-  const GROW_END             = 1.00; // ...reaches full-bleed at the end of the scrub
-  // Progress value the "Play Reel" button scrolls to: partway through the grow
-  // stage so the frame is large and playing but still shows its rounded corners
-  // (not yet full-bleed/edge-to-edge).
+  const HERO_FADE_END        = 0.28;
+  const LABEL_IN_START       = 0.10;
+  const LABEL_IN_END         = 0.30;
+  const LABEL_HOLD_END       = 0.40;
+  const FRAME_IN_START       = 0.40;
+  const FRAME_IN_END         = 0.58;
+  const LABEL_OUT_START      = 0.40;
+  const LABEL_OUT_END        = 0.86;
+  const GROW_START           = 0.40;
+  const GROW_END             = 1.00;
   const PLAY_REEL_PROGRESS   = 0.75;
 
   let ticking = false;
@@ -1760,7 +1502,6 @@ window.addEventListener('scroll', ()=>{
 
   function clamp01(v){ return Math.min(1, Math.max(0, v)); }
   function segment(p, start, end){ return clamp01((p - start) / (end - start)); }
-  // Smooth ease (in+out) so every stage accelerates/decelerates instead of moving linearly.
   function easeInOutCubic(t){ return t < 0.5 ? 4*t*t*t : 1 - Math.pow(-2*t + 2, 3) / 2; }
 
   function update(){
@@ -1770,31 +1511,21 @@ window.addEventListener('scroll', ()=>{
     if(scrollable <= 0) return;
     const progress = clamp01(-rect.top / scrollable);
 
-    // 1) hero + marquee curtain fade
     if(seqHero){
       const heroFade = easeInOutCubic(segment(progress, 0, HERO_FADE_END));
       seqHero.style.opacity = 1 - heroFade;
     }
 
-    // 2) SHOWREEL text: reveal at full size first, hold, then shrink + fade
-    //    as the reel frame grows over it.
     if(label){
       const fadeIn = easeInOutCubic(segment(progress, LABEL_IN_START, LABEL_IN_END));
       const fadeOutRaw = segment(progress, LABEL_OUT_START, LABEL_OUT_END);
       const fadeOut = 1 - easeInOutCubic(fadeOutRaw);
       const opacity = Math.min(fadeIn, fadeOut);
       label.style.opacity = opacity;
-      // Starts at full scale (1) while fully visible, then shrinks down as it
-      // fades — reads as the text retreating behind the reel, not growing.
       const shrink = easeInOutCubic(fadeOutRaw);
       label.style.transform = `scale(${1 - shrink * 0.22})`;
     }
 
-    // 3) reel frame — fade in small, then grow to full-bleed over the showreel text.
-    //    Width AND height are both driven explicitly from viewport units so the
-    //    frame reaches a true 100vw x 100vh at full grow with no leftover bars,
-    //    instead of leaving the CSS aspect-ratio to (imperfectly) derive height
-    //    from width alone.
     const growRaw = segment(progress, GROW_START, GROW_END);
     const grow = easeInOutCubic(growRaw);
     const vw = window.innerWidth, vh = window.innerHeight;
@@ -1809,7 +1540,6 @@ window.addEventListener('scroll', ()=>{
     frame.style.borderRadius = (startRadius() * (1 - grow)) + 'px';
     frame.style.opacity = easeInOutCubic(segment(progress, FRAME_IN_START, FRAME_IN_END));
 
-    // loop the reel only while the sequence is in view
     const inView = rect.top < window.innerHeight && rect.bottom > 0;
     if(video){
       if(inView && !playing){ playing = true; video.play().catch(()=>{}); }
@@ -1824,10 +1554,6 @@ window.addEventListener('scroll', ()=>{
   window.addEventListener('resize', onScroll);
   update();
 
-  // "Play Reel" button handler: smooth-scrolls into the pinned sequence to a
-  // fixed progress point where the reel frame is large and actively playing,
-  // but stops short of full-bleed so the rounded corners remain visible
-  // (rather than jumping straight to an edge-to-edge fullscreen video).
   window.playReel = function(){
     const rect = wrap.getBoundingClientRect();
     const scrollable = wrap.offsetHeight - window.innerHeight;
