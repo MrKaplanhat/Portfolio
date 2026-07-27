@@ -1,1 +1,50 @@
-
+[
+  {
+    "id": 1,
+    "title": "Cardtonic x Jago",
+    "client": "Cardtonic",
+    "year": "2026",
+    "youtube": "kQwpI6L9qNo",
+    "overview": "A multi-million naira brand ambassadorship deal between leading African fintech platform Cardtonic and Nigerian lifestyle icon Rahman Jago — spotlighting a modern global lifestyle across fashion, travel and seamless cross-border living."
+  },
+  {
+    "id": 2,
+    "title": "KFC Cares, KFC Feeds Dreams",
+    "client": "KFC NIGERIA",
+    "year": "2025",
+    "youtube": "NKgRy_P_bDg",
+    "overview": "A human-centered film for KFC's Feeds Dreams campaign, spotlighting the team at KFC's inclusive Surulere restaurant — celebrating inclusion, representation, and everyone's right to be seen and valued."
+  },
+  {
+    "id": 3,
+    "title": "Smart Money, Smart people",
+    "client": "Sentz",
+    "year": "2025",
+    "youtube": "Y0AMVfAWIi8",
+    "overview": "Sentz's Smart Money for Smart People campaign introduces a new way for freelancers, creators, and globally connected professionals to grow and manage their money, centered around the self-custodial eUSD wallet and Sentz Earn."
+  },
+  {
+    "id": 4,
+    "title": "Breet 3.0 App Launch",
+    "client": "Breet",
+    "year": "2025",
+    "youtube": "L6rcdnC_u9g",
+    "overview": "Breet 3.0 is a product launch campaign introducing the platform's expanded ecosystem for modern digital finance — trading Bitcoin, managing business transactions, real-time price alerts, and bill payments in one app."
+  },
+  {
+    "id": 5,
+    "title": "TML x Cardtonic",
+    "client": "Cardtonic",
+    "year": "2025",
+    "youtube": "NKgRy_P_bDg",
+    "overview": "A culture-led campaign for Cardtonic built around clear creative strategy and direction, resulting in strong sign-up growth for the platform."
+  },
+  {
+    "id": 6,
+    "title": "Majestum Film",
+    "client": "Majestum",
+    "year": "2024",
+    "youtube": "NKgRy_P_bDg",
+    "overview": "Africa's first Global Real Estate Wealth Festival featuring Robert Kiyosaki, Grant Cardone, Ryan Serhant and John Maxwell — over 5,000 physical and 20,000+ virtual attendees."
+  }
+]
