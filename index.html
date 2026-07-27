@@ -50,6 +50,7 @@
 <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
 <link rel="preconnect" href="https://www.googleapis.com">
 <link rel="preconnect" href="https://drive.google.com">
+<link rel="preload" as="image" fetchpriority="high" href="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,so_0/v1784037620/portfolio_xxkg3c.jpg">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root{
@@ -784,7 +785,7 @@
              loop + muted + playsinline = autoplay works on
              mobile Safari/Chrome without a tap.
              ============================================ -->
-        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto"
+        <video class="hero-video" autoplay muted loop playsinline webkit-playsinline preload="auto" fetchpriority="high"
           poster="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,so_0/v1784037620/portfolio_xxkg3c.jpg">
           <source media="(max-width:720px)" src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto:eco,w_720,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
           <source src="https://res.cloudinary.com/tgy6ic5m/video/upload/f_auto,q_auto,w_1600,c_limit/v1784037620/portfolio_xxkg3c.mp4" type="video/mp4">
@@ -1291,26 +1292,27 @@ TESTIMONIALS.forEach(t=>{
   testGrid.appendChild(el);
 });
 
-/* ---------------- RENDER: BTS GALLERY (auto-pulled from Google Drive) ---------------- */
+/* ---------------- RENDER: BTS GALLERY (auto-pulled from Cloudinary) ---------------- */
 // ============================================
-// BTS GALLERY — SETUP (one-time, ~5 min):
-// 1. In Google Cloud Console, create a project → enable the
-//    "Google Drive API" → create an API key.
-//    (Restrict the key to the Drive API + your website's domain
-//    under "API restrictions" / "Website restrictions" for safety.)
-// 2. Put your BTS photos in one Google Drive folder, then share
-//    that folder as "Anyone with the link — Viewer".
-// 3. Copy the folder ID from its URL:
-//    https://drive.google.com/drive/folders/PASTE_THIS_PART
-// 4. Paste your API key + folder ID into the two constants below.
+// BTS GALLERY — SETUP (one-time, ~3 min):
+// 1. In your Cloudinary Console, go to Settings (gear icon) → Security,
+//    and turn ON "Resource list" (lets the public tag-based JSON below
+//    work with no API key exposed in the page source).
+// 2. Create a folder for BTS photos (e.g. "bts") and upload your photos
+//    into it via the Media Library.
+// 3. Select all the photos in that folder → Add Tag → type the exact
+//    tag name in CLOUDINARY_BTS_TAG below (default: "bts-photos") →
+//    apply it to all of them.
+// 4. Set CLOUDINARY_CLOUD_NAME below to your cloud name (the same one
+//    already used in the hero video URLs — currently "tgy6ic5m").
 //
-// After that: just drop new photos into the Drive folder. No code
-// or website edits needed — they'll appear here next page load.
-// If the two constants below are left as-is, placeholder tiles
-// show instead so the site never looks broken.
+// After that: just tag any new upload with the same tag — no code or
+// website edits needed, it appears here on next page load. If nothing
+// is configured/tagged yet, placeholder tiles show instead so the site
+// never looks broken.
 // ============================================
-const BTS_DRIVE_API_KEY = 'AIzaSyCZK1E8_vi4cw8ycqBov39v7I1EPXW3FPo';
-const BTS_DRIVE_FOLDER_ID = '1PNW4N3YFz0UFP3Bt90r-jQURZ535GF1n';
+const CLOUDINARY_CLOUD_NAME = 'tgy6ic5m';
+const CLOUDINARY_BTS_TAG = 'bts-photos';
 const BTS_FALLBACK_PHOTOS = [
   {image:''}, {image:''}, {image:''}, {image:''},
   {image:''}, {image:''}, {image:''}, {image:''},
@@ -1327,41 +1329,46 @@ function renderBTS(photos){
   });
 }
 
-async function loadBTSFromDrive(){
-  const configured = BTS_DRIVE_API_KEY && BTS_DRIVE_API_KEY !== 'YOUR_GOOGLE_API_KEY' && BTS_DRIVE_FOLDER_ID && BTS_DRIVE_FOLDER_ID !== 'YOUR_DRIVE_FOLDER_ID';
+async function loadBTSFromCloudinary(){
+  const configured = CLOUDINARY_CLOUD_NAME && CLOUDINARY_CLOUD_NAME !== 'YOUR_CLOUD_NAME' && CLOUDINARY_BTS_TAG;
   if(!configured){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
   try{
-    const q = encodeURIComponent(`'${BTS_DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed = false`);
-    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&orderBy=createdTime desc&fields=files(id,name)&key=${BTS_DRIVE_API_KEY}`;
+    const url = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_BTS_TAG}.json`;
     const res = await fetch(url);
-    if(!res.ok) throw new Error('Drive API request failed: ' + res.status);
+    if(!res.ok) throw new Error('Cloudinary tag list request failed: ' + res.status + ' (is "Resource list" enabled under Settings → Security?)');
     const data = await res.json();
-    if(!data.files || !data.files.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
-    const photos = data.files.map(f => ({ image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w700` }));
+    if(!data.resources || !data.resources.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
+    // w_700 matches the 340px display box at ~2x for retina screens; f_auto/q_auto
+    // pick the smallest well-compressed format (WebP/AVIF) each browser supports.
+    const photos = data.resources.map(r => ({
+      image: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_700,c_fill,ar_17:11/${r.public_id}.${r.format}`
+    }));
     renderBTS(photos);
   }catch(err){
-    console.warn('BTS Drive gallery failed to load, showing fallback tiles:', err);
+    console.warn('Cloudinary BTS gallery failed to load, showing fallback tiles:', err);
     renderBTS(BTS_FALLBACK_PHOTOS);
   }
 }
-loadBTSFromDrive();
+loadBTSFromCloudinary();
 
 /* ---------------- RENDER: BRANDS I'VE WORKED WITH (auto-pulled from Google Drive) ---------------- */
 // ============================================
 // BRANDS — SETUP:
-// Uses the same API key as the BTS gallery above (BTS_DRIVE_API_KEY) —
-// no need for a second key.
-// 1. Create a separate Drive folder just for brand logos.
-// 2. Share it as "Anyone with the link — Viewer" (same as the BTS folder).
-// 3. Name each file after the brand exactly how you want it to read
+// Still pulled from Google Drive for now (separate from the BTS gallery,
+// which now uses Cloudinary — see above). Uses its own API key below.
+// 1. In Google Cloud Console, create/reuse a project → enable the
+//    "Google Drive API" → create an API key.
+// 2. Create a separate Drive folder just for brand logos.
+// 3. Share it as "Anyone with the link — Viewer".
+// 4. Name each file after the brand exactly how you want it to read
 //    on the site — e.g. "Chipper Cash.png", "Gtext Holdings.png".
 //    PNGs with a transparent background work best.
-// 4. Copy the folder ID from its URL and paste it into
-//    BRANDS_DRIVE_FOLDER_ID below.
+// 5. Paste your API key + the folder ID into the two constants below.
 //
 // After that: just drop a new logo file into that folder, named
 // after the brand — no code or website changes needed.
 // ============================================
+const BRANDS_DRIVE_API_KEY = 'AIzaSyCZK1E8_vi4cw8ycqBov39v7I1EPXW3FPo';
 const BRANDS_DRIVE_FOLDER_ID = '1UJsnqFDSeIZrgjEnYmSRTf2_JRqGUBgO';
 const BRANDS_FALLBACK = [
   {name:'KFC', logo:''},
@@ -1411,11 +1418,11 @@ function cleanBrandName(fileName){
 }
 
 async function loadBrandsFromDrive(){
-  const configured = BTS_DRIVE_API_KEY && BTS_DRIVE_API_KEY !== 'YOUR_GOOGLE_API_KEY' && BRANDS_DRIVE_FOLDER_ID && BRANDS_DRIVE_FOLDER_ID !== 'YOUR_BRANDS_DRIVE_FOLDER_ID';
+  const configured = BRANDS_DRIVE_API_KEY && BRANDS_DRIVE_API_KEY !== 'YOUR_GOOGLE_API_KEY' && BRANDS_DRIVE_FOLDER_ID && BRANDS_DRIVE_FOLDER_ID !== 'YOUR_BRANDS_DRIVE_FOLDER_ID';
   if(!configured){ renderBrands(BRANDS_FALLBACK); return; }
   try{
     const q = encodeURIComponent(`'${BRANDS_DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed = false`);
-    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&orderBy=name&fields=files(id,name)&key=${BTS_DRIVE_API_KEY}`;
+    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&orderBy=name&fields=files(id,name)&key=${BRANDS_DRIVE_API_KEY}`;
     const res = await fetch(url);
     if(!res.ok) throw new Error('Drive API request failed: ' + res.status);
     const data = await res.json();
