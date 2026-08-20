@@ -1123,8 +1123,8 @@ TESTIMONIALS.forEach(t=>{
 });
 
 /* ---------------- RENDER: BTS GALLERY (auto-pulled from Cloudinary) ---------------- */
-const CLOUDINARY_CLOUD_NAME = 'v87nlk9h';
-const CLOUDINARY_BTS_TAG = 'bts-photos';
+const BTS_DRIVE_API_KEY = 'AIzaSyCZK1E8_vi4cw8ycqBov39v7I1EPXW3FPo';
+const BTS_DRIVE_FOLDER_ID = '1PNW4N3YFz0UFP3Bt90r-jQURZ535GF1n';
 const BTS_FALLBACK_PHOTOS = [
   {image:''}, {image:''}, {image:''}, {image:''},
   {image:''}, {image:''}, {image:''}, {image:''},
@@ -1141,25 +1141,26 @@ function renderBTS(photos){
   });
 }
 
-async function loadBTSFromCloudinary(){
-  const configured = CLOUDINARY_CLOUD_NAME && CLOUDINARY_CLOUD_NAME !== 'YOUR_CLOUD_NAME' && CLOUDINARY_BTS_TAG;
+async function loadBTSFromDrive(){
+  const configured = BTS_DRIVE_API_KEY && BTS_DRIVE_API_KEY !== 'YOUR_GOOGLE_API_KEY' && BTS_DRIVE_FOLDER_ID && BTS_DRIVE_FOLDER_ID !== 'YOUR_BTS_DRIVE_FOLDER_ID';
   if(!configured){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
   try{
-    const url = `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/list/${CLOUDINARY_BTS_TAG}.json`;
+    const q = encodeURIComponent(`'${BTS_DRIVE_FOLDER_ID}' in parents and mimeType contains 'image/' and trashed = false`);
+    const url = `https://www.googleapis.com/drive/v3/files?q=${q}&orderBy=name&fields=files(id,name)&key=${BTS_DRIVE_API_KEY}`;
     const res = await fetch(url);
-    if(!res.ok) throw new Error('Cloudinary tag list request failed: ' + res.status + ' (is "Resource list" enabled under Settings → Security?)');
+    if(!res.ok) throw new Error('Drive API request failed: ' + res.status);
     const data = await res.json();
-    if(!data.resources || !data.resources.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
-    const photos = data.resources.map(r => ({
-      image: `https://res.cloudinary.com/${CLOUDINARY_CLOUD_NAME}/image/upload/f_auto,q_auto,w_700,c_fill,ar_17:11/${r.public_id}.${r.format}`
+    if(!data.files || !data.files.length){ renderBTS(BTS_FALLBACK_PHOTOS); return; }
+    const photos = data.files.map(f => ({
+      image: `https://drive.google.com/thumbnail?id=${f.id}&sz=w700`
     }));
     renderBTS(photos);
   }catch(err){
-    console.warn('Cloudinary BTS gallery failed to load, showing fallback tiles:', err);
+    console.warn('BTS Drive gallery failed to load, showing fallback tiles:', err);
     renderBTS(BTS_FALLBACK_PHOTOS);
   }
 }
-loadBTSFromCloudinary();
+loadBTSFromDrive();
 
 /* ---------------- RENDER: BRANDS I'VE WORKED WITH (auto-pulled from Google Drive) ---------------- */
 const BRANDS_DRIVE_API_KEY = 'AIzaSyCZK1E8_vi4cw8ycqBov39v7I1EPXW3FPo';
