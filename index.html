@@ -368,6 +368,8 @@
     .work-grid .proj-card:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
     .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; }
   }
+  .work-grid .proj-card.treat:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
+  .work-grid .proj-card.treat:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; min-height:0; }
   .proj-card{
     background:var(--card); cursor:pointer; position:relative; overflow:hidden;
     border-radius:var(--r-lg); border:1px solid var(--line); box-shadow:var(--shadow-sm);
@@ -951,7 +953,8 @@ const TREATMENTS = [
    embed:'https://www.canva.com/design/DAHG9G5iYy8/a9RfPBBy2heBKXry23-tIw/view?embed'},
   {title:'New Treatment', brand:'',
    link:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/view',
-   embed:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/preview'},
+   embed:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/preview',
+   cover:'https://drive.google.com/thumbnail?id=1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0&sz=w1200'},
 ];
 
 const STORE_ITEMS = [
@@ -1069,10 +1072,14 @@ function renderCaseStudiesInWork(grid){
 }
 function treatmentCard(t, i){
   const el = document.createElement('div');
-  el.className = 'proj-card';
+  el.className = 'proj-card treat';
   el.innerHTML = `
     <div class="proj-media">
-      <div class="grade g${(i%6)+1}"></div>
+      ${t.cover
+        ? `<img class="grade" src="${t.cover}" alt="${t.title}" loading="lazy" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;">`
+        : t.embed
+          ? `<iframe class="grade" src="${t.embed}" title="${t.title}" loading="lazy" tabindex="-1" scrolling="no" style="width:100%;height:100%;border:0;pointer-events:none;"></iframe>`
+          : `<div class="grade g${(i%6)+1}"></div>`}
       <div class="badges"><span class="badge">TREATMENT</span></div>
       <div class="play-hint">↗</div>
       <div class="proj-info">
@@ -1098,9 +1105,14 @@ function openTreatment(i){
   overlay.scrollTop = 0;
   document.body.style.overflow = 'hidden';
 }
+function posterFor(url){
+  if(!url || url.indexOf('/video/upload/') === -1) return '';
+  return url.replace('/video/upload/', '/video/upload/f_auto,q_auto,so_0,w_900/').replace(/\.(mp4|mov|webm)$/i, '.jpg');
+}
 function mediaHTML(p, autoplayAlways){
   if(p.video){
-    return `<video class="grade" src="${p.video}" muted loop playsinline ${autoplayAlways ? 'autoplay' : ''}></video>`;
+    const poster = posterFor(p.video);
+    return `<video class="grade" src="${p.video}" ${poster ? `poster="${poster}"` : ''} preload="metadata" muted loop playsinline ${autoplayAlways ? 'autoplay' : ''}></video>`;
   }
   return `<div class="grade ${p.grade}"></div>`;
 }
