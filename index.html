@@ -885,17 +885,22 @@
 /* ---------------- DATA ---------------- */
 const ROLES = [
   {key:'director', label:'Directing'},
+  {key:'case-studies', label:'Creative Direction'},
   {key:'dp', label:'Cinematography'},
   {key:'editor', label:'Editing'},
   {key:'colorist', label:'Color Works'},
   {key:'photo', label:'Photography'},
-  {key:'case-studies', label:'Case Studies'},
 ];
 let CASE_STUDY_POSTS = null;
 const ROLE_TAG = {director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:'DP', ytp:'YTP', colorist:'COL', editor:'ED', doc:'DOC'};
 const ROLE_NAME = {director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Creator', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
 
 const PROJECTS = [
+  {id:7, title:'Popular Mum', client:'Popular Milk', year:'2026', cat:'Brand Commercial', roles:['dp'], grade:'g5',
+   video:'https://res.cloudinary.com/v87nlk9h/video/upload/v1790248205/popular1.mp4',
+   youtube:'atHHhfTmr34',
+   overview:'Brand film for Popular Milk.',
+   credits:[['Director','Muhammad Atta'],['Producer','Jumoke Azeez'],['Agency','Since1982 Films'],['Production Company','Since1982 Films'],['Year','2026']]},
   {id:1, title:'Cardtonic x Jago', client:'Cardtonic', year:'2026', cat:'Brand Film', roles:['director'], grade:'g5',
    video:'https://res.cloudinary.com/v87nlk9h/video/upload/v1787262961/jago_snippet.mp4',
    youtube:'kQwpI6L9qNo',
@@ -926,6 +931,27 @@ const PROJECTS = [
    youtube:'NKgRy_P_bDg',
    overview:"Africa's first Global Real Estate Wealth Festival featuring Robert Kiyosaki, Grant Cardone, Ryan Serhant and John Maxwell — over 5,000 physical and 20,000+ virtual attendees.",
    credits:[['Visual Architect','Daniel Adewoye'],['Client','Gtext Holdings'],['Attendance','5,000 physical / 20,000+ virtual'],['Year','2022']]},
+];
+
+const TREATMENTS = [
+  {title:'Popular Milk Treatment', brand:'Popular Milk',
+   link:'https://www.canva.com/design/DAGpa7sVVXA/Cmvt6JcabVCoRfL1rdsF-w/view',
+   embed:'https://www.canva.com/design/DAGpa7sVVXA/Cmvt6JcabVCoRfL1rdsF-w/view?embed'},
+  {title:'Sentz Commercial Treatment', brand:'Sentz',
+   link:'https://www.canva.com/design/DAGlsWDyu2U/YxAM91jbxlb5oMRfR_FyEA/view',
+   embed:'https://www.canva.com/design/DAGlsWDyu2U/YxAM91jbxlb5oMRfR_FyEA/view?embed'},
+  {title:'KFC Cares, KFC Feeds Dreams', brand:'KFC Nigeria',
+   link:'https://www.canva.com/design/DAGt6-tpJEI/vwCVmf2BVDvMdoLmzcjLwQ/view',
+   embed:'https://www.canva.com/design/DAGt6-tpJEI/vwCVmf2BVDvMdoLmzcjLwQ/view?embed'},
+  {title:'Jago x Breet', brand:'Breet',
+   link:'https://www.canva.com/design/DAGodQz89LA/Wvto5EfBbSV58OpghVtt4A/view',
+   embed:'https://www.canva.com/design/DAGodQz89LA/Wvto5EfBbSV58OpghVtt4A/view?embed'},
+  {title:'Rite Foods Photoshoot', brand:'Rite Foods',
+   link:'https://www.canva.com/design/DAHG9G5iYy8/a9RfPBBy2heBKXry23-tIw/view',
+   embed:'https://www.canva.com/design/DAHG9G5iYy8/a9RfPBBy2heBKXry23-tIw/view?embed'},
+  {title:'New Treatment', brand:'',
+   link:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/view',
+   embed:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/preview'},
 ];
 
 const STORE_ITEMS = [
@@ -967,7 +993,7 @@ tlScroll.addEventListener('scroll', updateArrows);
 window.addEventListener('resize', updateArrows);
 let activeRole = ROLES[0].key;
 function tabCount(key){
-  if(key === 'case-studies') return CASE_STUDY_POSTS ? CASE_STUDY_POSTS.length : null;
+  if(key === 'case-studies') return TREATMENTS.length + (CASE_STUDY_POSTS ? CASE_STUDY_POSTS.length : 0);
   return PROJECTS.filter(p=>p.roles.includes(key)).length;
 }
 ROLES.forEach((r,i)=>{
@@ -998,7 +1024,7 @@ function refreshTabCounts(){
 function updateReadout(){
   const label = ROLES.find(r=>r.key===activeRole).label;
   const count = tabCount(activeRole);
-  const noun = activeRole==='case-studies' ? 'case study' : 'project';
+  const noun = 'project';
   const shown = count===null ? '···' : count;
   document.getElementById('readout').innerHTML = `<b>${label}</b> &nbsp;·&nbsp; ${shown} ${noun}${count===1?'':'s'}`;
 }
@@ -1025,9 +1051,9 @@ function caseStudyCard(p){
   el.target = '_blank';
   el.rel = 'noopener noreferrer';
   el.innerHTML = `
-    <div class="thumb">${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : `<div class="cplaceholder">Case<br>Study</div>`}</div>
+    <div class="thumb">${p.image ? `<img src="${p.image}" alt="${p.title}" loading="lazy">` : `<div class="cplaceholder">Creative<br>Direction</div>`}</div>
     <div class="journal-body">
-      <span class="tag">Case Study</span>
+      <span class="tag">Creative Direction</span>
       <h3>${p.title}</h3>
       ${p.excerpt ? `<p class="excerpt">${p.excerpt}</p>` : ''}
       ${p.date ? `<div class="date">${p.date}</div>` : ''}
@@ -1038,15 +1064,39 @@ function caseStudyCard(p){
 
 function renderCaseStudiesInWork(grid){
   document.getElementById('loadMoreBtn').style.display = 'none';
-  if(CASE_STUDY_POSTS === null){
-    grid.innerHTML = '<div class="journal-loading">Loading case studies…</div>';
-    return;
-  }
-  if(!CASE_STUDY_POSTS.length){
-    grid.innerHTML = '<div class="journal-loading">No case studies yet — tag a Substack post "Case Study" and it\'ll show up here automatically.</div>';
-    return;
-  }
-  CASE_STUDY_POSTS.forEach(p=>{ grid.appendChild(caseStudyCard(p)); });
+  TREATMENTS.forEach((t,i)=>{ grid.appendChild(treatmentCard(t,i)); });
+  (CASE_STUDY_POSTS || []).forEach(p=>{ grid.appendChild(caseStudyCard(p)); });
+}
+function treatmentCard(t, i){
+  const el = document.createElement('div');
+  el.className = 'proj-card';
+  el.innerHTML = `
+    <div class="proj-media">
+      <div class="grade g${(i%6)+1}"></div>
+      <div class="badges"><span class="badge">TREATMENT</span></div>
+      <div class="play-hint">↗</div>
+      <div class="proj-info">
+        <span class="cat">Creative Direction</span>
+        <h3>${t.title}</h3>
+        ${t.brand ? `<div class="meta">${t.brand}</div>` : ''}
+      </div>
+    </div>`;
+  el.addEventListener('click', ()=>openTreatment(i));
+  return el;
+}
+function openTreatment(i){
+  const t = TREATMENTS[i];
+  const preview = t.embed
+    ? `<iframe loading="lazy" src="${t.embed}" title="${t.title}" allowfullscreen allow="fullscreen" style="width:100%;height:100%;border:0;"></iframe>`
+    : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg);"><a class="btn-solid" href="${t.link}" target="_blank" rel="noopener">Open treatment ↗</a></div>`;
+  modalBox.innerHTML = `
+    <div class="modal-hero" style="aspect-ratio:16/9;">${preview}</div>
+    <span class="modal-eyebrow">Creative Direction · Treatment</span>
+    <h2>${t.title}</h2>
+    <a class="btn-outline" href="${t.link}" target="_blank" rel="noopener">Open full treatment ↗</a>`;
+  overlay.classList.add('open');
+  overlay.scrollTop = 0;
+  document.body.style.overflow = 'hidden';
 }
 function mediaHTML(p, autoplayAlways){
   if(p.video){
@@ -1230,7 +1280,7 @@ loadBrandsFromDrive();
 /* ---------------- RENDER: JOURNAL (auto-pulled from Substack, no subscribe box) ---------------- */
 const SUBSTACK_URL = 'https://lenslightmotion.substack.com';
 const JOURNAL_POST_LIMIT = 3;
-const CASE_STUDY_TAG_MATCH = /case[\s-]?stud/i;
+const CASE_STUDY_TAG_MATCH = /case[\s-]?stud|creative[\s-]?direction/i;
 const JOURNAL_FALLBACK = [
   {title:'Add your latest Substack post title', tag:'Journal', excerpt:'Add a short excerpt for this post here — it will show under the title on the card.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
   {title:'Add another post title', tag:'Journal', excerpt:'Add a short excerpt for this post here.', date:'', image:'', link:'https://lenslightmotion.substack.com'},
