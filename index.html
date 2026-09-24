@@ -954,6 +954,7 @@ const TREATMENTS = [
   {title:'New Treatment', brand:'',
    link:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/view',
    embed:'https://drive.google.com/file/d/1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0/preview',
+   driveId:'1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0',
    cover:'https://drive.google.com/thumbnail?id=1qtsqZVbc5C5OhBUIRXEi9gdji2xeyel0&sz=w1200'},
 ];
 
@@ -1073,16 +1074,32 @@ function renderCaseStudiesInWork(grid){
   (CASE_STUDY_POSTS || []).forEach(p=>{ grid.appendChild(caseStudyCard(p)); });
   grid.classList.toggle('featured', grid.children.length >= 5);
 }
+function driveThumbCandidates(t){
+  // Ordered fallback chain: Drive's thumbnail endpoint occasionally 403s/blocks
+  // hotlinked <img> requests (especially if the file's sharing isn't set to
+  // "Anyone with the link"), so we try the alternate googleusercontent host,
+  // then fall back to the live embed, then a plain placeholder.
+  const list = [];
+  if(t.cover) list.push(t.cover);
+  if(t.driveId) list.push(`https://lh3.googleusercontent.com/d/${t.driveId}=w1200`);
+  return list;
+}
 function treatmentCard(t, i){
   const el = document.createElement('div');
   el.className = 'proj-card treat';
+  const candidates = driveThumbCandidates(t);
+  const fallbackMedia = t.embed
+    ? `<iframe class="grade" src="${t.embed}" title="${t.title}" loading="lazy" tabindex="-1" scrolling="no" style="width:100%;height:100%;border:0;pointer-events:none;"></iframe>`
+    : `<div class="grade g${(i%6)+1}"></div>`;
   el.innerHTML = `
     <div class="proj-media">
-      ${t.cover
-        ? `<img class="grade" src="${t.cover}" alt="${t.title}" loading="lazy" referrerpolicy="no-referrer" style="width:100%;height:100%;object-fit:cover;">`
-        : t.embed
-          ? `<iframe class="grade" src="${t.embed}" title="${t.title}" loading="lazy" tabindex="-1" scrolling="no" style="width:100%;height:100%;border:0;pointer-events:none;"></iframe>`
-          : `<div class="grade g${(i%6)+1}"></div>`}
+      ${candidates.length
+        ? `<img class="grade" src="${candidates[0]}" alt="${t.title}" loading="lazy" referrerpolicy="no-referrer"
+             data-fallbacks='${JSON.stringify(candidates.slice(1))}'
+             data-final-fallback="${encodeURIComponent(fallbackMedia)}"
+             onerror="handleDriveThumbError(this)"
+             style="width:100%;height:100%;object-fit:cover;">`
+        : fallbackMedia}
       <div class="badges"><span class="badge">TREATMENT</span></div>
       <div class="play-hint">↗</div>
       <div class="proj-info">
@@ -1094,19 +1111,65 @@ function treatmentCard(t, i){
   el.addEventListener('click', ()=>openTreatment(i));
   return el;
 }
-function openTreatment(i){
+function openTreatment(i, opts){
+  opts = opts || {};
+  const updateUrl = opts.updateUrl !== false;
   const t = TREATMENTS[i];
+  if(!t) return;
   const preview = t.embed
     ? `<iframe loading="lazy" src="${t.embed}" title="${t.title}" allowfullscreen allow="fullscreen" style="width:100%;height:100%;border:0;"></iframe>`
     : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg);"><a class="btn-solid" href="${t.link}" target="_blank" rel="noopener">Open treatment ↗</a></div>`;
   modalBox.innerHTML = `
     <div class="modal-hero" style="aspect-ratio:16/9;">${preview}</div>
-    <span class="modal-eyebrow">Creative Direction · Treatment</span>
+    <div style="display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap;">
+      <span class="modal-eyebrow">Creative Direction · Treatment</span>
+      <button class="btn-outline" style="font-size:12px; padding:9px 16px;" onclick="copyTreatmentLink(${i}, this)">Copy Share Link</button>
+    </div>
     <h2>${t.title}</h2>
     <a class="btn-outline" href="${t.link}" target="_blank" rel="noopener">Open full treatment ↗</a>`;
   overlay.classList.add('open');
   overlay.scrollTop = 0;
   document.body.style.overflow = 'hidden';
+  document.title = `${t.title} — ${BASE_TITLE}`;
+  if(updateUrl){
+    const targetHash = `#treatment/${slugify(t.title)}`;
+    if(location.hash !== targetHash){
+      history.pushState({treatmentIndex:i}, '', targetHash);
+    }
+  }
+}
+function copyTreatmentLink(i, btnEl){
+  const t = TREATMENTS[i];
+  if(!t) return;
+  const url = treatmentUrl(t);
+  const showCopied = ()=>{
+    if(!btnEl) return;
+    const original = btnEl.textContent;
+    btnEl.textContent = 'Link Copied ✓';
+    setTimeout(()=>{ btnEl.textContent = original; }, 2000);
+  };
+  if(navigator.clipboard && navigator.clipboard.writeText){
+    navigator.clipboard.writeText(url).then(showCopied).catch(()=>{ window.prompt('Copy this link:', url); });
+  }else{
+    window.prompt('Copy this link:', url);
+  }
+}
+function handleDriveThumbError(img){
+  let fallbacks = [];
+  try{ fallbacks = JSON.parse(img.dataset.fallbacks || '[]'); }catch(e){ fallbacks = []; }
+  if(fallbacks.length){
+    const next = fallbacks.shift();
+    img.dataset.fallbacks = JSON.stringify(fallbacks);
+    img.src = next;
+    return;
+  }
+  const finalHTML = decodeURIComponent(img.dataset.finalFallback || '');
+  if(finalHTML){
+    const wrap = document.createElement('div');
+    wrap.style.width = '100%'; wrap.style.height = '100%';
+    wrap.innerHTML = finalHTML;
+    img.replaceWith(...wrap.childNodes);
+  }
 }
 function posterFor(url){
   if(!url || url.indexOf('/video/upload/') === -1) return '';
@@ -1404,14 +1467,27 @@ const BASE_TITLE = document.title;
 function slugify(str){
   return str.toLowerCase().trim().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 }
+// Share links use a hash fragment (#project/slug or #treatment/slug) rather
+// than a real path segment. Hash fragments are never sent to the server, so
+// the link always reloads this same page (no 404, no "opens to another
+// page") and the script below reopens the right modal on load.
 function projectUrl(p){
-  return `https://adewoye.works/project/${slugify(p.title)}`;
+  return `${location.origin}${location.pathname}#project/${slugify(p.title)}`;
+}
+function treatmentUrl(t){
+  return `${location.origin}${location.pathname}#treatment/${slugify(t.title)}`;
 }
 function getProjectFromHash(){
   const m = location.hash.match(/^#project\/(.+)$/);
   if(!m) return null;
   const slug = decodeURIComponent(m[1]);
   return PROJECTS.find(p => slugify(p.title) === slug) || null;
+}
+function getTreatmentIndexFromHash(){
+  const m = location.hash.match(/^#treatment\/(.+)$/);
+  if(!m) return -1;
+  const slug = decodeURIComponent(m[1]);
+  return TREATMENTS.findIndex(t => slugify(t.title) === slug);
 }
 
 function openModal(id, opts){
@@ -1467,16 +1543,23 @@ function closeModal(opts){
   overlay.classList.remove('open');
   document.body.style.overflow = '';
   document.title = BASE_TITLE;
-  if(updateUrl && location.hash.startsWith('#project/')){
+  if(updateUrl && (location.hash.startsWith('#project/') || location.hash.startsWith('#treatment/'))){
     history.pushState({}, '', location.pathname + location.search);
   }
 }
 document.addEventListener('keydown', e=>{ if(e.key==='Escape') closeModal(); });
 
-window.addEventListener('popstate', ()=>{
+function openFromHash(opts){
+  opts = opts || {};
   const p = getProjectFromHash();
-  if(p){ openModal(p.id, {updateUrl:false}); }
-  else { closeModal({updateUrl:false}); }
+  if(p){ openModal(p.id, opts); return true; }
+  const ti = getTreatmentIndexFromHash();
+  if(ti !== -1){ openTreatment(ti, opts); return true; }
+  return false;
+}
+
+window.addEventListener('popstate', ()=>{
+  if(!openFromHash({updateUrl:false})) closeModal({updateUrl:false});
 });
 
 function copyProjectLink(id, btnEl){
@@ -1497,8 +1580,7 @@ function copyProjectLink(id, btnEl){
 }
 
 (function openModalFromInitialUrl(){
-  const p = getProjectFromHash();
-  if(p) openModal(p.id, {updateUrl:false});
+  openFromHash({updateUrl:false});
 })();
 
 /* ---------------- SCROLL REVEAL ---------------- */
