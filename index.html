@@ -362,14 +362,14 @@
   }
   @media(max-width:980px){.work-grid{grid-template-columns:repeat(2,1fr);}}
   @media(max-width:620px){.work-grid{grid-template-columns:1fr;}}
-  .work-grid .proj-card:nth-child(6n+1){ grid-column:span 2; grid-row:span 2; }
-  .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:auto; height:100%; min-height:100%; }
+  .work-grid.featured .proj-card:nth-child(6n+1){ grid-column:span 2; grid-row:span 2; }
+  .work-grid.featured .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:auto; height:100%; min-height:100%; }
   @media(max-width:980px){
-    .work-grid .proj-card:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
-    .work-grid .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; }
+    .work-grid.featured .proj-card:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
+    .work-grid.featured .proj-card:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; }
   }
-  .work-grid .proj-card.treat:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
-  .work-grid .proj-card.treat:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; min-height:0; }
+  .work-grid.featured .proj-card.treat:nth-child(6n+1){ grid-column:span 1; grid-row:span 1; }
+  .work-grid.featured .proj-card.treat:nth-child(6n+1) .proj-media{ aspect-ratio:16/9; height:auto; min-height:0; }
   .proj-card{
     background:var(--card); cursor:pointer; position:relative; overflow:hidden;
     border-radius:var(--r-lg); border:1px solid var(--line); box-shadow:var(--shadow-sm);
@@ -894,11 +894,11 @@ const ROLES = [
   {key:'photo', label:'Photography'},
 ];
 let CASE_STUDY_POSTS = null;
-const ROLE_TAG = {director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:'DP', ytp:'YTP', colorist:'COL', editor:'ED', doc:'DOC'};
-const ROLE_NAME = {director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Creator', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
+const ROLE_TAG = {'case-studies':'CD', director:'DIR', architect:'VA', strategy:'CS', photo:'PH', dp:'DP', ytp:'YTP', colorist:'COL', editor:'ED', doc:'DOC'};
+const ROLE_NAME = {'case-studies':'Creative Director', director:'Director', architect:'Visual Architect', strategy:'Brand & Creative Strategist', photo:'Photographer', dp:'Cinematographer', ytp:'YouTube Creator', colorist:'Colorist', editor:'Editor', doc:'Documentary'};
 
 const PROJECTS = [
-  {id:7, title:'Popular Mum', client:'Popular Milk', year:'2026', cat:'Brand Commercial', roles:['dp'], grade:'g5',
+  {id:7, title:'Popular Mum', client:'Popular Milk', year:'2026', cat:'Brand Commercial', roles:['case-studies'], grade:'g5',
    video:'https://res.cloudinary.com/v87nlk9h/video/upload/v1790248205/popular1.mp4',
    youtube:'atHHhfTmr34',
    overview:'Brand film for Popular Milk.',
@@ -996,7 +996,7 @@ tlScroll.addEventListener('scroll', updateArrows);
 window.addEventListener('resize', updateArrows);
 let activeRole = ROLES[0].key;
 function tabCount(key){
-  if(key === 'case-studies') return TREATMENTS.length + (CASE_STUDY_POSTS ? CASE_STUDY_POSTS.length : 0);
+  if(key === 'case-studies') return PROJECTS.filter(p=>p.roles.includes('case-studies')).length + TREATMENTS.length + (CASE_STUDY_POSTS ? CASE_STUDY_POSTS.length : 0);
   return PROJECTS.filter(p=>p.roles.includes(key)).length;
 }
 ROLES.forEach((r,i)=>{
@@ -1045,6 +1045,7 @@ function renderWork(){
   const filtered = PROJECTS.filter(p=>p.roles.includes(activeRole));
   filtered.slice(0, visibleCount).forEach(p=>{ grid.appendChild(projectCard(p)); });
   document.getElementById('loadMoreBtn').style.display = filtered.length > visibleCount ? 'block' : 'none';
+  grid.classList.toggle('featured', grid.children.length >= 5);
 }
 
 function caseStudyCard(p){
@@ -1067,8 +1068,10 @@ function caseStudyCard(p){
 
 function renderCaseStudiesInWork(grid){
   document.getElementById('loadMoreBtn').style.display = 'none';
+  PROJECTS.filter(p=>p.roles.includes('case-studies')).forEach(p=>{ grid.appendChild(projectCard(p)); });
   TREATMENTS.forEach((t,i)=>{ grid.appendChild(treatmentCard(t,i)); });
   (CASE_STUDY_POSTS || []).forEach(p=>{ grid.appendChild(caseStudyCard(p)); });
+  grid.classList.toggle('featured', grid.children.length >= 5);
 }
 function treatmentCard(t, i){
   const el = document.createElement('div');
